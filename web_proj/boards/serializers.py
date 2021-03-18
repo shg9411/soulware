@@ -3,10 +3,7 @@ from .models import Board
 
 
 class BoardSerializer(serializers.ModelSerializer):
-    email = serializers.ReadOnlyField(source='writer.email')
-    phone = serializers.ReadOnlyField(source='writer.phone')
-
     class Meta:
         model = Board
-        fields = ('writer', 'email', 'phone', 'id', 'title',
-                  'body', 'created_at', 'modified_at')
+        fields = ('email', 'phone', 'id', 'title',
+                  'body', 'created_at')

@@ -9,10 +9,7 @@ class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = BoardSerializer
 
     def perform_create(self, serializer):
-        if self.request.user.is_authenticated:
-            serializer.save(writer=self.request.user)
-        else:
-            serializer.save()
+        serializer.save()
 
     def get_permissions(self):
         if self.action == 'create':

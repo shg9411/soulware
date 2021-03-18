@@ -26,5 +26,5 @@ class EamilThread(threading.Thread):
 def send_email(sender, **kwargs):
     subject = kwargs['instance'].title
     message = kwargs['instance'].body
-    to = [FROM_EMAIL, kwargs['instance'].writer.email]
+    to = [FROM_EMAIL, kwargs['instance'].email]
     EamilThread(subject, message, to).start()
