@@ -1,13 +1,9 @@
 <template>
-    <footer>@copyright</footer>
+  <footer>@copyright</footer>
 </template>
 
 <script>
-export default {
-    
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

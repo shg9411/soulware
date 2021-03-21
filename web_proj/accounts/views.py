@@ -40,5 +40,3 @@ def login(request):
             'token': serializer.data['token']
         }
         return Response(response, status=status.HTTP_200_OK)
-
-

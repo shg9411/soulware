@@ -1,7 +1,10 @@
 <template>
   <div>
     <board-header></board-header>
-    <board-content v-bind:propsdata="boardList"></board-content>
+    <board-content
+      v-bind:propsdata="boardList"
+      v-on:saved="getBoardList"
+    ></board-content>
     <board-footer></board-footer>
   </div>
 </template>
@@ -12,36 +15,47 @@ import BoardHeader from "./components/BoardHeader.vue";
 import BoardContent from "./components/BoardContent.vue";
 import BoardFooter from "./components/BoardFooter.vue";
 
-let url = "http://localhost:8000/boards/board/"; 
+let url = "http://localhost:8000/boards/board/";
 
 export default {
   data: () => {
     return {
-      boardList: []
+      boardList: [],
     };
   },
   components: {
-    "board-header":BoardHeader,
-    "board-content":BoardContent,
-    "board-footer":BoardFooter
-
+    "board-header": BoardHeader,
+    "board-content": BoardContent,
+    "board-footer": BoardFooter,
   },
-  mounted() { // DOM 객체 생성 후 drf server 에서 데이터를 가져와 boardList 저장
+  mounted() {
     axios({
       method: "GET",
-      url: url 
+      url: url,
     })
-      .then(response => {
+      .then((response) => {
         this.boardList = response.data;
       })
-      .catch(response => {
+      .catch((response) => {
         console.log("Failed to get boardList", response);
       });
   },
   methods: {
-    getBoardList: function() {},
+    getBoardList: function() {
+      axios({
+        method: "GET",
+        url: url,
+      })
+        .then((response) => {
+          this.boardList = response.data;
+          console.log("Success", response);
+        })
+        .catch((error) => {
+          console.log("Failed to get boardList", error.response);
+        });
+    },
     updateBoardList: function() {},
-    deleteBoardList: function() {}
-  }
+    deleteBoardList: function() {},
+  },
 };
 </script>

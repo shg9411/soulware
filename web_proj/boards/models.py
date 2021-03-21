@@ -13,7 +13,7 @@ class Board(models.Model):
     email = models.EmailField(max_length=64)
     phone = models.CharField(max_length=20)
     created_at = models.DateTimeField('작성시간', auto_now_add=True)
-    files = models.FileField(blank=True, null = True,upload_to=get_upload_path)
+    files = models.FileField(blank=True, null=True, upload_to=get_upload_path)
 
     class Meta:
         ordering = ['-created_at']

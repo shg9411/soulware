@@ -1,4 +1,3 @@
-
 <template>
   <header>
     <center>
@@ -7,8 +6,7 @@
   </header>
 </template>
 
-<script>
-</script>
+<script></script>
 
 <style>
 .title {
