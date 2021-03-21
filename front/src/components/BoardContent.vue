@@ -4,7 +4,7 @@
       <v-layout column>
         <v-flex column>
           <v-row>
-            <v-col cols="12" md="3">
+            <v-col cols="12">
               <v-form ref="form" calsss="mx-2" lazy-validation>
                 <v-row>
                   <v-col cols="4">
@@ -17,7 +17,7 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <v-text-field
                       v-model="data.body"
                       :rules="[(v) => !!v || 'Body is required']"
@@ -27,7 +27,7 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <v-text-field
                       v-model="data.email"
                       :rules="[
@@ -44,7 +44,7 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <v-text-field
                       v-model="data.phone"
                       :rules="[
@@ -60,7 +60,7 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="6">
+                  <v-col cols="4">
                     <v-file-input
                       v-model="data.files"
                       label="File"

@@ -54,8 +54,6 @@ export default {
           console.log("Failed to get boardList", error.response);
         });
     },
-    updateBoardList: function() {},
-    deleteBoardList: function() {},
   },
 };
 </script>
