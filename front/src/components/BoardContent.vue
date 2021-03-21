@@ -2,9 +2,6 @@
   <div>
     <v-container fluid> 
       <v-layout column> 
-        <v-flex>
-          <h3 class="subject">what is your plan?</h3>
-        </v-flex>
         <v-flex column>
           <v-row>
             <v-col cols="4" md="3"> <!-- 합이 12가 되면 전체 화면을 사용한다는 의미입니다. -->
@@ -63,10 +60,18 @@ export default {
   props: ["propsdata"],
   methods: {
     sendForm: function() {
-      axios({
-        method: "POST",
-        url: url,
-        data: this.data
+      const fd = new FormData();
+      fd.append('title',this.data.title);
+      fd.append('body',this.data.body);
+      fd.append('email',this.data.email);
+      fd.append('phone',this.data.phone);
+      console.log(this.data.files);
+      if(this.data.files!==null)
+        fd.append('files',this.data.files);
+      axios.post(url,fd,{
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
       })
         .then(response => {
           this.boardList = response.data;
