@@ -7,5 +7,6 @@ router.register(r'board', views.BoardViewSet)
 
 
 urlpatterns = [
+    path('',views.index,name='index'),
     path('', include(router.urls)),
 ]

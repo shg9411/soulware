@@ -27,6 +27,7 @@ email.txt
 *.so
 
 # Distribution / packaging
+uploads/
 .Python
 build/
 develop-eggs/
@@ -236,3 +237,17 @@ Thumbs.db #thumbnail cache on Windows
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/django,vscode,python
+
+
+# Created by https://www.toptal.com/developers/gitignore/api/vuejs
+# Edit at https://www.toptal.com/developers/gitignore?templates=vuejs
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# End of https://www.toptal.com/developers/gitignore/api/vuejs
