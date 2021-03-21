@@ -6,4 +6,4 @@ class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = ('email', 'phone', 'id', 'title',
-                  'body', 'created_at')
+                  'body', 'created_at', 'files')
