@@ -22,8 +22,8 @@ class BoardViewSet(viewsets.ModelViewSet):
 
         else:
             # for test
-            permission_classes = [permissions.AllowAny]
-            #permission_classes = [permissions.IsAdminUser]
+            #permission_classes = [permissions.AllowAny]
+            permission_classes = [permissions.IsAdminUser]
 
         return [permission() for permission in permission_classes]
 

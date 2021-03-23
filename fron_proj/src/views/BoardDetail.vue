@@ -1,11 +1,20 @@
 <template>
-  <div class='detail'>
-    <div class='container'>
-      <ul v-for="(value, name) in  board" v-if="value != null" v-bind:key="value">
-        {{ name }} : {{ value }}
-      </ul>
-    </div>
-  </div>
+  <v-card>
+    <v-list flat>
+      <v-subheader>정보</v-subheader>
+      <v-list-item-group color="primary">
+        <v-list-item v-for="(value,name) in board" :key=name>
+          <v-list-item-content>
+            <v-list-item-title v-text="name"></v-list-item-title>
+          </v-list-item-content>
+          <v-spacer></v-spacer>
+          <v-list-item-content>
+            <v-list-item-title v-text="value"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </v-card>
 </template>
 <script>
 import axios from 'axios'

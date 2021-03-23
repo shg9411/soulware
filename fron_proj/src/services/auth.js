@@ -1,15 +1,15 @@
 import axios from "axios";
 
-let url = "http://localhost:8000/accounts/";
+const url = "http://127.0.0.1:8000/accounts/login";
 
 class AuthService {
   login(user) {
     return axios
-      .post(url + "login", {
+      .post(url, {
         email: user.email,
-        password: user.password
+        password: user.password,
       })
-      .then(response => {
+      .then((response) => {
         if (response.data.token) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }

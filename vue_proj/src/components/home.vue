@@ -1,22 +1,33 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>{{content}}</h3>
-    </header>
+  <div class='container'>
+    <div class='jumbotron'>
+      <div v-for='(data, index) in  content' v-bind:key='index'>
+        <h4 @click='detail(data.id)'>{{data.title}} - {{data.body}}</h4>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import UserService from '../services/user.service'
-
 export default {
   name: 'home',
-  data () {
+  data() {
     return {
       content: ''
     }
   },
-  mounted () {
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn
+    }
+  },
+  created() {
+    if (!this.loggedIn) {
+      this.$router.push('/login')
+    }
+  },
+  mounted() {
     UserService.getBoard().then(
       response => {
         this.content = response.data
@@ -28,6 +39,11 @@ export default {
           error.toString()
       }
     )
+  },
+  methods: {
+    detail(id) {
+      this.$router.push({ name: 'detail', params: { id: id } })
+    }
   }
 }
 </script>

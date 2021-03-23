@@ -12,8 +12,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
-    'corsheaders',
     'accounts',
+    'corsheaders',
     'boards',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,12 +123,12 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': timedelta(seconds=600),
+    'JWT_EXPIRATION_DELTA': timedelta(days=600),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 
     'JWT_ALLOW_REFRESH': False,
-    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(seconds=600),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=600),
 
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_AUTH_COOKIE': None, }

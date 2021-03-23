@@ -1,13 +1,14 @@
 from rest_framework import serializers
-from rest_framework_jwt.settings import api_settings
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import update_last_login
+from django.contrib.auth import authenticate
+from rest_framework_jwt.settings import api_settings
 from .models import User
+
+User = get_user_model()
 
 JWT_PAYLOAD_HANDLER = api_settings.JWT_PAYLOAD_HANDLER
 JWT_ENCODE_HANDLER = api_settings.JWT_ENCODE_HANDLER
-
-User = get_user_model()
 
 
 class UserCreateSerializer(serializers.Serializer):
