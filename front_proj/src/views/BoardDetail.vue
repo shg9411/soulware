@@ -7,7 +7,6 @@
           <v-list-item-content>
             <v-list-item-title v-text="name"></v-list-item-title>
           </v-list-item-content>
-          <v-spacer></v-spacer>
           <v-list-item-content>
             <v-list-item-title v-text="value"></v-list-item-title>
           </v-list-item-content>

@@ -1,2 +1,5 @@
 홈페이지 제작  
-django + vue
+django rest framework  
+vue.js  
+jwt token  
+mysql  
