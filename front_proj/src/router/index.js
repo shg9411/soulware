@@ -37,7 +37,6 @@ const routes = [
     path: "/add",
     name: "AddBoard",
     component: AddBoard,
-    meta: { requiresAuth: true },
   },
 ];
 
