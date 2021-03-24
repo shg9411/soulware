@@ -24,9 +24,10 @@ class EamilThread(threading.Thread):
 
 @receiver(post_save, sender=Board)
 def send_email(sender, **kwargs):
-    return
-    # 이메일 현재는 해제
+    '''
     subject = kwargs['instance'].title
     message = kwargs['instance'].body
     to = [FROM_EMAIL, kwargs['instance'].email]
     EamilThread(subject, message, to).start()
+    '''
+    return

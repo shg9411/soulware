@@ -26,8 +26,3 @@ class BoardViewSet(viewsets.ModelViewSet):
             permission_classes = [permissions.IsAdminUser]
 
         return [permission() for permission in permission_classes]
-
-
-# 여러 파일을 올릴 수 있어야 하는지?
-# 경로 설정을 바꿔야 하는지?
-# 수정이 가능해야하는지?
