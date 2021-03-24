@@ -1,20 +1,38 @@
 <template>
   <v-card>
-    <v-list flat>
-      <v-subheader>정보</v-subheader>
-      <v-list-item-group color="primary">
-        <v-list-item v-for="(value,name) in board" :key=name>
-          <v-list-item-content>
-            <v-list-item-title v-text="name"></v-list-item-title>
-          </v-list-item-content>
-          <v-list-item-content>
-            <v-list-item-title v-text="value"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
+    <v-card-text>
+      <v-list flat>
+        <v-subheader>정보</v-subheader>
+        <v-list-item-group color="primary">
+          <v-list-item v-for="(value,name) in board" :key=name>
+            <v-list-item-content>
+              <v-list-item-title v-text="name"></v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="value"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-card-actions>
+        <v-btn text color="teal accent-4" @click="showDialog()">
+          Delete
+        </v-btn>
+      </v-card-actions>
+    </v-card-text>
+    <v-dialog v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-title>Delete</v-card-title>
+        <v-card-text>삭제하시겠습니까?</v-card-text>
+        <v-card-actions>
+          <v-btn color="warning" text @click="del()">예</v-btn>
+          <v-btn color="warning" text @click="dialog = false">아니오</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
+ 
 <script>
 import axios from 'axios'
 import authHeader from '../services/auth-header'
@@ -24,7 +42,8 @@ export default {
   props: ['id'],
   data() {
     return {
-      board: ''
+      board: '',
+      dialog: false
     }
   },
   mounted() {
@@ -39,6 +58,24 @@ export default {
       .catch((response) => {
         console.log('Failed to get board', response)
       })
+  },
+  methods: {
+    showDialog() {
+      this.dialog = !this.dialog
+    },
+    del() {
+      this.dialog = false
+      axios({
+        method: 'DELETE',
+        url: url + this.id,
+        headers: authHeader()
+      }).then((response) => {
+        console.log(response.data)
+        this.$router.push('/board')
+      }).catch((response) => {
+        console.log('Failed to delete board', response)
+      })
+    }
   }
 }
 </script>
