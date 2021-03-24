@@ -19,7 +19,7 @@
 <script>
 import axios from "axios"
 import authHeader from "../services/auth-header"
-let url = "http://localhost:8000/boards/";
+const url = "http://localhost:8000/boards/";
 export default {
   name: 'Board',
   data() {

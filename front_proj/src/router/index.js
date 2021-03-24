@@ -5,7 +5,8 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Board from "../views/Board.vue";
 import AddBoard from "../views/AddBoard.vue";
-import BoardDetail from "../views/BoardDetail.vue";
+import BoardDetail from "../components/BoardDetail.vue";
+import BoardEdit from "../components/BoardEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/board/add",
+    name: "AddBoard",
+    component: AddBoard,
+  },
+  {
     path: "/board/:id",
     name: "BoardDetail",
     component: BoardDetail,
@@ -34,9 +40,11 @@ const routes = [
     props: true,
   },
   {
-    path: "/add",
-    name: "AddBoard",
-    component: AddBoard,
+    path: "/board/:id/edit",
+    name: "BoardEdit",
+    component: BoardEdit,
+    meta: { requiresAuth: true },
+    props: true,
   },
 ];
 

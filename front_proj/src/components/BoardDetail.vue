@@ -18,6 +18,9 @@
         <v-btn text color="teal accent-4" @click="showDialog()">
           Delete
         </v-btn>
+        <v-btn text color="teal accent-4" @click="edit()">
+          Edit
+        </v-btn>
       </v-card-actions>
     </v-card-text>
     <v-dialog v-model="dialog" max-width="500px">
@@ -36,7 +39,7 @@
 <script>
 import axios from 'axios'
 import authHeader from '../services/auth-header'
-let url = 'http://localhost:8000/boards/board/'
+const url = 'http://localhost:8000/boards/board/'
 export default {
   name: 'detail',
   props: ['id'],
@@ -63,11 +66,14 @@ export default {
     showDialog() {
       this.dialog = !this.dialog
     },
+    edit() {
+      this.$router.push({ name: 'BoardEdit', params: { id: this.id, board: this.board } })
+    },
     del() {
       this.dialog = false
       axios({
         method: 'DELETE',
-        url: url + this.id,
+        url: url + this.id + '/',
         headers: authHeader()
       }).then((response) => {
         console.log(response.data)
