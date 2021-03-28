@@ -9,8 +9,11 @@
         <v-file-input v-model="editedBoard.files" label="File"></v-file-input>
       </v-form>
       <v-card-actions>
-        <v-btn text color="teal accent-4" @click="showDialog()">
+        <v-btn text color="warning accent-4" @click="showDialog()">
           Save
+        </v-btn>
+        <v-btn text color="warning accent-4" @click="$router.go(-1)">
+          Cancle
         </v-btn>
       </v-card-actions>
     </v-container>

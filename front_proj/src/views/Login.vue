@@ -1,14 +1,12 @@
 <template>
-  <v-container>
-    <v-form v-model="valid" lazy-validation>
-      <v-text-field v-model="user.email" :rules="emailRules" label="E-mail" required></v-text-field>
-      <v-text-field v-model="user.password" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show ? 'text' : 'password'" label="Password" counter @click:append="show = !show"></v-text-field>
-      <v-btn :disabled="!valid" color="warning" @click="login">
-        Login
-      </v-btn>
-    </v-form>
+  <v-form v-model="valid" lazy-validation>
+    <v-text-field v-model="user.email" :rules="emailRules" label="E-mail" required></v-text-field>
+    <v-text-field v-model="user.password" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show ? 'text' : 'password'" label="Password" counter @click:append="show = !show"></v-text-field>
+    <v-btn :disabled="!valid" color="warning" @click="login">
+      Login
+    </v-btn>
     {{message}}
-  </v-container>
+  </v-form>
 </template>
 
 <script>

@@ -2,9 +2,9 @@
   <v-card>
     <v-card-text>
       <v-list flat>
-        <v-subheader>정보</v-subheader>
+        <v-card-title>정보</v-card-title>
         <v-list-item-group color="primary">
-          <v-list-item v-for="(value,name) in board" :key=name>
+          <v-list-item v-for="(value,name) in board" :key=value>
             <v-list-item-content>
               <v-list-item-title v-text="name"></v-list-item-title>
             </v-list-item-content>
@@ -15,11 +15,14 @@
         </v-list-item-group>
       </v-list>
       <v-card-actions>
-        <v-btn text color="teal accent-4" @click="showDialog()">
+        <v-btn text color="error accent-4" @click="showDialog()">
           Delete
         </v-btn>
-        <v-btn text color="teal accent-4" @click="edit()">
+        <v-btn text color="warning accent-4" @click="edit()">
           Edit
+        </v-btn>
+        <v-btn text color="teal accent-4" @click="$router.go(-1)">
+          Back
         </v-btn>
       </v-card-actions>
     </v-card-text>
@@ -57,6 +60,7 @@ export default {
     })
       .then((response) => {
         this.board = response.data
+        console.log(typeof this.board.files)
       })
       .catch((response) => {
         console.log('Failed to get board', response)

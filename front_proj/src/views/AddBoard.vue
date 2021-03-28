@@ -1,15 +1,23 @@
 <template>
-  <v-container>
-    <v-form ref="form" lazy-validation>
-      <v-text-field v-model="board.title" :rules="[v => !!v || 'Title is required']" label="Title" required></v-text-field>
-      <v-text-field v-model="board.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
-      <v-text-field v-model="board.email" :rules="emailRules" label="E-mail" required></v-text-field>
-      <v-text-field v-model="board.phone" :rules="phoneRules" label="Phone" required></v-text-field>
-      <v-file-input v-model="board.files" label="File"></v-file-input>
-      <v-btn @click="saveBoard()">저장</v-btn>
-      <v-btn @click="resetForm()">초기화</v-btn>
-    </v-form>
-  </v-container>
+  <v-card>
+    <v-card-text>
+      <v-form ref="form" lazy-validation>
+        <v-text-field v-model="board.title" :rules="[v => !!v || 'Title is required']" label="Title" required></v-text-field>
+        <v-text-field v-model="board.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
+        <v-text-field v-model="board.email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <v-text-field v-model="board.phone" :rules="phoneRules" label="Phone" required></v-text-field>
+        <v-file-input v-model="board.files" label="File"></v-file-input>
+        <v-card-actions>
+          <v-btn text color="teal accent-4" @click="saveBoard()">
+            Save
+          </v-btn>
+          <v-btn text color="teal accent-4" @click="resetForm()">
+            Reset
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </v-card-text>
+  </v-card>
 </template>
 <script>
 import axios from "axios";
