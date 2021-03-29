@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'accounts',
     'corsheaders',
     'boards',
+    'django_cleanup',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
