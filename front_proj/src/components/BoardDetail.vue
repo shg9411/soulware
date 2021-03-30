@@ -4,12 +4,52 @@
       <v-list flat>
         <v-card-title>정보</v-card-title>
         <v-list-item-group color="primary">
-          <v-list-item v-for="(value,name) in board" :key=value>
+          <v-list-item>
             <v-list-item-content>
-              <v-list-item-title v-text="name"></v-list-item-title>
+              <v-list-item-title>ID</v-list-item-title>
             </v-list-item-content>
             <v-list-item-content>
-              <v-list-item-title v-text="value"></v-list-item-title>
+              <v-list-item-title v-text="board.id"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Title</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="board.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Body</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="board.body"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>E-mail</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="board.email"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Phone</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="board.phone"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-for="(file,i) in files" v-bind:key="i">
+            <v-list-item-content>
+              <v-list-item-title v-if="(i==0)">File</v-list-item-title>
+            </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title v-text="file.originName" @click="download(file)"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
@@ -42,25 +82,27 @@
 <script>
 import axios from 'axios'
 import authHeader from '../services/auth-header'
-const url = 'http://localhost:8000/boards/board/'
+const url = 'http://localhost:8000'
 export default {
   name: 'detail',
   props: ['id'],
   data() {
     return {
       board: '',
-      dialog: false
+      dialog: false,
+      files: '',
     }
   },
   mounted() {
     axios({
       method: 'GET',
-      url: url + this.id,
+      url: url + '/boards/board/' + this.id,
       headers: authHeader()
     })
       .then((response) => {
         this.board = response.data
-        console.log(typeof this.board.files)
+        if (this.board.files.length > 0)
+          this.files = this.board.files
       })
       .catch((response) => {
         console.log('Failed to get board', response)
@@ -71,19 +113,35 @@ export default {
       this.dialog = !this.dialog
     },
     edit() {
-      this.$router.push({ name: 'BoardEdit', params: { id: this.id, board: this.board } })
+      this.$router.push({ name: 'BoardEdit', params: { id: this.id } })
     },
     del() {
       this.dialog = false
       axios({
         method: 'DELETE',
-        url: url + this.id + '/',
+        url: url + '/boards/board/' + this.id + '/',
         headers: authHeader()
       }).then((response) => {
         console.log(response.data)
         this.$router.push('/board')
       }).catch((response) => {
         console.log('Failed to delete board', response)
+      })
+    },
+    download(file) {
+      axios({
+        method: 'GET',
+        url: url + file.file,
+        responseType: 'blob',
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', file.originName);
+        document.body.appendChild(fileLink);
+        fileLink.click();
+      }).catch((response) => {
+        console.log(response)
       })
     }
   }

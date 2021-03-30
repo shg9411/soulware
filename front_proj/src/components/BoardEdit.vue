@@ -2,11 +2,12 @@
   <v-card>
     <v-container>
       <v-form ref="form" lazy-validation>
-        <v-text-field v-model="editedBoard.title" :rules="[v => !!v || 'Title is required']" label="Title" required></v-text-field>
-        <v-text-field v-model="editedBoard.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
-        <v-text-field v-model="editedBoard.email" :rules="emailRules" label="E-mail" required></v-text-field>
-        <v-text-field v-model="editedBoard.phone" :rules="phoneRules" label="Phone" required></v-text-field>
-        <v-file-input v-model="editedBoard.files" label="File"></v-file-input>
+        <v-text-field v-model="board.title" :rules="[v => !!v || 'Title is required']" label="Title" required></v-text-field>
+        <v-text-field v-model="board.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
+        <v-text-field v-model="board.email" :rules="emailRules" label="E-mail" required></v-text-field>
+        <v-text-field v-model="board.phone" :rules="phoneRules" label="Phone" required></v-text-field>
+        <!-- <v-file-input v-for="(file,idx) in current" label="File" v-bind:key="idx" :value="file">
+        </v-file-input> -->
       </v-form>
       <v-card-actions>
         <v-btn text color="warning accent-4" @click="showDialog()">
@@ -32,15 +33,14 @@
  
 <script>
 import axios from "axios";
-import Board from "../models/board"
 import authHeader from '../services/auth-header'
 const url = 'http://localhost:8000/boards/board/'
 export default {
   name: 'edit',
-  props: ['board'],
+  props: ['id'],
   data() {
     return {
-      editedBoard: new Board(this.board.title, this.board.body, this.board.email, this.board.phone),
+      board: '',
       dialog: false,
       header: authHeader(),
       emailRules: [
@@ -52,8 +52,28 @@ export default {
         v =>
           /^\d{10,11}$/.test(v) ||
           'Phone Number must be valid'
-      ]
+      ],
+      deleted_files: [],
+      // current: [],
+      // tmp: ''
     }
+  },
+  mounted() {
+    axios({
+      method: 'GET',
+      url: url + this.id,
+      headers: authHeader()
+    })
+      .then((response) => {
+        this.board = response.data
+        // for (var i = 0; i < this.board.files.length; i++) {
+        //   this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
+        //   console.log(this.current.push(this.tmp))
+        // }
+      })
+      .catch((response) => {
+        console.log('Failed to get board', response)
+      })
   },
   methods: {
     showDialog() {
@@ -63,14 +83,16 @@ export default {
     save() {
       this.dialog = false
       const fd = new FormData();
-      fd.append("title", this.editedBoard.title);
-      fd.append("body", this.editedBoard.body);
-      fd.append("email", this.editedBoard.email);
-      fd.append("phone", this.editedBoard.phone.replace(/[^0-9]/g, ""));
-      if (this.editedBoard.files !== null) fd.append("files", this.editedBoard.files);
-      this.header['Content-Type'] = 'multipart/form-data'
+      fd.append("title", this.board.title);
+      fd.append("body", this.board.body);
+      fd.append("email", this.board.email);
+      fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
+      for (var i = 0; i < this.deleted_files.length; i++)
+        fd.append("deleted_files[]", this.deleted_files[i])
+      // if (this.board.files !== null) fd.append("files", this.board.files);
+      // this.header['Content-Type'] = 'multipart/form-data'
       axios
-        .put(url + this.board.id + '/', fd, {
+        .patch(url + this.board.id + '/', fd, {
           headers: this.header
         })
         .then(response => {

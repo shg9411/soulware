@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ['board', 'file', 'originName', ]
+        fields = ['id', 'board', 'file', 'originName', ]
 
 
 class BoardSerializer(serializers.ModelSerializer):

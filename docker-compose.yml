@@ -12,6 +12,7 @@ services:
   web:
     build: ./web_proj
     command: python manage.py runserver 0.0.0.0:8000
+    restart: always
     depends_on:
       - db
     ports:
@@ -22,3 +23,9 @@ services:
       - ./front_proj:/front
     ports:
       - "8080:8080"
+  # nginx:
+  #   image: nginx
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - client

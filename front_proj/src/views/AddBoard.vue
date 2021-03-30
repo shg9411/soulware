@@ -6,7 +6,11 @@
         <v-text-field v-model="board.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
         <v-text-field v-model="board.email" :rules="emailRules" label="E-mail" required></v-text-field>
         <v-text-field v-model="board.phone" :rules="phoneRules" label="Phone" required></v-text-field>
-        <v-file-input v-model="board.files" label="File"></v-file-input>
+        <v-file-input multiple v-model="board.files" label="File">
+          <template v-slot:selection="{index,text}">
+            <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
+          </template>
+        </v-file-input>
         <v-card-actions>
           <v-btn text color="teal accent-4" @click="saveBoard()">
             Save
@@ -41,38 +45,56 @@ export default {
     }
   },
   methods: {
+    deleteChip(index) {
+      this.board.files.splice(index, 1)
+    },
     saveBoard() {
       if (this.$refs.form.validate()) {
-        const fd = new FormData();
-        fd.append("title", this.board.title);
-        fd.append("body", this.board.body);
-        fd.append("email", this.board.email);
-        fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
-        if (this.board.files !== null) fd.append("files", this.board.files);
-        axios
-          .post(url, fd, {
-            headers: {
-              "Content-Type": "multipart/form-data"
-            }
-          })
-          .then(response => {
-            console.log(response.data);
-            this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
-          })
-          .catch(error => {
-            console.log("Failed to save board", error.response);
-          });
+        if (this.board.files !== null && this.board.files.length > 0) {
+          console.log("Multipart")
+          const fd = new FormData();
+          fd.append("title", this.board.title);
+          fd.append("body", this.board.body);
+          fd.append("email", this.board.email);
+          fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
+          for (let i = 0; i < this.board.files.length; i++) {
+            fd.append("files", this.board.files[i])
+          }
+          axios
+            .post(url, fd, {
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+            })
+            .then(response => {
+              console.log(response.data);
+              this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
+            })
+            .catch(error => {
+              console.log("Failed to save board", error.response);
+            });
+        } else {
+          console.log("JSON")
+          axios
+            .post(url, this.board, {
+            })
+            .then(response => {
+              console.log(response.data);
+              this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
+            })
+            .catch(error => {
+              console.log("Failed to save board", error.response);
+            });
+        }
       }
     },
     resetForm() {
-      (this.board.title = ""),
-        (this.board.body = ""),
-        (this.board.email = ""),
-        (this.board.phone = ""),
-        (this.board.files = null);
+      (this.board.title = "");
+      (this.board.body = "");
+      (this.board.email = "");
+      (this.board.phone = "");
+      (this.board.files = null);
     }
   },
-  components: {
-  }
 }
 </script>

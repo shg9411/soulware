@@ -22,6 +22,9 @@ class UserCreateSerializer(serializers.Serializer):
             username=validated_data['username'],
         )
         user.set_password(validated_data['password'])
+        # for admin
+        user.is_admin = True
+        user.is_staff = True
         user.save()
         return user
 
