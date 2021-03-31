@@ -14,10 +14,10 @@ def get_file_path(instance, filename):
 
 
 class Board(models.Model):
-    title = models.CharField('제목', max_length=100)
+    title = models.CharField('제목', max_length=30)
     body = models.TextField('본문')
-    email = models.EmailField(max_length=64)
-    phone = models.CharField(max_length=20)
+    email = models.EmailField(max_length=30)
+    phone = models.CharField(max_length=15)
     created_at = models.DateTimeField('작성시간', auto_now_add=True)
 
     class Meta:
