@@ -6,7 +6,7 @@
         <v-text-field v-model="board.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
         <v-text-field v-model="board.email" :rules="emailRules" label="E-mail" required></v-text-field>
         <v-text-field v-model="board.phone" :rules="phoneRules" label="Phone" required></v-text-field>
-        <v-file-input multiple v-model="board.files" label="File">
+        <v-file-input show-size multiple v-model="board.files" label="File">
           <template v-slot:selection="{index,text}">
             <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
           </template>

@@ -6,8 +6,20 @@
         <v-text-field v-model="board.body" :rules="[v => !!v || 'Body is required']" label="Body" required></v-text-field>
         <v-text-field v-model="board.email" :rules="emailRules" label="E-mail" required></v-text-field>
         <v-text-field v-model="board.phone" :rules="phoneRules" label="Phone" required></v-text-field>
-        <!-- <v-file-input v-for="(file,idx) in current" label="File" v-bind:key="idx" :value="file">
-        </v-file-input> -->
+        <v-row v-for="(file,idx) in current" :key="idx">
+          <v-file-input v-if="visible[idx]" :clearable="false" label="File" :value="file">
+          </v-file-input>
+          <v-card-actions>
+            <v-btn v-if="visible[idx]" @click="delOrigin(board.files[idx].id,idx)">
+              삭제
+            </v-btn>
+          </v-card-actions>
+        </v-row>
+        <v-file-input show-size multiple v-model="new_file" label="File">
+          <template v-slot:selection="{index,text}">
+            <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
+          </template>
+        </v-file-input>
       </v-form>
       <v-card-actions>
         <v-btn text color="warning accent-4" @click="showDialog()">
@@ -54,8 +66,9 @@ export default {
           'Phone Number must be valid'
       ],
       deleted_files: [],
-      // current: [],
-      // tmp: ''
+      current: [],
+      visible: [],
+      new_file: [],
     }
   },
   mounted() {
@@ -66,42 +79,53 @@ export default {
     })
       .then((response) => {
         this.board = response.data
-        // for (var i = 0; i < this.board.files.length; i++) {
-        //   this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
-        //   console.log(this.current.push(this.tmp))
-        // }
+        for (var i = 0; i < this.board.files.length; i++) {
+          this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
+          this.current.push(this.tmp)
+          this.visible.push(true)
+        }
       })
       .catch((response) => {
         console.log('Failed to get board', response)
       })
   },
   methods: {
+    deleteChip(index) {
+      this.board.files.splice(index, 1)
+    },
+    delOrigin(x, idx) {
+      this.deleted_files.push(x)
+      this.$set(this.visible, idx, false)
+    },
     showDialog() {
       if (this.$refs.form.validate())
         this.dialog = !this.dialog
     },
     save() {
-      this.dialog = false
-      const fd = new FormData();
-      fd.append("title", this.board.title);
-      fd.append("body", this.board.body);
-      fd.append("email", this.board.email);
-      fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
-      for (var i = 0; i < this.deleted_files.length; i++)
-        fd.append("deleted_files[]", this.deleted_files[i])
-      // if (this.board.files !== null) fd.append("files", this.board.files);
-      // this.header['Content-Type'] = 'multipart/form-data'
-      axios
-        .patch(url + this.board.id + '/', fd, {
-          headers: this.header
-        })
-        .then(response => {
-          console.log(response.data);
-          this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
-        })
-        .catch(error => {
-          console.log("Failed to save board", error.response);
-        });
+      if (this.$refs.form.validate()) {
+        this.dialog = false
+        const fd = new FormData();
+        fd.append("title", this.board.title);
+        fd.append("body", this.board.body);
+        fd.append("email", this.board.email);
+        fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
+        for (let i = 0; i < this.deleted_files.length; i++)
+          fd.append("deleted_files[]", this.deleted_files[i])
+        for (let i = 0; i < this.new_file.length; i++)
+          fd.append("files", this.new_file[i])
+        this.header['Content-Type'] = 'multipart/form-data'
+        axios
+          .patch(url + this.board.id + '/', fd, {
+            headers: this.header
+          })
+          .then(response => {
+            console.log(response.data);
+            this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
+          })
+          .catch(error => {
+            console.log("Failed to edit board", error.response);
+          });
+      }
     }
   }
 }

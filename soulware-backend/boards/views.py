@@ -65,15 +65,17 @@ class BoardViewSet(viewsets.ModelViewSet):
                             file_serializer.is_valid(raise_exception=True)
                             uploded_files.append(
                                 file_serializer.save().file.path)
-
-                if request.data["deleted_files[]"]:
+                if request.POST.get('deleted_files[]', None):
                     for num in map(int, request.POST.getlist('deleted_files[]')):
-                        file = File.objects.get(pk=num)
-                        file_path = file.file.path
-                        if os.path.exists(file_path):
-                            os.remove(file_path)
-                        file.isDel = True
-                        file.save()
+                        try:
+                            file = File.objects.get(pk=num)
+                            file_path = file.file.path
+                            if os.path.exists(file_path):
+                                os.remove(file_path)
+                            file.isDel = True
+                            file.save()
+                        except File.DoesNotExist:
+                            pass
         except:
             for file in uploded_files:
                 if os.path.exists(file):

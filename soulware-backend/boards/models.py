@@ -1,5 +1,16 @@
 from django.db import models
 from accounts.models import User
+from datetime import datetime
+import uuid
+import os
+
+
+def get_file_path(instance, filename):
+    _, ext = os.path.splitext(filename)
+    _now = datetime.now()
+    filename = "%s/%s/%s/%s.%s" % (_now.strftime('%Y'),
+                                   _now.strftime('%m'), _now.strftime('%d'), uuid.uuid4(), ext)
+    return filename
 
 
 class Board(models.Model):
@@ -19,7 +30,7 @@ class Board(models.Model):
 class File(models.Model):
     board = models.ForeignKey(
         'Board', related_name='files', on_delete=models.CASCADE)
-    file = models.FileField(upload_to="%Y/%m/%d")
+    file = models.FileField(upload_to=get_file_path)
     isDel = models.BooleanField(default=False)
     originName = models.CharField(max_length=128)
 

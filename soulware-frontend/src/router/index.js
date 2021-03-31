@@ -1,12 +1,12 @@
 import Vue from "vue";
 import store from "../store";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Login from "../views/Login.vue";
-import Board from "../views/Board.vue";
-import AddBoard from "../views/AddBoard.vue";
-import BoardDetail from "../components/BoardDetail.vue";
-import BoardEdit from "../components/BoardEdit.vue";
+import Home from "../views/home.vue";
+import Login from "../views/login.vue";
+import Board from "../views/board.vue";
+import AddBoard from "../views/add-board.vue";
+import BoardDetail from "../components/board-detail.vue";
+import BoardEdit from "../components/board-edit.vue";
 
 Vue.use(VueRouter);
 
