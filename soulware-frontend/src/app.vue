@@ -8,15 +8,8 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn to="/">
-          Home
-        </v-btn>
-        <v-btn v-if=currentUser @click.prevent='logout'>Log-out</v-btn>
-        <v-btn v-else to="/login">
-          Log-in
-        </v-btn>
-        <v-btn to="/board">
-          board
+        <v-btn v-for="(item,idx) in menuItems" :href="item.path" :key=idx>
+          {{item.title}}
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -41,8 +34,9 @@ export default {
       appTitle: 'Soulware',
       menuItems: [
         { title: 'Home', path: '/' },
-        { title: 'Login', path: '/login' },
-        { title: 'Board', path: '/board' }
+        { title: 'About', path: '/about' },
+        { title: 'Portfolio', path: '/portfolio' },
+        { title: 'Sovit', path: '/sovit' },
       ]
     }
   },

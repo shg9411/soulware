@@ -2,6 +2,9 @@ import Vue from "vue";
 import store from "../store";
 import VueRouter from "vue-router";
 import Home from "../views/home.vue";
+import About from "../views/about.vue";
+import Portfolio from "../views/portfolio.vue";
+import Sovit from "../views/sovit.vue";
 import Login from "../views/login.vue";
 import Board from "../views/board.vue";
 import AddBoard from "../views/add-board.vue";
@@ -15,6 +18,21 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
+  },
+  {
+    path: "/sovit",
+    name: "Sovit",
+    component: Sovit,
+  },
+  {
+    path: "/portfolio",
+    name: "Portfolio",
+    component: Portfolio,
   },
   {
     path: "/login",

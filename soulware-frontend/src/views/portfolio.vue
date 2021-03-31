@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    Home
+    Portfolio
   </v-container>
 </template>
 
 <script>
 
 export default {
-  name: 'Home',
+  name: 'Portfolio',
   components: {
 
   }

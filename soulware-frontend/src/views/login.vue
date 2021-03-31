@@ -1,33 +1,53 @@
 <template>
-  <v-form v-model="valid" lazy-validation>
-    <v-text-field v-model="user.email" :rules="emailRules" label="E-mail" required></v-text-field>
-    <v-text-field v-model="user.password" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show ? 'text' : 'password'" label="Password" counter @click:append="show = !show"></v-text-field>
-    <v-btn :disabled="!valid" color="warning" @click="login">
+  <v-form ref="form" lazy-validation>
+    <v-text-field :error-messages="emailErrors" v-model.trim="user.email" @input="$v.user.email.$touch()" @blur="$v.user.email.$touch()" label="E-mail" required></v-text-field>
+    <v-text-field :error-messages="passwordErrors " v-model.trim="user.password" @input="$v.user.password.$touch()" @blur="$v.user.password.$touch()" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :type="show ? 'text' : 'password'" label="Password" counter @click:append="show = !show" required></v-text-field>
+    <v-btn :disabled="$v.user.$error" color="warning" @click="login">
       Login
     </v-btn>
-    {{message}}
   </v-form>
 </template>
 
 <script>
 import User from '../models/user'
+import { required, email, maxLength, minLength } from "vuelidate/lib/validators";
 export default {
   name: 'Login',
   data() {
     return {
       message: '',
-      valid: true,
       user: new User('', ''),
       show: false,
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
-        emailMatch: () => (`The email and password you entered don't match`),
+    }
+  },
+  validations: {
+    user: {
+      email: {
+        required,
+        email
       },
+      password: {
+        required,
+        minLength: minLength(6),
+        maxLength: maxLength(20)
+      }
+    }
+  },
+  computed: {
+    passwordErrors() {
+      const errors = []
+      if (!this.$v.user.password.$dirty) return errors
+      !this.$v.user.password.minLength && errors.push('Password must be at least 6 characters long')
+      !this.$v.user.password.maxLength && errors.push('Password must be at most 20 characters long')
+      !this.$v.user.password.required && errors.push('Password is required.')
+      return errors
+    },
+    emailErrors() {
+      const errors = []
+      if (!this.$v.user.email.$dirty) return errors
+      !this.$v.user.email.email && errors.push('Must be valid e-mail')
+      !this.$v.user.email.required && errors.push('E-mail is required')
+      return errors
     }
   },
   mounted() {
@@ -37,15 +57,18 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch('auth/login', this.user).then(
-        () => {
-          this.$router.push('/')
-        },
-        error => {
-          this.message = "check your email or password"
-          console.log(error)
-        }
-      )
+      this.$v.$touch()
+      if (!this.$v.$error) {
+        this.$store.dispatch('auth/login', this.user).then(
+          () => {
+            this.$router.push('/')
+          },
+          error => {
+            console.log("login fail", error)
+            alert("로그인에 실패했습니다. E-mail과 비밀번호를 확인해 주세요.")
+          }
+        )
+      }
     }
   },
   components: {

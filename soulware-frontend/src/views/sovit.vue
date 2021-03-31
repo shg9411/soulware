@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    Home
+    Sovit
   </v-container>
 </template>
 
 <script>
 
 export default {
-  name: 'Home',
+  name: 'Sovit',
   components: {
 
   }
