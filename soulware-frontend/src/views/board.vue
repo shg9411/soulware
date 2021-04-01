@@ -1,6 +1,6 @@
 <template>
-  <v-card class="mx-auto">
-    <v-card-title class="justify-center" v-html="message"></v-card-title>
+  <v-card>
+    <v-card-title v-if="message" class="justify-center">{{message}}</v-card-title>
     <v-row>
       <v-col cols="12">
         <v-card v-for='(item, index) in boards' :key=index>

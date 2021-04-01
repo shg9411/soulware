@@ -1,59 +1,61 @@
 <template>
   <v-card>
-    <v-card-text>
-      <v-list flat>
-        <v-card-title>정보</v-card-title>
-        <v-list-item-group color="primary">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>ID</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-title v-text="board.id"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Title</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-title v-text="board.title"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Body</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-title v-text="board.body"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>E-mail</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-title v-text="board.email"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Phone</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-title v-text="board.phone"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item v-for="(file,i) in files" v-bind:key="i">
-            <v-list-item-content>
-              <v-list-item-title v-if="(i==0)">File</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-content>
-              <v-list-item-title v-text="file.originName" @click="download(file)"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+    <v-app-bar>
+      <v-toolbar-title>Detail</v-toolbar-title>
+    </v-app-bar>
+    <v-container v-if="board">
+      <v-row dense>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              ID
+            </v-card-title>
+            <v-card-subtitle v-text="board.id"></v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              Title
+            </v-card-title>
+            <v-card-subtitle v-text="board.title"></v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              Body
+            </v-card-title>
+            <v-card-subtitle v-text="board.body"></v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              E-mail
+            </v-card-title>
+            <v-card-subtitle v-text="board.email"></v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              Phone
+            </v-card-title>
+            <v-card-subtitle v-text="board.phone"></v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col v-if="files" cols="12">
+          <v-card>
+            <v-card-title>
+              Files
+            </v-card-title>
+            <v-card-actions>
+              <v-btn class="ml-2 mt-5" outlined rounded small v-for="(file,i) in files" :key="i" @click="download(file)">{{file.originName}}</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-card-actions>
         <v-btn text color="error accent-4" @click="showDialog()">
           Delete
@@ -65,17 +67,17 @@
           Back
         </v-btn>
       </v-card-actions>
-    </v-card-text>
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-card>
-        <v-card-title>Delete</v-card-title>
-        <v-card-text>삭제하시겠습니까?</v-card-text>
-        <v-card-actions>
-          <v-btn color="warning" text @click="del()">예</v-btn>
-          <v-btn color="warning" text @click="dialog = false">아니오</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>Delete</v-card-title>
+          <v-card-text>삭제하시겠습니까?</v-card-text>
+          <v-card-actions>
+            <v-btn color="warning" text @click="del()">예</v-btn>
+            <v-btn color="warning" text @click="dialog = false">아니오</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-container>
   </v-card>
 </template>
  
@@ -106,6 +108,8 @@ export default {
       })
       .catch((response) => {
         console.log('Failed to get board', response)
+        alert("게시글이 존재하지 않습니다.")
+        this.$router.push('/');
       })
   },
   methods: {

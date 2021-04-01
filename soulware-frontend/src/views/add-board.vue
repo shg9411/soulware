@@ -3,7 +3,7 @@
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field :error-messages="titleErrors" v-model.trim="board.title" @input="$v.board.title.$touch()" @blur="$v.board.title.$touch()" label="Title" required></v-text-field>
-        <v-text-field :error-messages="bodyErrors" v-model.trim="board.body" @input="$v.board.body.$touch()" @blur="$v.board.body.$touch()" label="Body" required></v-text-field>
+        <v-textarea auto-grow clearable clear-icon="mdi-close-circle" :error-messages="bodyErrors" v-model.trim="board.body" @input="$v.board.body.$touch()" @blur="$v.board.body.$touch()" label="Body" required></v-textarea>
         <v-text-field :error-messages="emailErrors" v-model.trim="board.email" @input="$v.board.email.$touch()" @blur="$v.board.email.$touch()" label="E-mail" required></v-text-field>
         <v-text-field :error-messages="phoneErrors" v-model.trim="board.phone" @input="$v.board.phone.$touch()" @blur="$v.board.phone.$touch()" label="Phone" required></v-text-field>
         <v-file-input :rules="[files => !files.some(file => file.size > 2e7)||'File size cant exceed 20MB']" show-size multiple v-model="files" label="File">
