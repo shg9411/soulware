@@ -24,79 +24,47 @@ $black: #222;
 }
 
 // font 정의
-.font-13 {
-  font-size: 13px;
-}
 .font-14 {
-  font-size: 0.63rem;
-}
-.font-15 {
-  font-size: 0.68rem;
+  font-size: 0.636rem;
 }
 .font-16 {
   font-size: 0.727rem;
 }
 .font-18 {
-  font-size: 0.81rem;
-}
-.font-20 {
-  font-size: 0.9rem;
+  font-size: 0.818rem;
 }
 .font-21 {
-  font-size: 0.95rem;
+  font-size: 0.954rem;
 }
 .font-24 {
   font-size: 1.09rem;
 }
-.font-45 {
-  font-size: 2rem;
+.font-27 {
+  font-size: 1.22rem;
 }
-.font-60 {
-  font-size: 2.7rem;
+.font-28 {
+  font-size: 1.273rem;
 }
-.font-29 {
-  font-size: 1.3rem;
+.font-32 {
+  font-size: 1.455rem;
 }
-// tv font 정의
-.tv-font-10 {
-  font-size: 0.45rem;
+.font-59 {
+  font-size: 2.6rem;
 }
-.tv-font-12 {
-  font-size: 0.54rem;
-}
-.tv-font-13 {
-  font-size: 0.59rem;
-}
-.tv-font-15 {
-  font-size: 0.68rem;
-}
-.tv-font-16 {
-  font-size: 0.72rem;
-}
-.tv-font-20 {
-  font-size: 0.9rem;
-}
-.tv-font-22 {
-  font-size: 1rem;
-}
-.tv-font-42 {
-  font-size: 1.9rem;
-}
-
 html {
   font-size: 22px !important;
-  // overflow-y: hidden;
+
   @media (min-width: 769px) {
     font-size: 22px !important;
   }
   @media (max-width: 768px) {
-    font-size: 26.3px !important;
+    font-size: 15px !important;
   }
   @media (max-width: 640px) {
-    font-size: 22.5px !important;
+    font-size: 18px !important;
   }
   @media (max-width: 600px) {
-    font-size: 21.3px !important;
+    font-size: 18px !important;
   }
   @media (max-width: 550px) {
     font-size: 17.5px !important;
@@ -123,3 +91,5 @@ html {
 .pannel1 .v-expansion-panel-content__wrap {
   padding: 0;
 }
+
+

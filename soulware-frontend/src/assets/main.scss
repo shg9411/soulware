@@ -1,0 +1,605 @@
+/*-------------------------------------------------------------------
+@common
+-------------------------------------------------------------------*/
+#app {
+    font-family: "Noto Sans", "Noto Sans KR", sans-serif;
+}
+
+/*-------------------------------------------------------------------
+@nav
+-------------------------------------------------------------------*/
+.nav-section {
+    height: 4.09rem !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+
+    .v-toolbar__content {
+        height: 4.09rem !important;
+        padding: 0 0.954rem 0 2.227rem;
+        .v-toolbar__title {
+            display: flex;
+            align-items: center;
+            width: 50%;
+            color: #fff;
+            line-height: normal;
+            letter-spacing: normal;
+
+            span {
+                @extend .font-32, .font-bold;
+            }
+            .slogan {
+                @extend .font-14, .font-normal;
+                margin-left: 1.2rem;
+                margin-top: 0.2rem;
+            }
+        }
+        .v-toolbar__items {
+            display: flex;
+            align-items: center;
+            .v-btn {
+                @extend .font-18, .font-normal;
+                min-width: unset;
+                height: 2rem !important;
+                padding: 0 0.954rem;
+                background-color: transparent;
+                color: #fff;
+                line-height: normal;
+                letter-spacing: normal;
+                box-shadow: none;
+            }
+        }
+    }
+}
+.nav-scroll {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba($color: #4e6dfc, $alpha: 0.8) !important;
+    box-shadow: 0.2rem 0.2rem 0.5rem 0rem rgba(0, 0, 0, 0.35) !important;
+    // .v-toolbar__content {
+    //     .v-toolbar__title {
+    //         color: #222;
+    //     }
+    //     .v-toolbar__items {
+    //         .v-btn {
+    //             color: #222;
+    //         }
+    //     }
+    // }
+}
+.v-footer.sw-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-top: 0.04rem solid rgba(0, 0, 0, 0.2);
+    background-color: #fff !important;
+    padding: 2.36rem 0 2.86rem 0;
+    p {
+        @extend .font-18, .font-normal;
+        margin: 0;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #444;
+    }
+}
+
+/*-------------------------------------------------------------------
+@main
+-------------------------------------------------------------------*/
+
+.main-carousel {
+    height: 29.27rem !important;
+    .v-carousel__item {
+        height: 29.27rem !important;
+    }
+    .v-sheet {
+        background-color: transparent;
+
+        h1 {
+            @extend .font-59, .font-bold;
+            text-shadow: 0px 0.045rem 0.454rem rgba(0, 0, 0, 0.35);
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #ffffff;
+        }
+        p {
+            @extend .font-28, .font-normal;
+            margin-bottom: 0;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+    .carousel1 {
+        background: url("../assets/images/rolling1.png") no-repeat center;
+        background-size: cover;
+    }
+    .carousel2 {
+        background: url("../assets/images/rolling2.png") no-repeat center;
+        background-size: cover;
+    }
+}
+
+.portfolio-section {
+    background-color: #f7f7f7;
+    text-align: center;
+    padding: 2rem 0 4rem 0;
+    .row {
+        padding: 0 10vw;
+        margin-bottom: 3.4rem !important;
+
+        .col-cover {
+            .v-card {
+                background-color: transparent;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                em {
+                    max-width: 16.09rem;
+                    width: 100%;
+                    height: 16.09rem;
+                }
+                .chungdahm-learning {
+                    background: url("../assets/images/main_chungdahm_learning.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .iclebo {
+                    background: url("../assets/images/main_iclebo05.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .allim {
+                    background: url("../assets/images/main_allim.png") no-repeat center;
+                    background-size: 100%;
+                }
+
+                .v-card__title {
+                    @extend .font-21, .font-bold;
+                    padding: 0;
+                    color: #222222;
+                    line-height: normal;
+                    letter-spacing: normal;
+                }
+                .v-card__text {
+                    padding: 0;
+                    p {
+                        @extend .font-18, .font-normal;
+                        margin: 0.5rem 0 0.8rem 0;
+                        padding: 0;
+                        color: #222222;
+                        line-height: normal;
+                        letter-spacing: normal;
+                    }
+                    span {
+                        @extend .font-16, .font-normal;
+
+                        color: #4e6dfc;
+                        line-height: normal;
+                        letter-spacing: normal;
+                    }
+                }
+            }
+        }
+    }
+    .more-btn {
+        @extend .font-18, .font-normal;
+        min-height: 2.22rem;
+        padding: 0 1.59rem !important;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #222222;
+        background-color: #59d8b6 !important;
+        box-shadow: none;
+    }
+}
+.service-section {
+    width: 100%;
+    // height: 35.77rem;
+    height: 70vh;
+    background: #4e6dfc url("../assets/images/main_service.png") no-repeat center;
+    background-size: 100%;
+}
+.client-section {
+    min-height: 9.27rem;
+    padding: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .col {
+        text-align: center;
+        margin: 1%;
+    }
+    em {
+        display: inline-block;
+        width: 10.23rem;
+        height: 2.63rem;
+    }
+    .logo1 {
+        background: url("../assets/images/main_logo1.png") no-repeat center;
+        background-size: 100%;
+    }
+    .logo2 {
+        background: url("../assets/images/main_logo2.png") no-repeat center;
+        background-size: 100%;
+    }
+    .logo3 {
+        background: url("../assets/images/main_logo3.png") no-repeat center;
+        background-size: 100%;
+    }
+    .logo4 {
+        background: url("../assets/images/main_logo4.png") no-repeat center;
+        background-size: 100%;
+    }
+    .logo5 {
+        background: url("../assets/images/main_logo5.png") no-repeat center;
+        background-size: 100%;
+    }
+}
+.auth-section {
+    padding: 5.4rem 0;
+    background-color: #eeeeee;
+    .row {
+        padding: 0 10vw;
+    }
+    .col-sm-4 {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    .text-info {
+        margin-left: 0.9rem;
+        h3,
+        h2 {
+            @extend .font-21, .font-bold;
+            line-height: 1.2;
+            letter-spacing: normal;
+            color: #444;
+        }
+        h2 {
+            margin-bottom: 0.95rem;
+        }
+        h3 {
+            margin-bottom: 0.3rem;
+        }
+        p {
+            @extend .font-16, .font-normal;
+            margin: 0;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #777;
+        }
+    }
+    .auth1 {
+        background: url("../assets/images/auth1.png") no-repeat center;
+        background-size: 100%;
+    }
+    .auth2 {
+        background: url("../assets/images/auth2.png") no-repeat center;
+        background-size: 100%;
+    }
+    .auth3 {
+        background: url("../assets/images/auth3.png") no-repeat center;
+        background-size: 100%;
+    }
+    em {
+        display: inline-block;
+        width: 8.95rem;
+        height: 12.64rem;
+    }
+}
+.blog-section {
+    padding: 3.5rem 10vw 3rem 10vw;
+    .row {
+        padding: 0 1%;
+    }
+    .col-pd {
+        padding: 0 1% 2% 1% !important;
+    }
+
+    .v-card {
+        border-radius: 0.5rem;
+        box-shadow: none !important;
+        border: 1px solid #ddd;
+
+        .v-image {
+            height: 9rem;
+        }
+    }
+    .v-card__title {
+        @extend .font-21, .font-bold;
+        padding: 5%;
+        line-height: 1.2;
+        letter-spacing: normal;
+        color: #444;
+    }
+    .v-card__text {
+        padding: 0 5% 5% 5%;
+        p {
+            @extend .font-16, .font-normal;
+            margin: 0;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #777;
+        }
+        span {
+            @extend .font-14, .font-normal;
+            display: inline-block;
+            width: 100%;
+            text-align: right;
+            margin: 0;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #777;
+        }
+    }
+}
+.fab-chatbot.v-btn--fab {
+    bottom: 7rem;
+    width: 4.6rem;
+    height: 4.6rem;
+    margin-right: 0.15rem;
+    background-color: rgba(255, 255, 255, 0.85) !important;
+
+    em {
+        display: inline-block;
+        width: 2.86rem;
+        height: 2.86rem;
+        background: url("../assets/images/ic_chatbot.png") no-repeat center;
+        background-size: 100%;
+    }
+}
+
+.fab-contact.v-btn--fab {
+    @extend .font-18, .font-500;
+    bottom: 1.5rem;
+    width: 4.9rem;
+    height: 4.9rem;
+    background-color: #59d8b6 !important;
+    color: #fff;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+/*-------------------------------------------------------------------
+@about
+-------------------------------------------------------------------*/
+
+.about-top-section {
+    height: 26.41rem;
+    background: url("../assets/images/about_top.png") no-repeat center;
+    background-size: cover;
+}
+.top-text {
+    margin-top: -9rem;
+    padding-right: 3.86rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    h2 {
+        @extend .font-59, .font-500;
+        margin-bottom: 5.3rem;
+        line-height: 1.21;
+        letter-spacing: normal;
+
+        color: #fff;
+        text-shadow: 0 0.045rem 0.45rem rgba(0, 0, 0, 0.35);
+    }
+    p {
+        @extend .font-27, .font-normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        color: #777;
+    }
+}
+.about-service-section {
+    height: 47.9rem;
+    background: url("../assets/images/about_service.png") no-repeat center;
+    background-size: 100%;
+}
+.about-vision-section {
+    .img-vision {
+        height: 14.5rem;
+        background: url("../assets/images/about_vision.png") no-repeat center;
+        background-size: 100%;
+    }
+    .row {
+        padding: 5% 10vw 5% 10vw !important;
+    }
+
+    .col-sm-6 {
+        padding: 0% 5% 5% 5% !important;
+    }
+    h3 {
+        @extend .font-24, .font-bold;
+        color: #4e6dfc;
+        span {
+            @extend .font-59;
+        }
+    }
+}
+.sw-process {
+    background-color: #eee;
+    padding: 0 10vh;
+    h2 {
+        @extend .font-59, .font-bold;
+        text-align: center;
+        color: #222;
+        line-height: normal;
+        letter-spacing: normal;
+    }
+    .process-list {
+        .v-list {
+            background: transparent;
+            .v-avatar {
+                border-radius: 0 !important;
+
+                width: 3.22rem !important;
+                height: 3.22rem !important;
+                min-width: 3.22rem !important;
+                em {
+                    display: inline-block;
+                    width: 3.22rem;
+                    height: 3.22rem;
+                }
+                .ic-process1 {
+                    background: url("../assets/images/process_ic1_off.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process2 {
+                    background: url("../assets/images/process_ic2_off.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process3 {
+                    background: url("../assets/images/process_ic3_off.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process4 {
+                    background: url("../assets/images/process_ic4_off.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process5 {
+                    background: url("../assets/images/process_ic5_off.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process6 {
+                    background: url("../assets/images/process_ic6_off.png") no-repeat center;
+                    background-size: 100%;
+                }
+            }
+            .v-list-item:hover {
+                .ic-process1 {
+                    background: url("../assets/images/process_ic1_on.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process2 {
+                    background: url("../assets/images/process_ic2_on.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process3 {
+                    background: url("../assets/images/process_ic3_on.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process4 {
+                    background: url("../assets/images/process_ic4_on.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process5 {
+                    background: url("../assets/images/process_ic5_on.png") no-repeat center;
+                    background-size: 100%;
+                }
+                .ic-process6 {
+                    background: url("../assets/images/process_ic6_on.png") no-repeat center;
+                    background-size: 100%;
+                }
+            }
+        }
+    }
+    .mockup-section {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        em {
+            display: inline-block;
+            width: 24.36rem;
+            height: 38.36rem;
+            background: url("../assets/images/process_mockup.png") no-repeat center;
+            background-size: 100%;
+        }
+    }
+}
+
+@media (max-width: 1366px) {
+    .service-section {
+        background-size: 100% !important;
+    }
+    .portfolio-section,
+    .auth-section {
+        .row {
+            padding: 0;
+        }
+    }
+    .blog-section {
+        padding: 3rem 0;
+    }
+    .about-service-section {
+        background-size: 100%;
+    }
+    .about-vision-section {
+        .row {
+            padding: 5% 0 !important;
+        }
+    }
+    .sw-process {
+        padding: 0;
+    }
+}
+
+.ic-process1 {
+}
+@media (min-width: 1367px) {
+    .service-section {
+        background-size: 80% !important;
+    }
+    .about-service-section {
+        background-size: 80%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .auth-section {
+        em {
+            width: 5.95rem;
+            height: 8.64rem;
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .service-section {
+        height: 45vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav-section .v-toolbar__content .v-toolbar__title {
+        width: 80%;
+    }
+    .auth-section {
+        padding: 10% 0% 5% 0%;
+        .text-info {
+            min-width: 7rem;
+        }
+        .col-xs-pd {
+            padding-bottom: 5% !important;
+        }
+        em {
+            width: 8.95rem;
+            height: 12.64rem;
+        }
+    }
+    .main-carousel {
+        .v-sheet {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    }
+    .blog-section .v-card .v-image {
+        height: 14rem;
+    }
+    .blog-section .v-card__title {
+        padding: 3%;
+    }
+    .blog-section .v-card__text {
+        padding: 0 3% 3% 3%;
+    }
+    .service-section {
+        height: 60rem;
+        background-size: 200% !important;
+        background: #4e6dfc url("../assets/images/mobile_service.png") no-repeat center;
+    }
+}
