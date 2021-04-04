@@ -51,7 +51,9 @@ export default {
             this.message = "게시글이 없습니다."
         },
         error => {
-          this.boards = (error.response && error.response.data) || error.message || error.toString()
+          console.log(error)
+          this.$store.dispatch('auth/logout')
+          this.$router.push('/login')
         }
       )
     },
