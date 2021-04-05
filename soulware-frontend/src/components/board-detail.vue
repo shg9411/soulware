@@ -93,26 +93,38 @@ export default {
       board: '',
       dialog: false,
       files: '',
+      header: '',
     }
   },
-  mounted() {
-    axios({
-      method: 'GET',
-      url: url + '/boards/board/' + this.id,
-      headers: authHeader()
-    })
-      .then((response) => {
-        this.board = response.data
-        if (this.board.files.length > 0)
-          this.files = this.board.files
-      })
-      .catch((response) => {
-        console.log('Failed to get board', response)
-        alert("게시글이 존재하지 않습니다.")
-        this.$router.push('/');
-      })
+  created() {
+    this.init()
   },
   methods: {
+    async init() {
+      authHeader().then((header) => {
+        this.header = header
+        this.getBoard()
+      })
+    },
+    getBoard() {
+      axios({
+        method: 'GET',
+        url: url + '/boards/board/' + this.id,
+        headers: this.header
+      })
+        .then((response) => {
+          this.board = response.data
+          if (this.board.files.length > 0)
+            this.files = this.board.files
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            console.log('Failed to get board', error.response.status)
+            alert("게시글이 존재하지 않습니다.")
+            this.$router.push('/');
+          }
+        })
+    },
     showDialog() {
       this.dialog = !this.dialog
     },
@@ -124,7 +136,7 @@ export default {
       axios({
         method: 'DELETE',
         url: url + '/boards/board/' + this.id + '/',
-        headers: authHeader()
+        headers: this.header
       }).then((response) => {
         console.log(response.data)
         this.$router.push('/board')

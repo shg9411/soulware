@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import User from '../models/user'
 import { required, email, maxLength, minLength } from "vuelidate/lib/validators";
 export default {
@@ -35,9 +34,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      loggedIn: state => state.auth.status.loggedIn
-    }),
     passwordErrors() {
       const errors = []
       if (!this.$v.user.password.$dirty) return errors
@@ -55,11 +51,15 @@ export default {
     }
   },
   mounted() {
-    if (this.loggedIn) {
-      this.$router.push('/board')
-    }
+    this.init();
   },
   methods: {
+    init() {
+      console.log(this.$store.state.auth.loggedIn)
+      if (this.$store.state.auth.loggedIn == true) {
+        this.$router.push('/board')
+      }
+    },
     login() {
       this.$v.$touch()
       if (!this.$v.$error) {
@@ -75,8 +75,5 @@ export default {
       }
     }
   },
-  components: {
-
-  }
 }
 </script>

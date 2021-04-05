@@ -38,6 +38,7 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { requirePersist: true },
   },
   {
     path: "/board",
@@ -72,18 +73,44 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!store.state.auth.status.loggedIn)
-      next({
-        path: "/login",
-      });
-    else {
-      next();
-    }
-  } else {
-    next();
+const waitStorage = async (_to) => {
+  if (_to.matched.some((record) => record.meta.requirePersist)) {
+    await store.restored;
   }
+  return _to;
+};
+
+const _asyncLogin = (_to) => {
+  return new Promise((resolve, reject) => {
+    if (_to.matched.some((record) => record.meta.requiresAuth)) {
+      store.dispatch("auth/ready");
+      if (!store.state.auth.loggedIn) {
+        reject({ denied: _to });
+      } else {
+        resolve(_to);
+      }
+    } else {
+      resolve(_to);
+    }
+  });
+};
+
+router.beforeResolve((_to, _from, next) => {
+  waitStorage(_to)
+    .then((_to) => _asyncLogin(_to))
+    .then(
+      () => {
+        next();
+      },
+      (err) => {
+        console.log(err);
+        if (err.denied) {
+          next({
+            path: "/login",
+          });
+        }
+      }
+    );
 });
 
 export default router;

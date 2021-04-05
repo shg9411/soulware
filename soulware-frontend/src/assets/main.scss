@@ -50,20 +50,9 @@
         }
     }
 }
-.nav-scroll {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    background-color: rgba($color: #4e6dfc, $alpha: 0.8) !important;
-    box-shadow: 0.2rem 0.2rem 0.5rem 0rem rgba(0, 0, 0, 0.35) !important;
-    // .v-toolbar__content {
-    //     .v-toolbar__title {
-    //         color: #222;
-    //     }
-    //     .v-toolbar__items {
-    //         .v-btn {
-    //             color: #222;
-    //         }
-    //     }
-    // }
+.nav-section.black {
+    background-color: rgba($color: #000, $alpha: 0.8) !important;
+    // box-shadow: 0.2rem 0.2rem 0.5rem 0rem rgba(0, 0, 0, 0.35) !important;
 }
 .v-footer.sw-footer {
     display: flex;
@@ -373,6 +362,7 @@
     background-size: cover;
 }
 .top-text {
+    margin-left: 2.5rem;
     margin-top: -9rem;
     padding-right: 3.86rem;
     display: flex;
@@ -383,10 +373,11 @@
         @extend .font-59, .font-500;
         margin-bottom: 5.3rem;
         line-height: 1.21;
-        letter-spacing: normal;
+        letter-spacing: -0.12rem;
 
         color: #fff;
         text-shadow: 0 0.045rem 0.45rem rgba(0, 0, 0, 0.35);
+        word-break: keep-all;
     }
     p {
         @extend .font-27, .font-normal;
@@ -424,8 +415,11 @@
 .sw-process {
     background-color: #eee;
     padding: 0 10vh;
+    border-bottom: 3.4rem solid #4e6dfc;
+
     h2 {
         @extend .font-59, .font-bold;
+        padding: 2.6rem 1rem 4rem 1rem;
         text-align: center;
         color: #222;
         line-height: normal;
@@ -433,13 +427,35 @@
     }
     .process-list {
         .v-list {
+            padding-bottom: 4rem;
             background: transparent;
+            .v-list-item {
+                min-height: unset;
+                margin-bottom: 2rem;
+                .v-list-item__content {
+                    padding: 0;
+                }
+            }
+            .v-list-item__title {
+                @extend .font-24, .font-500;
+                line-height: 1.44;
+                letter-spacing: normal;
+                color: #222;
+            }
+            .v-list-item__subtitle {
+                @extend .font-16, .font-normal;
+                line-height: 1.55;
+                letter-spacing: normal;
+                color: #777;
+                word-break: keep-all;
+            }
             .v-avatar {
                 border-radius: 0 !important;
 
                 width: 3.22rem !important;
                 height: 3.22rem !important;
                 min-width: 3.22rem !important;
+                margin: 0 0.77rem 0 0;
                 em {
                     display: inline-block;
                     width: 3.22rem;
@@ -499,18 +515,96 @@
         }
     }
     .mockup-section {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        em {
-            display: inline-block;
-            width: 24.36rem;
-            height: 38.36rem;
-            background: url("../assets/images/process_mockup.png") no-repeat center;
-            background-size: 100%;
-        }
+        background: url("../assets/images/process_mockup.png") no-repeat bottom left;
+        background-size: contain;
     }
 }
+
+/*-------------------------------------------------------------------
+@sovit
+-------------------------------------------------------------------*/
+.sovit-top {
+    height: 34.95rem;
+    background: url("../assets/images/sovit_top.png") no-repeat center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    em {
+        display: inline-block;
+        width: 12.23rem;
+        height: 9.72rem;
+        margin-bottom: 1.7rem;
+        background: url("../assets/images/sovit_logo.png") no-repeat center;
+        background-size: 100%;
+    }
+    p {
+        @extend .font-40, .font-normal;
+        line-height: 0.59;
+        letter-spacing: normal;
+        color: #fff;
+    }
+}
+.sovit-info {
+    padding: 0 3.6rem;
+    height: 9.9rem;
+    display: flex;
+    align-items: center;
+    h2 {
+        @extend .font-47, .font-500;
+        margin-right: 1.7rem;
+        line-height: 1.5rem;
+        letter-spacing: normal;
+        color: #98aaf6;
+    }
+    p {
+        @extend .font-21, .font-500;
+        margin: 0;
+        line-height: 1.5rem;
+        letter-spacing: normal;
+        color: #444;
+    }
+}
+.sovit-section1 {
+    height: 40.91rem;
+
+    background: #98aaf6 url("../assets/images/sovit_section1.png") no-repeat center center;
+    background-size: 80%;
+}
+.sovit-section2 {
+    padding: 5%;
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 22.36rem;
+        background: url("../assets/images/sovit_section2.png") no-repeat center center;
+        background-size: contain;
+    }
+}
+.sovit-gray-section {
+    height: 28.68rem;
+    margin-top: -11rem;
+    padding-top: 15rem;
+    background-color: #eeeeee;
+}
+.sovit-section3 {
+    margin-top: -11.5rem;
+    padding: 0 5rem;
+    display: flex;
+
+    justify-content: center;
+    em {
+        display: inline-block;
+        width: 41.05rem;
+        height: 27.18rem;
+        background: url("../assets/images/sovit_section3.png") no-repeat center center;
+        background-size: contain;
+    }
+}
+/*-------------------------------------------------------------------
+@media
+-------------------------------------------------------------------*/
 
 @media (max-width: 1366px) {
     .service-section {
@@ -536,16 +630,23 @@
     .sw-process {
         padding: 0;
     }
+    .sovit-section1 {
+        height: 37rem;
+    }
+    .sovit-gray-section {
+        height: 25rem;
+    }
 }
 
-.ic-process1 {
-}
 @media (min-width: 1367px) {
     .service-section {
         background-size: 80% !important;
     }
     .about-service-section {
-        background-size: 80%;
+        background-size: 75%;
+    }
+    .sovit-section1 {
+        background-size: 65%;
     }
 }
 
@@ -556,14 +657,42 @@
             height: 8.64rem;
         }
     }
+    .about-service-section {
+        height: 38rem;
+    }
+    .sovit-section1 {
+        height: 30rem;
+    }
+    .sovit-gray-section {
+        height: 20.68rem;
+    }
 }
 
 @media (max-width: 960px) {
     .service-section {
         height: 45vh;
     }
-}
+    .top-text {
+        margin-top: -12rem;
 
+        h2 {
+            margin-bottom: 5.3rem;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .top-text {
+        justify-content: flex-start;
+        margin-top: -0rem;
+        margin-bottom: 2.5rem;
+        h2 {
+            margin-top: 2.5rem;
+            color: #222;
+            text-shadow: none;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
 @media (max-width: 600px) {
     .nav-section .v-toolbar__content .v-toolbar__title {
         width: 80%;
@@ -601,5 +730,30 @@
         height: 60rem;
         background-size: 200% !important;
         background: #4e6dfc url("../assets/images/mobile_service.png") no-repeat center;
+    }
+    .about-service-section {
+        height: 78.82rem;
+        background: url("../assets/images/m_about_service.png") no-repeat center;
+        background-size: contain;
+    }
+    .sovit-section1 {
+        height: 52.68rem;
+
+        background: #98aaf6 url("../assets/images/m_sovit_section1.png") no-repeat center center;
+        background-size: contain;
+    }
+    .sovit-section2 {
+        em {
+            height: 68.14rem;
+
+            background: url("../assets/images/m_sovit_section2.png") no-repeat center center;
+            background-size: contain;
+        }
+    }
+
+    .sovit-section3 {
+        padding: 0 1rem;
+        margin: 0;
+        background-color: #eee;
     }
 }

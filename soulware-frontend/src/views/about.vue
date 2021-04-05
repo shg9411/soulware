@@ -1,9 +1,8 @@
 <template>
   <div>
     <div class="about-top-section">
-
     </div>
-    <div class="top-text">
+    <div class="top-text m-top-text">
       <div>
         <h2>소울웨어는 <br />
           영혼을 담아 소프트웨어를 개발합니다!</h2>
@@ -41,12 +40,11 @@
           </p>
         </v-col>
       </v-row>
-
     </div>
     <div class="sw-process">
       <h2>Soulware Work Process</h2>
       <v-row no-gutters>
-        <v-col cols="12" sm="7" class="process-list">
+        <v-col cols="12" sm="12" md="7" class="process-list">
           <v-list three-line>
             <v-list-item>
               <v-list-item-avatar>
@@ -118,15 +116,12 @@
             </v-list-item>
           </v-list>
         </v-col>
-        <v-col cols="12" sm="5" class="mockup-section">
-          <em></em>
+        <v-col d-none md="5" class="mockup-section">
         </v-col>
       </v-row>
-
     </div>
   </div>
 </template>
-
 <script>
 
 export default {

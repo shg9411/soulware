@@ -60,7 +60,7 @@ export default {
       board: '',
       valid: true,
       dialog: false,
-      header: authHeader(),
+      header: '',
       deleted_files: [],
       current: [],
       visible: [],
@@ -121,25 +121,28 @@ export default {
       return errors
     }
   },
-  mounted() {
-    axios({
-      method: 'GET',
-      url: url + this.id,
-      headers: authHeader()
-    })
-      .then((response) => {
-        this.board = response.data
-        for (var i = 0; i < this.board.files.length; i++) {
-          this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
-          this.current.push(this.tmp)
-          this.visible.push(true)
-        }
-      })
-      .catch((response) => {
-        console.log('Failed to get board', response)
-      })
+  created() {
+    this.init()
   },
   methods: {
+    getBoard() {
+      axios({
+        method: 'GET',
+        url: url + this.id,
+        headers: this.header
+      })
+        .then((response) => {
+          this.board = response.data
+          for (var i = 0; i < this.board.files.length; i++) {
+            this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
+            this.current.push(this.tmp)
+            this.visible.push(true)
+          }
+        })
+        .catch((response) => {
+          console.log('Failed to get board', response)
+        })
+    },
     deleteChip(index) {
       this.new_file.splice(index, 1)
     },
@@ -151,8 +154,13 @@ export default {
       if (this.$refs.form.validate())
         this.dialog = !this.dialog
     },
+    async init() {
+      authHeader().then((header) => {
+        this.header = header
+        this.getBoard()
+      })
+    },
     save() {
-
       this.$v.$touch()
       this.$refs.form.validate()
       if (!this.$v.$error) {

@@ -18,6 +18,7 @@
 <script>
 import axios from "axios"
 import authHeader from "../services/auth-header"
+
 const url = "http://localhost:8000/boards/";
 export default {
   name: 'Board',
@@ -27,6 +28,7 @@ export default {
       boards: '',
       message: '',
       length: null,
+      header: '',
     }
   },
   watch: {
@@ -34,26 +36,24 @@ export default {
       this.getPage(val)
     }
   },
-  mounted() {
-    this.getPage(1)
-  },
-  components: {
-
+  created() {
+    this.init()
   },
   methods: {
+    async init() {
+      authHeader().then((header) => {
+        this.header = header
+        this.getPage(1)
+      })
+    },
     getPage(page) {
-      axios.get(url + "board/?page=" + page, { headers: authHeader() }).then(
+      axios.get(url + "board/?page=" + page, { headers: this.header }).then(
         response => {
           this.boards = response.data.results
           if (this.length == null)
             this.length = Math.ceil(response.data.count / 3)
           if (this.boards.length == 0)
             this.message = "게시글이 없습니다."
-        },
-        error => {
-          console.log(error)
-          this.$store.dispatch('auth/logout')
-          this.$router.push('/login')
         }
       )
     },

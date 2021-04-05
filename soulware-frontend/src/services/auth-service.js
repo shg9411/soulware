@@ -1,23 +1,35 @@
 import axios from "axios";
+import localforage from "localforage";
 
-const url = "http://127.0.0.1:8000/accounts/login";
+const url = "http://127.0.0.1:8000/accounts/";
 
 class AuthService {
-  login(user) {
+  async login(user) {
     return axios
-      .post(url, {
+      .post(url + "login", {
         email: user.email,
         password: user.password,
       })
       .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
+        let token = response.data.token;
+        localforage.setItem("token", token).then(function(token) {
+          console.log("create", token);
+        });
+        return token;
       });
   }
-  logout() {
-    localStorage.removeItem("user");
+  async refresh(token) {
+    return axios
+      .post(url + "refresh", {
+        token: token,
+      })
+      .then((response) => {
+        let newToken = response.data.token;
+        localforage.setItem("token", newToken).then(function(newToken) {
+          console.log("refresh", newToken);
+        });
+        return newToken;
+      });
   }
 }
 export default new AuthService();

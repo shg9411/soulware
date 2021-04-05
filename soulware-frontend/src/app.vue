@@ -1,5 +1,14 @@
 <template>
   <v-app>
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list dense>
+        <v-list-item v-for="item in menuItems" :key="item.title" :to="item.path">
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-app-bar :color="bg" app class="nav-section">
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
@@ -14,20 +23,9 @@
         </v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-sm-and-up">
-        <v-menu :close-on-content-click="false" open-on-hover bottom offset-y>
-          <template v-slot:activator="{on}">
-            <v-app-bar-nav-icon v-on="on"></v-app-bar-nav-icon>
-          </template>
-          <v-list>
-            <v-list-item v-for="(item,idx) in menuItems" :href="item.path" :key=idx>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{item.title}}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+        <v-btn @click.stop="drawer = !drawer">
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-main class="pa-0">
@@ -55,6 +53,7 @@ export default {
   },
   data() {
     return {
+      drawer: false,
       bg: 'transparent',
       appTitle: 'SOULWARE',
       menuItems: [
@@ -72,12 +71,10 @@ export default {
   methods: {
     changeColor() {
       if (
-        document.body.scrollTop > 400 ||
-        document.documentElement.scrollTop > 400
-        //스크롤 정도
-        //여기에 숫자 대신 이미지 높이로 하시면 될 것 같아요.
+        document.body.scrollTop > 578 ||
+        document.documentElement.scrollTop > 578
       ) {
-        this.bg = 'black'; //여기가 스크롤 시  app-bar 색깔입니다.
+        this.bg = 'black';
       } else {
         this.bg = 'transparent';
       }
