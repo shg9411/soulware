@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <v-carousel class="main-carousel" :show-arrows="false" cycle hide-delimiter-background>
       <v-carousel-item class="carousel1">
         <v-sheet height="100%">
@@ -150,13 +149,13 @@
         </v-col>
       </v-row>
     </div>
-    <v-fab-transition >
+    <v-fab-transition>
       <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-chatbot">
-          <em></em>
-  
+        <em></em>
+
       </v-btn>
     </v-fab-transition>
-    <v-fab-transition >
+    <v-fab-transition>
       <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-contact">
         문의하기
       </v-btn>
@@ -171,7 +170,7 @@ export default {
   name: 'Home',
   data() {
     return {
-
+      hidden: false
     }
   },
   components: {

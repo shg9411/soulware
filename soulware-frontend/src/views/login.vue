@@ -33,6 +33,9 @@ export default {
       }
     }
   },
+  mounted() {
+    this.init();
+  },
   computed: {
     passwordErrors() {
       const errors = []
@@ -50,12 +53,8 @@ export default {
       return errors
     }
   },
-  mounted() {
-    this.init();
-  },
   methods: {
     init() {
-      console.log(this.$store.state.auth.loggedIn)
       if (this.$store.state.auth.loggedIn == true) {
         this.$router.push('/board')
       }

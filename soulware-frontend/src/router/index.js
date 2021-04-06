@@ -1,6 +1,7 @@
 import Vue from "vue";
-import store from "../store";
 import VueRouter from "vue-router";
+import VueGtag from "vue-gtag";
+import store from "../store";
 import Home from "../views/home.vue";
 import About from "../views/about.vue";
 import Portfolio from "../views/portfolio.vue";
@@ -44,7 +45,7 @@ const routes = [
     path: "/board",
     name: "Board",
     component: Board,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requirePersist: true },
   },
   {
     path: "/add",
@@ -55,14 +56,14 @@ const routes = [
     path: "/board/:id",
     name: "BoardDetail",
     component: BoardDetail,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requirePersist: true },
     props: true,
   },
   {
     path: "/board/:id/edit",
     name: "BoardEdit",
     component: BoardEdit,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requirePersist: true },
     props: true,
   },
 ];
@@ -72,6 +73,20 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+Vue.use(
+  VueGtag,
+  {
+    config: { id: "G-HHDQKNS8WX" },
+    pageTrackerTemplate(to) {
+      return {
+        page_title: to.name,
+        page_path: to.path,
+      };
+    },
+  },
+  router
+);
 
 const waitStorage = async (_to) => {
   if (_to.matched.some((record) => record.meta.requirePersist)) {

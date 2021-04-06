@@ -6,14 +6,12 @@ import duration from "dayjs/plugin/duration";
 
 dayjs.extend(duration);
 
-let token = null;
-localforage.getItem("token").then(function(value) {
-  token = value;
-});
-
-const initialState = token
-  ? { loggedIn: true, token, info: null, ready: false }
-  : { loggedIn: false, token: null, info: null, ready: false };
+const initialState = {
+  ready: false,
+  info: null,
+  loggedIn: false,
+  token: null,
+};
 
 export const auth = {
   namespaced: true,
