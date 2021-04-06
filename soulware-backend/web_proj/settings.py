@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'accounts',
     'corsheaders',
     'boards',
+    'blogs',
     'django_cleanup',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -69,6 +70,14 @@ WSGI_APPLICATION = 'web_proj.wsgi.application'
 
 
 DATABASES = my_settings.DATABASES
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'TIMEOUT': 3600,
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [

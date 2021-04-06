@@ -12,6 +12,9 @@ import AddBoard from "../views/add-board.vue";
 import BoardDetail from "../components/board-detail.vue";
 import BoardEdit from "../components/board-edit.vue";
 import NotFound from "../components/not-found.vue";
+import ChungdahmAllim from "../views/portfolio/chungdahm-allim.vue";
+import ChungdahmLearning from "../views/portfolio/chungdahm-learning-portal.vue";
+import YujinIclebo from "../views/portfolio/yujin-iclebo.vue";
 
 Vue.use(VueRouter);
 
@@ -35,6 +38,21 @@ const routes = [
     path: "/portfolio",
     name: "Portfolio",
     component: Portfolio,
+  },
+  {
+    path: "/portfolio/chungdahm-allim",
+    name: "ChungdahmAllim",
+    component: ChungdahmAllim,
+  },
+  {
+    path: "/portfolio/chungdahm-learning-portal",
+    name: "ChungdahmLearning",
+    component: ChungdahmLearning,
+  },
+  {
+    path: "/portfolio/yujin-iclebo",
+    name: "YujinIclebo",
+    component: YujinIclebo,
   },
   {
     path: "/login",

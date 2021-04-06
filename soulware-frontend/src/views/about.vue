@@ -120,14 +120,20 @@
         </v-col>
       </v-row>
     </div>
+    <v-fab-transition>
+      <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-chatbot">
+        <em></em>
+      </v-btn>
+    </v-fab-transition>
+    <v-fab-transition>
+      <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-contact">
+        문의하기
+      </v-btn>
+    </v-fab-transition>
   </div>
 </template>
 <script>
-
 export default {
   name: 'About',
-  components: {
-
-  }
 }
 </script>

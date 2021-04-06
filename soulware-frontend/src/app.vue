@@ -35,7 +35,6 @@
     </v-main>
     <v-footer class="sw-footer">
       <p>TEL : 010-4547-4802 E-MAIL : tom@soulware.kr</p><br />
-
       <p>Address : 서울특별시 강남구 테헤란로 2길 8, 4층 / 경기도 부천시 경인로 522 310호 (기업부설연구소)<br />
         사업자등록번호 : 547-86-01588 대표이사 : 이상협</p>
       <p>Copyright ⓒ soulware. All Rights Reserved.</p>
@@ -46,8 +45,6 @@
 <script>
 export default {
   name: "App",
-  computed: {
-  },
   data() {
     return {
       drawer: false,

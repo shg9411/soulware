@@ -17,17 +17,13 @@
           </v-row>
         </v-sheet>
       </v-carousel-item>
-
     </v-carousel>
-
     <div class="portfolio-section">
       <v-row no-gutters>
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0">
             <em class="chungdahm-learning"></em>
-
             <v-card-title>Chungdahm Learning</v-card-title>
-
             <v-card-text>
               <p>청담러닝 사이트</p>
               <span># Responsive web # mobile webapp support </span>
@@ -38,7 +34,6 @@
           <v-card elevation="0">
             <em class="iclebo"></em>
             <v-card-title>iClebo O5</v-card-title>
-
             <v-card-text>
               <p>방과후 학교 솔루션</p>
               <span># STB Viewer # Veutify Framework # Libray </span>
@@ -49,7 +44,6 @@
           <v-card elevation="0">
             <em class="allim"></em>
             <v-card-title>allim</v-card-title>
-
             <v-card-text>
               <p>(주)청담러닝 학부모앱</p>
               <span># Hybrid APP # Veutify Framework # Cordova plugin</span>
@@ -70,7 +64,6 @@
         </v-col>
         <v-col>
           <em class="logo2"></em>
-
         </v-col>
         <v-col>
           <em class="logo3"></em>
@@ -117,42 +110,22 @@
     </div>
     <div class="blog-section">
       <v-row no-gutters>
-        <v-col cols="12" sm="6" md="4" lg="3" class="col-pd">
-          <v-card>
-            <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-            <v-card-title>골목식당 부천점에 가다!</v-card-title>
-            <v-card-text>
-              <p>작년쯤엔가 백종원의 골목식당에 부천 대학가 골목이 나왔는데요.</p>
-              <span>2020년 4월 29일</span>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="6" md="4" lg="3" class="col-pd">
-          <v-card>
-            <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-            <v-card-title>골목식당 부천점에 가다!</v-card-title>
-            <v-card-text>
-              <p>작년쯤엔가 백종원의 골목식당에 부천 대학가 골목이 나왔는데요.</p>
-              <span>2020년 4월 29일</span>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="12" sm="6" md="4" lg="3" class="col-pd">
-          <v-card>
-            <v-img src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
-            <v-card-title>골목식당 부천점에 가다!</v-card-title>
-            <v-card-text>
-              <p>작년쯤엔가 백종원의 골목식당에 부천 대학가 골목이 나왔는데요.</p>
-              <span>2020년 4월 29일</span>
+        <v-col v-for="(blog,i) in current" :key=i cols="12" sm="6" md="4" lg="3" class="col-pd">
+          <v-card :href=blog.link>
+            <v-img v-bind:src="blog.thumbnail"></v-img>
+            <v-card-title v-html="blog.title"></v-card-title>
+            <v-card-text v-html="blog.subtitle+'<span>'+blog.date+'</span>'">
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
+      <div class="text-center">
+        <v-pagination v-model="page" :length="length" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
+      </div>
     </div>
     <v-fab-transition>
       <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-chatbot">
         <em></em>
-
       </v-btn>
     </v-fab-transition>
     <v-fab-transition>
@@ -165,18 +138,53 @@
 </template>
 
 <script>
+import axios from 'axios'
+const url = 'http://localhost:8000'
+const size = 8
 
 export default {
   name: 'Home',
   data() {
     return {
-      hidden: false
+      page: 0,
+      hidden: false,
+      tmpBlogs: '',
+      blogs: [],
+      length: null,
+      current: [],
     }
   },
-  components: {
-
+  watch: {
+    page: function (val) {
+      this.setPage(val)
+    }
+  },
+  mounted() {
+    axios({
+      method: 'GET',
+      url: url + '/blogs/',
+    })
+      .then((response) => {
+        if (response.data["blogs"]) {
+          this.tmpBlogs = response.data["blogs"]
+          this.length = Math.ceil(this.tmpBlogs.length / size)
+          if (this.length > 0)
+            this.page = 1
+          for (var i = 0; i < this.tmpBlogs.length; i++) {
+            this.blogs.push({ link: this.tmpBlogs[i]["link"], date: new Date(this.tmpBlogs[i]["date"]).toDateString(), title: this.tmpBlogs[i]["title"]["rendered"], subtitle: decodeURIComponent(this.tmpBlogs[i]["excerpt"]["rendered"]), thumbnail: this.tmpBlogs[i]['_embedded']['wp:featuredmedia'][0]['source_url'] })
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+  methods: {
+    setPage(val) {
+      this.current = []
+      for (var i = (val - 1) * size; i < this.blogs.length && i < (val) * size; i++)
+        this.current.push(this.blogs[i])
+    },
   }
-
 }
-
 </script>
