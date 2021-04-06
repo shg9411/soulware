@@ -11,6 +11,7 @@ import Board from "../views/board.vue";
 import AddBoard from "../views/add-board.vue";
 import BoardDetail from "../components/board-detail.vue";
 import BoardEdit from "../components/board-edit.vue";
+import NotFound from "../components/not-found.vue";
 
 Vue.use(VueRouter);
 
@@ -65,6 +66,14 @@ const routes = [
     component: BoardEdit,
     meta: { requiresAuth: true, requirePersist: true },
     props: true,
+  },
+  {
+    path: "/page-not-found",
+    component: NotFound,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/page-not-found",
   },
 ];
 
