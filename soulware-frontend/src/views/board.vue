@@ -19,7 +19,8 @@
 import axios from "axios"
 import authHeader from "../services/auth-header"
 
-const url = "http://localhost:8000/boards/";
+const URL = process.env.VUE_APP_API_SERVER
+
 export default {
   name: 'Board',
   data() {
@@ -47,7 +48,7 @@ export default {
       })
     },
     getPage(page) {
-      axios.get(url + "board/?page=" + page, { headers: this.header }).then(
+      axios.get(URL + "/boards/board/?page=" + page, { headers: this.header }).then(
         response => {
           this.boards = response.data.results
           if (this.length == null)

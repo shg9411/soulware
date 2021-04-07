@@ -84,7 +84,7 @@
 <script>
 import axios from 'axios'
 import authHeader from '../services/auth-header'
-const url = 'http://localhost:8000'
+const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'detail',
   props: ['id'],
@@ -109,7 +109,7 @@ export default {
     getBoard() {
       axios({
         method: 'GET',
-        url: url + '/boards/board/' + this.id,
+        url: URL + '/boards/board/' + this.id,
         headers: this.header
       })
         .then((response) => {
@@ -135,7 +135,7 @@ export default {
       this.dialog = false
       axios({
         method: 'DELETE',
-        url: url + '/boards/board/' + this.id + '/',
+        url: URL + '/boards/board/' + this.id + '/',
         headers: this.header
       }).then((response) => {
         console.log(response.data)
@@ -147,7 +147,7 @@ export default {
     download(file) {
       axios({
         method: 'GET',
-        url: url + file.file,
+        URL: URL + file.file,
         responseType: 'blob',
       }).then((response) => {
         var fileURL = window.URL.createObjectURL(new Blob([response.data]))

@@ -23,16 +23,19 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: { float: true },
   },
   {
     path: "/about",
     name: "About",
     component: About,
+    meta: { float: true },
   },
   {
     path: "/sovit",
     name: "Sovit",
     component: Sovit,
+    meta: { float: true },
   },
   {
     path: "/portfolio",
@@ -98,6 +101,9 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    return { x: 0, y: 0 };
+  },
   routes,
 });
 

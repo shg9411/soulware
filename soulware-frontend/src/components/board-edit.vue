@@ -51,7 +51,7 @@
 import axios from "axios";
 import authHeader from '../services/auth-header'
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
-const url = 'http://localhost:8000/boards/board/'
+const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'edit',
   props: ['id'],
@@ -128,7 +128,7 @@ export default {
     getBoard() {
       axios({
         method: 'GET',
-        url: url + this.id,
+        url: URL + '/boards/board/' + this.id,
         headers: this.header
       })
         .then((response) => {
@@ -176,7 +176,7 @@ export default {
           fd.append("files", this.new_file[i])
         this.header['Content-Type'] = 'multipart/form-data'
         axios
-          .patch(url + this.board.id + '/', fd, {
+          .patch(URL + '/boards/board/' + this.board.id + '/', fd, {
             headers: this.header
           })
           .then(response => {

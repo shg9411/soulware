@@ -7,7 +7,7 @@
     <div class="portfolio-section">
       <v-row no-gutters>
         <v-col cols="12" sm="4" class="col-cover">
-          <v-card elevation="0" :to="'/portfolio/chungdahm-learning-portal'">
+          <v-card elevation="0" :to="{name:'ChungdahmLearning'}">
             <em class=" chungdahm-learning"></em>
             <v-card-title>Chungdahm Learning</v-card-title>
             <v-card-text>
@@ -17,7 +17,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4" class="col-cover">
-          <v-card elevation="0" :to="'/portfolio/yujin-iclebo'">
+          <v-card elevation="0" :to="{name:'YujinIclebo'}">
             <em class="iclebo"></em>
             <v-card-title>iClebo O5</v-card-title>
 
@@ -28,7 +28,7 @@
           </v-card>
         </v-col>
         <v-col cols="12" sm="4" class="col-cover">
-          <v-card elevation="0" :to="'/portfolio/chungdahm-allim'">
+          <v-card elevation="0" :to="{name:'ChungdahmAllim'}">
             <em class="allim"></em>
             <v-card-title>allim</v-card-title>
 

@@ -11,14 +11,14 @@
     </v-navigation-drawer>
     <v-app-bar :color="bg" app class="nav-section">
       <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
+        <router-link :to="{name:'Home'}" tag="span" style="cursor: pointer">
           {{ appTitle }}
         </router-link>
         <span class="slogan">혼이 담긴 소프트웨어</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-for="(item,idx) in menuItems" :href="item.path" :key=idx>
+        <v-btn v-for="(item,idx) in menuItems" :to="item.path" :key=idx>
           {{item.title}}
         </v-btn>
       </v-toolbar-items>
@@ -31,6 +31,18 @@
     <v-main class="pa-0">
       <v-container fluid class="pa-0">
         <router-view></router-view>
+        <div v-show="float">
+          <v-fab-transition>
+            <v-btn dark fixed bottom right fab class="fab-chatbot">
+              <em></em>
+            </v-btn>
+          </v-fab-transition>
+          <v-fab-transition>
+            <v-btn :to="{name:'AddBoard'}" dark fixed bottom right fab class="fab-contact">
+              문의하기
+            </v-btn>
+          </v-fab-transition>
+        </div>
       </v-container>
     </v-main>
     <v-footer class="sw-footer">
@@ -55,6 +67,15 @@ export default {
         { title: '포트폴리오', path: '/portfolio' },
         { title: '회사소개', path: '/about' },
       ]
+    }
+  },
+  computed: {
+    float() {
+      let to = this.$route
+      if (to && to.meta && to.meta.float) {
+        return true
+      }
+      return false
     }
   },
   mounted() {

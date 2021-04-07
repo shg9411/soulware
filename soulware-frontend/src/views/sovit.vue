@@ -18,23 +18,42 @@
     <div class="sovit-section3">
       <em></em>
     </div>
-    <div class="sovit-section4">
-    </div>
-    <v-fab-transition>
-      <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-chatbot">
-        <em></em>
-      </v-btn>
-    </v-fab-transition>
-    <v-fab-transition>
-      <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-contact">
-        문의하기
-      </v-btn>
-    </v-fab-transition>
+    <infinite-slide-bar duration="30s">
+      <div class="items">
+        <div v-for="(image,i) in images" :key="i">
+          <div class="ma-10">
+            <img :src="image" height=auto>
+          </div>
+        </div>
+      </div>
+    </infinite-slide-bar>
   </div>
 </template>
 <script>
-
+import InfiniteSlideBar from "vue-infinite-slide-bar"
 export default {
   name: 'Sovit',
+  data() {
+    return {
+      images: [
+        'https://dummyimage.com/50x400/000/fff&text=1',
+        'https://dummyimage.com/1000x1000/000/fff&text=2',
+        'https://dummyimage.com/600x800/000/fff&text=3'
+      ]
+    }
+  },
+  components: {
+    InfiniteSlideBar
+  }
 }
 </script>
+
+<style>
+.items {
+  display: flex;
+  justify-content: space-around;
+}
+img {
+  height: 15rem;
+}
+</style>

@@ -51,7 +51,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-btn rounded class="more-btn">
+      <v-btn :to="'/portfolio'" rounded class="more-btn">
         포트폴리오 더보기
       </v-btn>
     </div>
@@ -110,11 +110,13 @@
     </div>
     <div class="blog-section">
       <v-row no-gutters>
-        <v-col v-for="(blog,i) in current" :key=i cols="12" sm="6" md="4" lg="3" class="col-pd">
+        <v-col v-for="blog in current" :key=blog.id cols="12" sm="6" md="4" lg="3" class="col-pd">
           <v-card :href=blog.link>
             <v-img v-bind:src="blog.thumbnail"></v-img>
-            <v-card-title v-html="blog.title"></v-card-title>
-            <v-card-text v-html="blog.subtitle+'<span>'+blog.date+'</span>'">
+            <v-card-title>{{blog.title}}</v-card-title>
+            <v-card-text>
+              {{blog.subtitle}}
+              <span v-text=convertUtoL(blog.date)></span>
             </v-card-text>
           </v-card>
         </v-col>
@@ -123,68 +125,56 @@
         <v-pagination v-model="page" :length="length" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
       </div>
     </div>
-    <v-fab-transition>
-      <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-chatbot">
-        <em></em>
-      </v-btn>
-    </v-fab-transition>
-    <v-fab-transition>
-      <v-btn v-show="!hidden" dark fixed bottom right fab class="fab-contact">
-        문의하기
-      </v-btn>
-    </v-fab-transition>
   </div>
 
 </template>
 
 <script>
 import axios from 'axios'
-const url = 'http://localhost:8000'
-const size = 8
+const URL = process.env.VUE_APP_API_SERVER
 
 export default {
   name: 'Home',
   data() {
     return {
-      page: 0,
+      page: 1,
       hidden: false,
-      tmpBlogs: '',
-      blogs: [],
       length: null,
       current: [],
     }
   },
   watch: {
     page: function (val) {
-      this.setPage(val)
+      this.getPage(val)
     }
   },
-  mounted() {
-    axios({
-      method: 'GET',
-      url: url + '/blogs/',
-    })
-      .then((response) => {
-        if (response.data["blogs"]) {
-          this.tmpBlogs = response.data["blogs"]
-          this.length = Math.ceil(this.tmpBlogs.length / size)
-          if (this.length > 0)
-            this.page = 1
-          for (var i = 0; i < this.tmpBlogs.length; i++) {
-            this.blogs.push({ link: this.tmpBlogs[i]["link"], date: new Date(this.tmpBlogs[i]["date"]).toDateString(), title: this.tmpBlogs[i]["title"]["rendered"], subtitle: decodeURIComponent(this.tmpBlogs[i]["excerpt"]["rendered"]), thumbnail: this.tmpBlogs[i]['_embedded']['wp:featuredmedia'][0]['source_url'] })
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  created() {
+    this.init()
   },
   methods: {
-    setPage(val) {
-      this.current = []
-      for (var i = (val - 1) * size; i < this.blogs.length && i < (val) * size; i++)
-        this.current.push(this.blogs[i])
+    async init() {
+      this.getPage(1)
     },
-  }
+    convertUtoL(date) {
+      return new Date(date * 1000).toLocaleDateString("ko-KR")
+    },
+    getPage(page) {
+      axios.get(URL + "/blogs?page=" + page).then(
+        (response) => {
+          if (!this.length) {
+            if (response.data["pages"])
+              this.length = response.data["pages"]
+            else {
+              this.length = 0
+              return
+            }
+          }
+          this.current = response.data["blogs"]
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
 }
 </script>

@@ -27,7 +27,7 @@
 import axios from "axios";
 import Board from '../models/board'
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
-const url = "http://localhost:8000/boards/board/";
+const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'AddBoard',
   data() {
@@ -110,7 +110,7 @@ export default {
             fd.append("files", this.files[i])
           }
           axios
-            .post(url, fd, {
+            .post(URL+"/boards/board/", fd, {
               headers: {
                 "Content-Type": "multipart/form-data"
               }
@@ -126,7 +126,7 @@ export default {
         } else {
           console.log("JSON")
           axios
-            .post(url, this.board, {
+            .post(URL+"/boards/board/", this.board, {
             })
             .then(response => {
               console.log(response.data);
@@ -145,7 +145,7 @@ export default {
       this.board.body = "";
       this.board.email = "";
       this.board.phone = "";
-      this.board.files = null;
+      this.files = [];
     }
   },
 }

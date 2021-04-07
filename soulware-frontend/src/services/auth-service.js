@@ -1,12 +1,12 @@
 import axios from "axios";
 import localforage from "localforage";
 
-const url = "http://127.0.0.1:8000/accounts/";
+const URL = process.env.VUE_APP_API_SERVER;
 
 class AuthService {
   async login(user) {
     return axios
-      .post(url + "login", {
+      .post(URL + "/accounts/login", {
         email: user.email,
         password: user.password,
       })
@@ -20,7 +20,7 @@ class AuthService {
   }
   async refresh(token) {
     return axios
-      .post(url + "refresh", {
+      .post(URL + "/accounts/refresh", {
         token: token,
       })
       .then((response) => {
