@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" fixed temporary>
+    <v-navigation-drawer right v-model="drawer" fixed temporary>
       <v-list dense>
         <v-list-item v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-list-item-content>
