@@ -143,9 +143,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-with open('email.txt') as email:
-    EMAIL_HOST_USER = email.readline().strip()
-    EMAIL_HOST_PASSWORD = email.readline().strip()
+EMAIL_HOST_USER = my_settings.EMAIL_HOST
+EMAIL_HOST_PASSWORD = my_settings.EMAIL_PW
 
 
 STATIC_URL = '/static/'
@@ -168,3 +167,6 @@ SWAGGER_SETTINGS = {
         }
     }
 }
+
+
+WP_URL = my_settings.WP_URL
