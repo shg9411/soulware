@@ -40,7 +40,29 @@
         </v-col>
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0">
-            <em class="allim"></em>
+            <em class="incheon-airport"></em>
+            <v-card-title>인천공항 가이드앱</v-card-title>
+
+            <v-card-text>
+              <p>(주)청담러닝 학부모앱</p>
+              <span># Hybrid APP # Veutify Framework # Cordova plugin</span>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="4" class="col-cover">
+          <v-card elevation="0">
+            <em class="loud-class"></em>
+            <v-card-title>LoudClass</v-card-title>
+
+            <v-card-text>
+              <p>(주)청담러닝</p>
+              <span># Hybrid APP # Veutify Framework # Cordova plugin</span>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col cols="12" sm="4" class="col-cover">
+          <v-card elevation="0">
+            <em class="itcrew-app"></em>
             <v-card-title>allim</v-card-title>
 
             <v-card-text>
@@ -51,7 +73,7 @@
         </v-col>
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0">
-            <em class="allim"></em>
+            <em class="itcrew-web"></em>
             <v-card-title>allim</v-card-title>
 
             <v-card-text>
@@ -60,9 +82,10 @@
             </v-card-text>
           </v-card>
         </v-col>
+
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0">
-            <em class="allim"></em>
+            <em class="spring"></em>
             <v-card-title>allim</v-card-title>
 
             <v-card-text>
@@ -71,6 +94,7 @@
             </v-card-text>
           </v-card>
         </v-col>
+
       </v-row>
     </div>
   </div>
