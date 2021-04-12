@@ -1,6 +1,16 @@
 <template>
   <div>
-    <div class="iclebo-top">
+    <div class="iclebo-top portfolio-top">
+      <v-row no-gutters class="portfolio-info-common">
+        <v-col cols="8" sm="9" md="10">
+          <span>iCLEBO 05 로봇 청소기 원격 제어 플랫폼 / Client: YUJIN ROBOT / Device : Mobile phone / Date : 2018.3 ~ 2020.5 </span>
+        </v-col>
+        <v-col cols="4" sm="3" md="2" class="text-right">
+          <v-btn icon color="white">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
       <em></em>
       <p>로봇 청소기 원격 제어 플랫폼</p>
 

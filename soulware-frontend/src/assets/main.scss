@@ -632,6 +632,28 @@
 /*-------------------------------------------------------------------
 @portfolio
 -------------------------------------------------------------------*/
+.portfolio-info-common {
+    position: absolute;
+    top: 4.09rem;
+    width: 100%;
+    border-top: 0.045rem solid #fff;
+    padding: 1rem 1.3rem 1rem 2.227rem;
+    span {
+        @extend .font-14, .font-normal;
+        color: #fff;
+        line-height: normal;
+        letter-spacing: normal;
+    }
+    .v-btn.v-btn--icon {
+        width: 2rem;
+        height: 2rem;
+        .v-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            font-size: 1.2rem;
+        }
+    }
+}
 .portfolio-top-section {
     display: flex;
     align-items: center;
@@ -647,15 +669,17 @@
         color: #fff;
     }
 }
-
-.iclebo-top {
+.portfolio-top {
     height: 34.95rem;
-    background: url("../assets/images/iclebo_top.png") no-repeat center;
-    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+.iclebo-top {
+    background: url("../assets/images/iclebo_top.png") no-repeat center;
+    background-size: cover;
+
     em {
         width: 15.05rem;
         height: 3.18rem;
@@ -834,6 +858,165 @@
         background-size: contain;
     }
 }
+
+.chungdahm-top {
+    background: url("../assets/images/learning_portal_top.png") no-repeat center;
+    background-size: cover;
+    align-items: flex-start;
+
+    em {
+        width: 11.64rem;
+        height: 4.136rem;
+        background: url("../assets/images/chungdahm_logo.png") no-repeat center;
+        background-size: cover;
+        margin-left: 4.54rem;
+    }
+    p {
+        @extend .font-69, .font-500;
+        margin-left: 4.54rem;
+        margin-bottom: 0;
+        color: #fff;
+        line-height: normal;
+        letter-spacing: normal;
+        text-shadow: 0.045rem 0.045rem 0.45rem rgba(55, 52, 52, 0.3);
+    }
+}
+.chungdahm-overview-section {
+    padding: 0 3.6rem;
+    height: 12.41rem;
+    display: flex;
+    align-items: center;
+    background-color: #edf0f2;
+    h2 {
+        @extend .font-47, .font-500;
+        margin-right: 1.7rem;
+        line-height: 1.5rem;
+        letter-spacing: normal;
+        color: #2f3439;
+    }
+    p {
+        @extend .font-16, .font-500;
+        margin: 0;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #444;
+    }
+}
+.chungdahm-overview-img {
+    padding: 0 1.5rem;
+    padding-top: 2.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    em {
+        display: inline-block;
+        width: 41.09rem;
+        height: 33rem;
+        background: url("../assets/images/chungdahm_overview.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.gray-box {
+    margin-top: -8rem;
+    background-color: #edf0f2;
+    height: 34.59rem;
+}
+.chungdahm-main-section {
+    margin-top: -16.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h3 {
+        @extend .font-47, .font-500;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #444;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 31.23rem;
+        background: url("../assets/images/main_gif.gif") no-repeat center;
+        background-size: contain;
+    }
+}
+.chungdahm-sub-page {
+    margin-top: -2rem !important;
+
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 29.5rem;
+        background: url("../assets/images/chungdahm_wab.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.chungdahm-dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2.5rem;
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 86.18rem;
+        background: url("../assets/images/chungdahm_dashboard.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.chungdahm-mobile-section {
+    background: #0458dd url("../assets/images/chungdahm_mobile.png") no-repeat right top;
+    background-size: 100%;
+    height: 52.41rem;
+    padding: 2.5rem 2.5rem 0 2.5rem;
+    h3 {
+        @extend .font-21, .font-500;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #fff;
+    }
+}
+.chungdahm-responsive-section {
+    h3 {
+        @extend .font-21, .font-500;
+        padding: 2.5rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #444;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 39.05rem;
+        background: url("../assets/images/chungdahm_response.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.chungdahm-emoji-store-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: #ffd44d;
+    padding: 2.5rem;
+    flex-direction: column;
+    h3 {
+        @extend .font-21, .font-500;
+        width: 100%;
+        text-align: left;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #222;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 31.23rem;
+
+        background: url("../assets/images/emoji_gif.gif") no-repeat center;
+        background-size: contain;
+    }
+}
 /*-------------------------------------------------------------------
 @media
 -------------------------------------------------------------------*/
@@ -949,6 +1132,20 @@
         padding: 0 2rem;
         min-height: 38.28rem;
     }
+    .chungdahm-sub-page em {
+        height: 25.5rem;
+        background-size: 130%;
+    }
+    .chungdahm-dashboard em {
+        height: 57.18rem;
+        margin-bottom: 2rem;
+    }
+    .chungdahm-mobile-section {
+        height: 32.41rem;
+    }
+    .chungdahm-responsive-section em {
+        height: 25.05rem;
+    }
 }
 @media (max-width: 768px) {
     .top-text {
@@ -1061,5 +1258,50 @@
         height: 43.09rem;
         background: url("../assets/images/m_iclebo_remote.png") no-repeat center;
         background-size: contain;
+    }
+    .chungdahm-dashboard {
+        padding: 0;
+        em {
+            height: 98rem;
+            background: url("../assets/images/m_dashboard.png") no-repeat center;
+            background-size: 100%;
+        }
+    }
+    .gray-box {
+        height: 24.59rem;
+    }
+    .chungdahm-main-section {
+        margin-top: -15.5rem;
+        em {
+            height: 24.23rem;
+            background-size: 130%;
+        }
+    }
+    .chungdahm-mobile-section {
+        background-size: 130%;
+        h3 {
+            text-align: right;
+        }
+    }
+    .chungdahm-responsive-section em {
+        background-size: 130%;
+    }
+    .chungdahm-emoji-store-section {
+        padding: 0;
+        h3 {
+            padding: 2.5rem;
+        }
+        em {
+            height: 24.23rem;
+            background-size: 130%;
+        }
+    }
+    .chungdahm-overview-section {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1.5rem;
+        h2 {
+            margin-bottom: 2rem;
+        }
     }
 }
