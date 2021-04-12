@@ -1,17 +1,15 @@
-import axios from "axios";
 import localforage from "localforage";
-
-const URL = process.env.VUE_APP_API_SERVER;
+import http from "../utils/http";
 
 class AuthService {
   async login(user) {
-    return axios
-      .post(URL + "/accounts/login", {
+    return await http
+      .process("auth", "login", {
         email: user.email,
         password: user.password,
       })
-      .then((response) => {
-        let token = response.data.token;
+      .then((data) => {
+        let token = data.token;
         localforage.setItem("token", token).then(function(token) {
           console.log("create", token);
         });
@@ -19,12 +17,12 @@ class AuthService {
       });
   }
   async refresh(token) {
-    return axios
-      .post(URL + "/accounts/refresh", {
+    return await http
+      .process("auth", "refresh", {
         token: token,
       })
-      .then((response) => {
-        let newToken = response.data.token;
+      .then((data) => {
+        let newToken = data.token;
         localforage.setItem("token", newToken).then(function(newToken) {
           console.log("refresh", newToken);
         });

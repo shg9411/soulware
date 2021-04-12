@@ -82,8 +82,7 @@
 </template>
  
 <script>
-import axios from 'axios'
-import authHeader from '../services/auth-header'
+import http from "../utils/http"
 const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'detail',
@@ -93,7 +92,6 @@ export default {
       board: '',
       dialog: false,
       files: '',
-      header: '',
     }
   },
   created() {
@@ -101,29 +99,13 @@ export default {
   },
   methods: {
     async init() {
-      authHeader().then((header) => {
-        this.header = header
-        this.getBoard()
-      })
+      this.getBoard()
     },
-    getBoard() {
-      axios({
-        method: 'GET',
-        url: URL + '/boards/board/' + this.id,
-        headers: this.header
-      })
-        .then((response) => {
-          this.board = response.data
-          if (this.board.files.length > 0)
-            this.files = this.board.files
-        })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            console.log('Failed to get board', error.response.status)
-            alert("게시글이 존재하지 않습니다.")
-            this.$router.push('/');
-          }
-        })
+    async getBoard() {
+      const data = await http.process('board', 'detail', { id: this.id })
+      this.board = data
+      if (this.board.files.length > 0)
+        this.files = this.board.files
     },
     showDialog() {
       this.dialog = !this.dialog
@@ -131,34 +113,28 @@ export default {
     edit() {
       this.$router.push({ name: 'BoardEdit', params: { id: this.id } })
     },
-    del() {
+    async del() {
       this.dialog = false
-      axios({
-        method: 'DELETE',
-        url: URL + '/boards/board/' + this.id + '/',
-        headers: this.header
-      }).then((response) => {
-        console.log(response.data)
-        this.$router.push('/board')
-      }).catch((response) => {
-        console.log('Failed to delete board', response)
-      })
+      const data = await http.process('board', 'delete', { id: this.id })
+      console.log(data)
+      this.$router.push('/board')
     },
     download(file) {
-      axios({
-        method: 'GET',
-        URL: URL + file.file,
-        responseType: 'blob',
-      }).then((response) => {
-        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
-        var fileLink = document.createElement('a');
-        fileLink.href = fileURL;
-        fileLink.setAttribute('download', file.originName);
-        document.body.appendChild(fileLink);
-        fileLink.click();
-      }).catch((response) => {
-        console.log(response)
-      })
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", URL + file.file, true)
+      xhr.responseType = 'blob';
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      xhr.send();
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var _data = this.response;
+          var _blob = new Blob([_data]);
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(_blob);
+          link.download = file.originName;
+          link.click();
+        };
+      };
     }
   }
 }

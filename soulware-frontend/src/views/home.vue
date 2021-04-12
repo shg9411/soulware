@@ -130,8 +130,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-const URL = process.env.VUE_APP_API_SERVER
+import http from '../utils/http'
 
 export default {
   name: 'Home',
@@ -158,22 +157,17 @@ export default {
     convertUtoL(date) {
       return new Date(date * 1000).toLocaleDateString("ko-KR")
     },
-    getPage(page) {
-      axios.get(URL + "/blogs?page=" + page).then(
-        (response) => {
-          if (!this.length) {
-            if (response.data["pages"])
-              this.length = response.data["pages"]
-            else {
-              this.length = 0
-              return
-            }
-          }
-          this.current = response.data["blogs"]
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    async getPage(page) {
+      const data = await http.get('/blogs', { page: page })
+      if (!this.length) {
+        if (data["pages"])
+          this.length = data["pages"]
+        else {
+          this.length = 0
+          return
+        }
+      }
+      this.current = data["blogs"]
     }
   },
 }

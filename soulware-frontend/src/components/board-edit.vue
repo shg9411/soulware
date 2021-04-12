@@ -48,10 +48,8 @@
 </template>
  
 <script>
-import axios from "axios";
-import authHeader from '../services/auth-header'
+import http from "../utils/http"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
-const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'edit',
   props: ['id'],
@@ -60,7 +58,6 @@ export default {
       board: '',
       valid: true,
       dialog: false,
-      header: '',
       deleted_files: [],
       current: [],
       visible: [],
@@ -125,23 +122,14 @@ export default {
     this.init()
   },
   methods: {
-    getBoard() {
-      axios({
-        method: 'GET',
-        url: URL + '/boards/board/' + this.id,
-        headers: this.header
-      })
-        .then((response) => {
-          this.board = response.data
-          for (var i = 0; i < this.board.files.length; i++) {
-            this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
-            this.current.push(this.tmp)
-            this.visible.push(true)
-          }
-        })
-        .catch((response) => {
-          console.log('Failed to get board', response)
-        })
+    async getBoard() {
+      const data = await http.process('board', 'detail', { id: this.id })
+      this.board = data
+      for (var i = 0; i < this.board.files.length; i++) {
+        this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
+        this.current.push(this.tmp)
+        this.visible.push(true)
+      }
     },
     deleteChip(index) {
       this.new_file.splice(index, 1)
@@ -155,12 +143,9 @@ export default {
         this.dialog = !this.dialog
     },
     async init() {
-      authHeader().then((header) => {
-        this.header = header
-        this.getBoard()
-      })
+      this.getBoard()
     },
-    save() {
+    async save() {
       this.$v.$touch()
       this.$refs.form.validate()
       if (!this.$v.$error) {
@@ -169,23 +154,15 @@ export default {
         fd.append("title", this.board.title);
         fd.append("body", this.board.body);
         fd.append("email", this.board.email);
-        fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
+        fd.append("phone", this.board.phone);
         for (let i = 0; i < this.deleted_files.length; i++)
           fd.append("deleted_files[]", this.deleted_files[i])
         for (let i = 0; i < this.new_file.length; i++)
           fd.append("files", this.new_file[i])
-        this.header['Content-Type'] = 'multipart/form-data'
-        axios
-          .patch(URL + '/boards/board/' + this.board.id + '/', fd, {
-            headers: this.header
-          })
-          .then(response => {
-            console.log(response.data);
-            this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
-          })
-          .catch(error => {
-            console.log("Failed to edit board", error.response);
-          });
+        let { id } = this.$route.params
+        const data = await http.process('board', 'edit', { id: id, data: fd })
+        this.$router.push({ name: 'BoardDetail', params: { id: data.id } })
+
       }
     }
   }

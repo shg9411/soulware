@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import axios from "axios"
-import authHeader from "../services/auth-header"
+import http from "../utils/http"
 
-const URL = process.env.VUE_APP_API_SERVER
+const PAGE_SIZE = 3
 
 export default {
   name: 'Board',
@@ -29,7 +28,6 @@ export default {
       boards: '',
       message: '',
       length: null,
-      header: '',
     }
   },
   watch: {
@@ -42,21 +40,15 @@ export default {
   },
   methods: {
     async init() {
-      authHeader().then((header) => {
-        this.header = header
-        this.getPage(1)
-      })
+      this.getPage(1)
     },
-    getPage(page) {
-      axios.get(URL + "/boards/board/?page=" + page, { headers: this.header }).then(
-        response => {
-          this.boards = response.data.results
-          if (this.length == null)
-            this.length = Math.ceil(response.data.count / 3)
-          if (this.boards.length == 0)
-            this.message = "게시글이 없습니다."
-        }
-      )
+    async getPage(page) {
+      const data = await http.process('board', 'list', { page: page })
+      if (this.length == null)
+        this.length = Math.ceil(data.count / PAGE_SIZE)
+      this.boards = data.results
+      if (this.boards.length == 0)
+        this.message = "게시글이 없습니다."
     },
     detail(id) {
       this.$router.push({ name: 'BoardDetail', params: { id: id } })

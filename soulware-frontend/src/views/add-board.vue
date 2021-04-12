@@ -24,10 +24,9 @@
   </v-card>
 </template>
 <script>
-import axios from "axios";
-import Board from '../models/board'
+import http from "../utils/http"
+import Board from "../models/board"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
-const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'AddBoard',
   data() {
@@ -95,58 +94,36 @@ export default {
     deleteChip(index) {
       this.files.splice(index, 1)
     },
-    saveBoard() {
+    async saveBoard() {
       this.$v.$touch()
       this.$refs.form.validate()
       if (!this.$v.$error) {
+        let data = null
         if (this.files !== null && this.files.length > 0) {
-          console.log("Multipart")
-          const fd = new FormData();
-          fd.append("title", this.board.title);
-          fd.append("body", this.board.body);
-          fd.append("email", this.board.email);
-          fd.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
+          data = new FormData();
+          data.append("title", this.board.title);
+          data.append("body", this.board.body);
+          data.append("email", this.board.email);
+          data.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
           for (let i = 0; i < this.files.length; i++) {
-            fd.append("files", this.files[i])
+            data.append("files", this.files[i])
           }
-          axios
-            .post(URL+"/boards/board/", fd, {
-              headers: {
-                "Content-Type": "multipart/form-data"
-              }
-            })
-            .then(response => {
-              console.log(response.data);
-              this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
-            })
-            .catch(error => {
-              console.log("Failed to save board", error.response);
-              alert("게시글 작성에 실패하였습니다.")
-            });
-        } else {
-          console.log("JSON")
-          axios
-            .post(URL+"/boards/board/", this.board, {
-            })
-            .then(response => {
-              console.log(response.data);
-              this.$router.push({ name: 'BoardDetail', params: { id: response.data.id } })
-            })
-            .catch(error => {
-              console.log("Failed to save board", error.response);
-              alert("게시글 작성에 실패하였습니다.")
-            });
         }
+        else {
+          data = this.board
+        }
+        const res = await http.process('board', 'add', { data: data })
+        this.$router.push({ name: 'BoardDetail', params: { id: res.id } })
       }
-    },
-    resetForm() {
-      this.$v.$reset();
-      this.board.title = "";
-      this.board.body = "";
-      this.board.email = "";
-      this.board.phone = "";
-      this.files = [];
     }
   },
+  resetForm() {
+    this.$v.$reset();
+    this.board.title = "";
+    this.board.body = "";
+    this.board.email = "";
+    this.board.phone = "";
+    this.files = [];
+  }
 }
 </script>
