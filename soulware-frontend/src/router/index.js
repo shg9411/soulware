@@ -1,20 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueGtag from "vue-gtag";
-import store from "../store";
-import Home from "../views/home.vue";
-import About from "../views/about.vue";
-import Portfolio from "../views/portfolio.vue";
-import Sovit from "../views/sovit.vue";
-import Login from "../views/login.vue";
-import Board from "../views/board.vue";
-import AddBoard from "../views/add-board.vue";
-import BoardDetail from "../components/board-detail.vue";
-import BoardEdit from "../components/board-edit.vue";
-import NotFound from "../components/not-found.vue";
-import ChungdahmAllim from "../views/portfolio/chungdahm-allim.vue";
-import ChungdahmLearning from "../views/portfolio/chungdahm-learning-portal.vue";
-import YujinIclebo from "../views/portfolio/yujin-iclebo.vue";
+import store from "@/store";
+
+const Home = () => import("@/views/home.vue");
+const About = () => import("@/views/about.vue");
+const Portfolio = () => import("@/views/portfolio.vue");
+const Sovit = () => import("@/views/sovit.vue");
+const Login = () => import("@/views/login.vue");
+const Board = () => import("@/views/board.vue");
+const AddBoard = () => import("@/views/add-board.vue");
+const BoardDetail = () => import("@/components/board-detail.vue");
+const BoardEdit = () => import("@/components/board-edit.vue");
+const NotFound = () => import("@/components/not-found.vue");
+const ChungdahmAllim = () => import("@/views/portfolio/chungdahm-allim.vue");
+const ChungdahmLearning = () =>
+  import("@/views/portfolio/chungdahm-learning-portal.vue");
+const YujinIclebo = () => import("@/views/portfolio/yujin-iclebo.vue");
 
 Vue.use(VueRouter);
 

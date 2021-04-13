@@ -82,7 +82,7 @@
 </template>
  
 <script>
-import http from "../utils/http"
+import http from "@/utils/http"
 const URL = process.env.VUE_APP_API_SERVER
 export default {
   name: 'detail',

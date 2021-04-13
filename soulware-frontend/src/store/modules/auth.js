@@ -1,5 +1,5 @@
-import AuthService from "../../services/auth-service";
-import localforage, { ready } from "localforage";
+import AuthService from "@/services/auth-service";
+import localforage from "localforage";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";

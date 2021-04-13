@@ -24,8 +24,8 @@
   </v-card>
 </template>
 <script>
-import http from "../utils/http"
-import Board from "../models/board"
+import http from "@/utils/http"
+import Board from "@/models/board"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
 export default {
   name: 'AddBoard',

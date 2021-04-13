@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import User from '../models/user'
+import User from '@/models/user'
 import { required, email, maxLength, minLength } from "vuelidate/lib/validators";
 export default {
   name: 'Login',

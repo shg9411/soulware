@@ -1,6 +1,6 @@
 import axios from "axios";
 import domain from "./domain.js";
-import store from "../../store";
+import store from "@/store";
 
 const BASE_URL = process.env.VUE_APP_API_SERVER;
 

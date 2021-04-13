@@ -1,5 +1,5 @@
 import localforage from "localforage";
-import http from "../utils/http";
+import http from "@/utils/http";
 
 class AuthService {
   async login(user) {

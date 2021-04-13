@@ -48,7 +48,7 @@
 </template>
  
 <script>
-import http from "../utils/http"
+import http from "@/utils/http"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
 export default {
   name: 'edit',
