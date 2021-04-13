@@ -174,5 +174,5 @@ yarl = "==1.6.3"
 python_version = "3.9"
 
 [scripts]
-local = "python manage.py runserver --settings=web_proj.settings.local --insecure"
-prod = "python manage.py runserver --settings=web_proj.settings.production"
+local = "python manage.py runserver --settings=web_proj.settings.local"
+prod = "python manage.py runserver --settings=web_proj.settings.production --insecure"

@@ -104,7 +104,7 @@ export default {
           data.append("title", this.board.title);
           data.append("body", this.board.body);
           data.append("email", this.board.email);
-          data.append("phone", this.board.phone.replace(/[^0-9]/g, ""));
+          data.append("phone", this.board.phone);
           for (let i = 0; i < this.files.length; i++) {
             data.append("files", this.files[i])
           }
