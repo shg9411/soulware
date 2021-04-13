@@ -1,15 +1,11 @@
 from pathlib import Path
-from . import my_settings
 from datetime import timedelta
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = my_settings.SECRET_KEY
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 INSTALLED_APPS = [
     'accounts',
@@ -38,13 +34,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 '''
 #for test
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8081',
-    'http://127.0.0.1:8081'
+    'http://localhost:8080',
+    'http://127.0.0.1:8080'
 )
 '''
 
@@ -68,8 +63,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'web_proj.wsgi.application'
 
-
-DATABASES = my_settings.DATABASES
 
 CACHES = {
     'default': {
@@ -139,14 +132,6 @@ REST_USE_JWT = True
 AUTH_USER_MODEL = 'accounts.User'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = my_settings.EMAIL_HOST
-EMAIL_HOST_PASSWORD = my_settings.EMAIL_PW
-
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -169,4 +154,4 @@ SWAGGER_SETTINGS = {
 }
 
 
-WP_URL = my_settings.WP_URL
+WP_URL = os.getenv('WORD_PRESS_URL')
