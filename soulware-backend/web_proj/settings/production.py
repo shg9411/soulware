@@ -26,3 +26,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER",None)
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD",None)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -133,14 +133,13 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/upload_files/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
