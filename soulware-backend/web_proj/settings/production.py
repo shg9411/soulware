@@ -13,9 +13,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sw_web_dev',
-        'USER': 'swWebAdmin',
-        'PASSWORD': 'swWeb20210413$g',
-        'HOST': 'pexpo-dev.cbyu1ubnsn5x.ap-northeast-2.rds.amazonaws.com',
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '3306',
     }
 }

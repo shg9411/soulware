@@ -79,9 +79,7 @@ export default {
     }
   },
   mounted() {
-    window.onscroll = () => {
-      this.changeColor();
-    };
+    window.addEventListener('scroll', this.changeColor)
   },
   methods: {
     changeColor() {

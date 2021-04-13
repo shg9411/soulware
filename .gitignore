@@ -157,7 +157,7 @@ Thumbs.db #thumbnail cache on Windows
 # profiling data
 .prof
 
-
+sqlite3.db
 ### Python ###
 # Byte-compiled / optimized / DLL files
 
@@ -206,7 +206,7 @@ Thumbs.db #thumbnail cache on Windows
 # SageMath parsed files
 
 # Environments
-# .env
+.env
 
 # Spyder project settings
 
