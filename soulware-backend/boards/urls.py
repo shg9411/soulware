@@ -8,4 +8,5 @@ router.register(r'board', views.BoardViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('download/<int:file_id>', views.download)
 ]

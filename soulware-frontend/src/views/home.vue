@@ -108,7 +108,10 @@
         </v-col>
       </v-row>
     </div>
-    <div class="blog-section">
+    <div class="text-center" v-if="loading">
+      <v-progress-circular indeterminate color="primary" :size="50"></v-progress-circular>
+    </div>
+    <div class="blog-section" v-else>
       <v-row no-gutters>
         <v-col v-for="blog in current" :key=blog.id cols="12" sm="6" md="4" lg="3" class="col-pd">
           <v-card :href=blog.link>
@@ -121,7 +124,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <div class="text-center">
+      <div class="text-center" v-if="length">
         <v-pagination v-model="page" :length="length" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
       </div>
     </div>
@@ -140,6 +143,7 @@ export default {
       hidden: false,
       length: null,
       current: [],
+      loading: '',
     }
   },
   watch: {
@@ -158,16 +162,22 @@ export default {
       return new Date(date * 1000).toLocaleDateString("ko-KR")
     },
     async getPage(page) {
-      const data = await http.get('/blogs', { page: page })
-      if (!this.length) {
-        if (data["pages"])
-          this.length = data["pages"]
-        else {
-          this.length = 0
-          return
+      this.loading = true
+      try {
+        const data = await http.get('/blogs', { page: page })
+        if (!this.length) {
+          if (data["pages"])
+            this.length = data["pages"]
+          else {
+            this.length = 0
+            return
+          }
         }
+        this.current = data["blogs"]
+      } catch (err) {
+        console.log(err)
       }
-      this.current = data["blogs"]
+      this.loading = false
     }
   },
 }

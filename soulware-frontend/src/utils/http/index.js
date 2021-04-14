@@ -50,7 +50,7 @@ export default {
       );
     });
   },
-  process: (name, action, params = null, mapping = null) => {
+  process: (name, action, params = null, axiosOpt = null) => {
     return new Promise((resolve, reject) => {
       let info = domain[name][action];
       if (info) {
@@ -60,7 +60,7 @@ export default {
             headers = { Authorization: `Bearer ${store.state.auth.token}` };
           }
         }
-        let newUrl = _generateUrl(info.url, params, mapping);
+        let newUrl = _generateUrl(info.url, params);
         let method = info.task;
         let newParams = params;
         let p = null;
@@ -70,6 +70,8 @@ export default {
           });
         } else if (info.task == "refreshToken") {
           p = instance["post"](newUrl, newParams);
+        } else if (method == "download") {
+          p = instance["get"](newUrl, axiosOpt);
         } else if (method == "get") {
           let opt = {
             params: newParams,

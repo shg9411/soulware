@@ -3,46 +3,14 @@
     <v-app-bar>
       <v-toolbar-title>Detail</v-toolbar-title>
     </v-app-bar>
-    <v-container v-if="board">
+    <v-container>
       <v-row dense>
-        <v-col cols="12">
+        <v-col cols="12" v-for="(value,key) in board" :key="key">
           <v-card>
             <v-card-title>
-              ID
+              {{key}}
             </v-card-title>
-            <v-card-subtitle v-text="board.id"></v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              Title
-            </v-card-title>
-            <v-card-subtitle v-text="board.title"></v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              Body
-            </v-card-title>
-            <v-card-subtitle v-text="board.body"></v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              E-mail
-            </v-card-title>
-            <v-card-subtitle v-text="board.email"></v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              Phone
-            </v-card-title>
-            <v-card-subtitle v-text="board.phone"></v-card-subtitle>
+            <v-card-subtitle>{{value}}</v-card-subtitle>
           </v-card>
         </v-col>
         <v-col v-if="files" cols="12">
@@ -80,16 +48,16 @@
     </v-container>
   </v-card>
 </template>
- 
 <script>
 import http from "@/utils/http"
-const URL = process.env.VUE_APP_API_SERVER
+import Board from "@/models/board"
+import { saveAs } from "file-saver"
 export default {
   name: 'detail',
   props: ['id'],
   data() {
     return {
-      board: '',
+      board: new Board('', '', '', ''),
       dialog: false,
       files: '',
     }
@@ -102,10 +70,20 @@ export default {
       this.getBoard()
     },
     async getBoard() {
-      const data = await http.process('board', 'detail', { id: this.id })
-      this.board = data
-      if (this.board.files.length > 0)
-        this.files = this.board.files
+      try {
+        const data = await http.process('board', 'detail', { id: this.id })
+        for (const [key, value] of Object.entries(data)) {
+          if (key != "files")
+            this.board[key] = value
+          else if (value.length > 0)
+            this.files = value
+        }
+      } catch (err) {
+        if (err.response.status == 404) {
+          alert("게시글이 존재하지 않습니다.")
+          this.$router.push('/board')
+        }
+      }
     },
     showDialog() {
       this.dialog = !this.dialog
@@ -119,23 +97,14 @@ export default {
       console.log(data)
       this.$router.push('/board')
     },
-    download(file) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", URL + file.file, true)
-      xhr.responseType = 'blob';
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-      xhr.send();
-      xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          var _data = this.response;
-          var _blob = new Blob([_data]);
-          var link = document.createElement('a');
-          link.href = window.URL.createObjectURL(_blob);
-          link.download = file.originName;
-          link.click();
-        };
-      };
+    async download(file) {
+      await http.process('board', 'download', { id: file.id }, { timeout: 5000, responseType: "blob" }).then(blob => { saveAs(blob, file.originName) })
     }
   }
 }
 </script>
+<style scoped>
+.v-btn {
+  text-transform: none;
+}
+</style>

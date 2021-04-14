@@ -4,7 +4,8 @@ export default {
         'detail':{task:'get',url:'/boards/board/#id',requestAuth:true},
         'add':{task:'post',url:'/boards/board'},
         'delete':{task:'delete',url:'/boards/board/#id',requestAuth:true},
-        'edit':{task:'patch',url:'/boards/board/#id',requestAuth:true}
+        'edit':{task:'patch',url:'/boards/board/#id',requestAuth:true},
+        'download':{task:'download',url:'/boards/download/#id'}
     },
     'auth':{
         'login':{task:'getToken',url:'/accounts/login'},

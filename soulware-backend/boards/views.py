@@ -1,10 +1,25 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.db import transaction
 from .serializers import BoardSerializer, FileSerializer
 from .models import Board, File
+from urllib.parse import quote
+from wsgiref.util import FileWrapper
 import os
+
+
+def download(request, file_id):
+    file = get_object_or_404(File, id=file_id)
+    file_path = file.file.path
+    file_wrapper = FileWrapper(open(file_path, 'rb'))
+    response = HttpResponse(
+        file_wrapper, content_type="application/octet-stream")
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % quote(
+        file.originName.encode('utf-8'))
+    return response
 
 
 class BoardViewSet(viewsets.ModelViewSet):
@@ -88,10 +103,7 @@ class BoardViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action == 'create':
             permission_classes = [permissions.AllowAny]
-
         else:
-            # for test
-            # permission_classes = [permissions.AllowAny]
             permission_classes = [permissions.IsAdminUser]
 
         return [permission() for permission in permission_classes]
