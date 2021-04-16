@@ -6,7 +6,7 @@
           <span>iCLEBO 05 로봇 청소기 원격 제어 플랫폼 / Client: YUJIN ROBOT / Device : Mobile phone / Date : 2018.3 ~ 2020.5 </span>
         </v-col>
         <v-col cols="4" sm="3" md="2" class="text-right">
-          <v-btn icon color="white">
+          <v-btn icon color="white" @click="$router.go(-1)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-col>

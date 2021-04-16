@@ -16,7 +16,13 @@ const NotFound = () => import("@/components/not-found.vue");
 const ChungdahmAllim = () => import("@/views/portfolio/chungdahm-allim.vue");
 const ChungdahmLearning = () =>
   import("@/views/portfolio/chungdahm-learning-portal.vue");
+const ChungdahmLoudclass = () =>
+  import("@/views/portfolio/chungdahm-loudclass.vue");
 const YujinIclebo = () => import("@/views/portfolio/yujin-iclebo.vue");
+const IncheonAirport = () => import("@/views/portfolio/incheon-airport.vue");
+const MobileGroupware = () => import("@/views/portfolio/mobile-groupware.vue");
+const OfficeCore = () => import("@/views/portfolio/office-core.vue");
+const SogangSpring = () => import("@/views/portfolio/sogang-spring.vue");
 
 Vue.use(VueRouter);
 
@@ -55,9 +61,34 @@ const routes = [
     component: ChungdahmLearning,
   },
   {
+    path: "/portfolio/chungdahm-loudclass",
+    name: "ChungdahmLoudclass",
+    component: ChungdahmLoudclass,
+  },
+  {
     path: "/portfolio/yujin-iclebo",
     name: "YujinIclebo",
     component: YujinIclebo,
+  },
+  {
+    path: "/portfolio/incheon-airport",
+    name: "IncheonAirport",
+    component: IncheonAirport,
+  },
+  {
+    path: "/portfolio/mobile-groupware",
+    name: "MobileGroupware",
+    component: MobileGroupware,
+  },
+  {
+    path: "/portfolio/office-core",
+    name: "OfficeCore",
+    component: OfficeCore,
+  },
+  {
+    path: "/portfolio/sogang-spring",
+    name: "SogangSpring",
+    component: SogangSpring,
   },
   {
     path: "/login",

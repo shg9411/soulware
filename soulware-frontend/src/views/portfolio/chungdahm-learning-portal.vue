@@ -6,7 +6,7 @@
           <span>청담러닝4.0 러닝포털 개발 / Client: Chungdahm Learning / Device : Web, Tab, Mobile phone / Date : 2018.9 ~ 2019.2 </span>
         </v-col>
         <v-col cols="4" sm="3" md="2" class="text-right">
-          <v-btn icon color="white">
+          <v-btn icon color="white" @click="$router.go(-1)">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-col>
@@ -16,8 +16,10 @@
     </div>
     <div class="chungdahm-overview-section">
       <h2>OVERVIEW</h2>
-      <p>학생, 학부모 ,강사를 위한 청담러닝4.0 Learning portal development & publishing 작업을 진행
-        반응형 웹으로 제작하여 Web /Tablet / Mobile 에서 사용가능하도록 제작함</p>
+      <p>(주)청담러닝 온라인 교육 플랫폼의 혁신적인 변화를 선도하다! 청담 Learning Portal 4.0 Development & Publishing
+        <br />
+        웹/태블릿/모바일에서 사용 가능하도록 반응형 웹으로 제작되어 사용자의 편의성을 더욱 향상시킴
+      </p>
     </div>
     <div class="chungdahm-overview-img">
       <em></em>

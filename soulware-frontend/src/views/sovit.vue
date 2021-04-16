@@ -2,12 +2,12 @@
   <div>
     <div class="sovit-top">
       <em></em>
-      <p>Share office video meetin</p>
+      <p>Small Office Video conferencing Technology</p>
     </div>
     <div class="sovit-info">
       <h2>sovit</h2>
-      <p>SOVIT은 쉐어오피스안 미팅룸간의 화상회의를 도와주는 플랫폼입니다.<br />
-        미팅룸 안에서 보다 편리하게 화상미팅을 진행해 보세요!</p>
+      <p>소형 회의실 화상회의 솔루션<br />
+        소형 회의실, 공유오피스 내 회의실 간의 화상회의 솔루션을 지금 바로 경험해 보실 수 있습니다!</p>
     </div>
     <div class="sovit-section1">
     </div>
@@ -36,9 +36,11 @@ export default {
   data() {
     return {
       images: [
-        'https://dummyimage.com/50x400/000/fff&text=1',
-        'https://dummyimage.com/1000x1000/000/fff&text=2',
-        'https://dummyimage.com/600x800/000/fff&text=3'
+        require('@/assets/images/sovit_slide1.png'),
+        require('@/assets/images/sovit_slide2.png'),
+        require('@/assets/images/sovit_slide3.png'),
+        require('@/assets/images/sovit_slide4.png'),
+        require('@/assets/images/sovit_slide5.png'),
       ]
     }
   },

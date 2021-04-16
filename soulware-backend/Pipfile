@@ -10,6 +10,7 @@ django-cleanup = "*"
 djangorestframework = "*"
 drf-yasg = "*"
 djangorestframework-jwt = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.9"
