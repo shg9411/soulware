@@ -51,7 +51,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: 'ChungdahmLearning',
 }

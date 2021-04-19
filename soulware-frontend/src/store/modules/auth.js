@@ -1,8 +1,8 @@
-import AuthService from "@/services/auth-service";
 import localforage from "localforage";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import http from "@/utils/http";
 
 dayjs.extend(duration);
 
@@ -18,8 +18,28 @@ export const auth = {
   state: initialState,
   actions: {
     async login({ commit }, user) {
-      return AuthService.login(user).then(
-        (token) => {
+      return await http
+        .process("auth", "login", {
+          email: user.email,
+          password: user.password,
+        })
+        .then(
+          (data) => {
+            let token = data.token;
+            commit("loginSuccess", token);
+            commit("setReady", true);
+            return Promise.resolve(token);
+          },
+          (error) => {
+            commit("loginFailure");
+            return Promise.reject(error);
+          }
+        );
+    },
+    async refresh({ commit }, token) {
+      return await http.process("auth", "refresh", { token: token }).then(
+        (data) => {
+          let token = data.token;
           commit("loginSuccess", token);
           commit("setReady", true);
           return Promise.resolve(token);
@@ -58,10 +78,7 @@ export const auth = {
               commit("setReady", false);
               commit("logout");
             } else {
-              AuthService.refresh(state.token).then((token) => {
-                commit("loginSucces", token);
-                console.log("refreshToken");
-              });
+              return await dispatch("refresh", state.token);
             }
           }
         }

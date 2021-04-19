@@ -7,6 +7,7 @@ import vuetify from "./plugins/vuetify";
 import localforage from "localforage";
 import "typeface-noto-sans";
 import "./assets/main.scss";
+import "./filters";
 
 Vue.config.productionTip = false;
 Vue.use(Vuelidate);

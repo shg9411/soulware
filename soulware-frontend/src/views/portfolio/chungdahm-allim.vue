@@ -36,9 +36,9 @@
 
       <infinite-slide-bar duration="30s">
         <div class="items">
-          <div v-for="(image,i) in images" :key="i">
+          <div v-for="(image,idx) in images" :key="idx">
             <div class="ma-10">
-              <img :src="image" height=auto>
+              <img :src="image" />
             </div>
           </div>
         </div>
@@ -47,23 +47,31 @@
   </div>
 </template>
 <script>
-
 import InfiniteSlideBar from "vue-infinite-slide-bar"
 export default {
   name: 'ChungdahmAllim',
+  components: {
+    InfiniteSlideBar
+  },
   data() {
     return {
       images: [
-        'http://localhost:8080/img/payment1.40ec1cb7.png',
-        'http://localhost:8080/img/payment2.eea0d5ed.png',
-        'http://localhost:8080/img/payment3.d3a3d450.png',
-        'http://localhost:8080/img/payment4.c89106c3.png',
-        'http://localhost:8080/img/payment5.4bae7f64.png'
+        require('@/assets/images/payment1.png'),
+        require('@/assets/images/payment2.png'),
+        require('@/assets/images/payment3.png'),
+        require('@/assets/images/payment4.png'),
+        require('@/assets/images/payment5.png'),
       ]
     }
   },
-  components: {
-    InfiniteSlideBar
-  }
 }
 </script>
+<style scoped>
+.items {
+  display: flex;
+  justify-content: space-around;
+}
+img {
+  height: 15rem;
+}
+</style>

@@ -1106,9 +1106,151 @@
     background-color: #ffdbda;
 
     img {
-        height: 44.68rem !important;
+        height: 24rem !important;
     }
 }
+
+.airport-top {
+    background: url("../assets/images/airport_terminal_top.png") no-repeat center;
+    background-size: cover;
+    h2 {
+        @extend .font-69, .font-bold;
+        color: #fff;
+        line-height: normal;
+        letter-spacing: normal;
+        text-shadow: 0.045rem 0.045rem 0.45rem rgba(55, 52, 52, 0.3);
+    }
+    p {
+        @extend .font-37, .font-normal;
+        margin: 0;
+        color: #fff;
+        line-height: normal;
+        letter-spacing: normal;
+        text-shadow: 0.045rem 0.045rem 0.45rem rgba(55, 52, 52, 0.3);
+    }
+}
+.airport-overview-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 1.5rem;
+    height: 17.86rem;
+    h2 {
+        @extend .font-47, .font-500;
+        margin-bottom: 2.4rem;
+        line-height: 1.5rem;
+        letter-spacing: normal;
+        color: #202f59;
+    }
+    p {
+        @extend .font-16, .font-500;
+        margin: 0;
+        text-align: center;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #444;
+    }
+}
+.airport-overview-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 29.64rem;
+    padding: 0 1.5rem;
+    background: url("../assets/images/airport_terminal_bg_sky.png") no-repeat center;
+    background-size: cover;
+    em {
+        display: inline-block;
+        width: 54.55rem;
+        height: 23.18rem;
+        background: url("../assets/images/airport_terminal_overview.png") no-repeat center;
+        background-size: 100%;
+    }
+}
+.airport-main-section {
+    padding-top: 7rem;
+    text-align: center;
+    h3 {
+        @extend .font-47, .font-500;
+        margin-bottom: 2rem;
+
+        line-height: normal;
+        letter-spacing: normal;
+
+        color: #202f59;
+    }
+    em {
+        display: inline-block;
+        width: 17rem;
+        height: 31.5rem;
+        background: url("../assets/images/airport_terminal_main.png") no-repeat center;
+        background-size: 100%;
+    }
+}
+.page-slide-section {
+    background-color: #557ebf;
+    margin-top: -14rem;
+    padding-top: 15rem;
+    padding-bottom: 3rem;
+    .vifnslb-container {
+        .items {
+            img {
+                height: 24rem;
+            }
+        }
+    }
+}
+.ionic-section {
+    height: 20.91rem;
+    background: #ececec url("../assets/images/airport_terminal_ionic.png") no-repeat center;
+    background-size: 80%;
+}
+.vifnslb-container {
+    .items {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+.way-section {
+    height: 51.77rem;
+    background: url("../assets/images/airport_terminal_way.png") no-repeat right bottom;
+    background-size: 100%;
+    h3 {
+        @extend .font-47, .font-500;
+        padding-top: 5rem;
+        margin-left: 2.5rem;
+        margin-bottom: 1rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #202f59;
+    }
+    p {
+        @extend .font-21, .font-500;
+        margin-left: 2.5rem;
+        margin-bottom: 0;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: #444;
+    }
+}
+.airport-internationalization-section {
+    padding-bottom: 5rem;
+    height: 50rem;
+    text-align: center;
+    background: #202f59 url("../assets/images/airport_terminal_internationalization.png") no-repeat center top 57%;
+    background-size: 60%;
+    h3 {
+        @extend .font-47, .font-normal;
+        padding-top: 5rem;
+        margin-bottom: 3rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #fff;
+    }
+}
+
 /*-------------------------------------------------------------------
 @media
 -------------------------------------------------------------------*/
@@ -1157,6 +1299,12 @@
     }
     .allim-detail-section {
         background-size: 65%;
+    }
+    .airport-internationalization-section {
+        background-size: 45%;
+    }
+    .way-section {
+        background-size: 80%;
     }
 }
 
@@ -1240,6 +1388,24 @@
     }
     .chungdahm-responsive-section em {
         height: 25.05rem;
+    }
+    .way-section {
+        height: 34.77rem;
+    }
+    .way-section {
+        h3 {
+            padding-top: 1.5rem;
+            margin-left: 2.5rem;
+        }
+        p {
+            margin-left: 2.5rem;
+        }
+    }
+    .airport-internationalization-section {
+        height: 35rem;
+    }
+    .airport-internationalization-section h3 {
+        padding-top: 3rem;
     }
 }
 @media (max-width: 768px) {

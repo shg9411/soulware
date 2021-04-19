@@ -51,7 +51,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-btn :to="'/portfolio'" rounded class="more-btn">
+      <v-btn :to="{name:'Portfolio'}" rounded class="more-btn">
         포트폴리오 더보기
       </v-btn>
     </div>
@@ -108,77 +108,18 @@
         </v-col>
       </v-row>
     </div>
-    <div class="text-center" v-if="loading">
-      <v-progress-circular indeterminate color="primary" :size="50"></v-progress-circular>
-    </div>
-    <div class="blog-section" v-else>
-      <v-row no-gutters>
-        <v-col v-for="blog in current" :key=blog.id cols="12" sm="6" md="4" lg="3" class="col-pd">
-          <v-card :href=blog.link>
-            <v-img v-bind:src="blog.thumbnail"></v-img>
-            <v-card-title>{{blog.title}}</v-card-title>
-            <v-card-text>
-              {{blog.subtitle}}
-              <span v-text=convertUtoL(blog.date)></span>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <div class="text-center" v-if="length">
-        <v-pagination v-model="page" :length="length" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
-      </div>
-    </div>
+    <Blogs />
   </div>
 
 </template>
 
 <script>
-import http from '@/utils/http'
+import Blogs from '@/components/blogs.vue'
 
 export default {
   name: 'Home',
-  data() {
-    return {
-      page: 1,
-      hidden: false,
-      length: null,
-      current: [],
-      loading: '',
-    }
-  },
-  watch: {
-    page: function (val) {
-      this.getPage(val)
-    }
-  },
-  created() {
-    this.init()
-  },
-  methods: {
-    async init() {
-      this.getPage(1)
-    },
-    convertUtoL(date) {
-      return new Date(date * 1000).toLocaleDateString("ko-KR")
-    },
-    async getPage(page) {
-      this.loading = true
-      try {
-        const data = await http.get('/blogs', { page: page })
-        if (!this.length) {
-          if (data["pages"])
-            this.length = data["pages"]
-          else {
-            this.length = 0
-            return
-          }
-        }
-        this.current = data["blogs"]
-      } catch (err) {
-        console.log(err)
-      }
-      this.loading = false
-    }
+  components: {
+    Blogs
   },
 }
 </script>

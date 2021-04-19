@@ -34,22 +34,6 @@ const _generateUrl = (url, params, mapping = null) => {
 };
 
 export default {
-  get: (url, params) => {
-    return new Promise((resolve, reject) => {
-      instance.get(url, { params: params }).then(
-        (res) => {
-          if (res.status == 200) {
-            resolve(res.data);
-          } else {
-            reject("");
-          }
-        },
-        (err) => {
-          reject(err);
-        }
-      );
-    });
-  },
   process: (name, action, params = null, axiosOpt = null) => {
     return new Promise((resolve, reject) => {
       let info = domain[name][action];

@@ -5,10 +5,10 @@
     </v-app-bar>
     <v-container>
       <v-row dense>
-        <v-col cols="12" v-for="(value,key) in board" :key="key">
+        <v-col cols="12" v-for="(value,idx) in board" :key="idx">
           <v-card>
             <v-card-title>
-              {{key}}
+              {{idx}}
             </v-card-title>
             <v-card-subtitle>{{value}}</v-card-subtitle>
           </v-card>
@@ -19,7 +19,7 @@
               Files
             </v-card-title>
             <v-card-actions>
-              <v-btn class="ml-2 mt-5" outlined rounded small v-for="(file,i) in files" :key="i" @click="download(file)">{{file.originName}}</v-btn>
+              <v-btn class="ml-2 mt-5" outlined rounded small v-for="(file,idx) in files" :key="idx" @click="download(file)">{{file.originName}}</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -50,14 +50,19 @@
 </template>
 <script>
 import http from "@/utils/http"
-import Board from "@/models/board"
 import { saveAs } from "file-saver"
 export default {
   name: 'detail',
   props: ['id'],
   data() {
     return {
-      board: new Board('', '', '', ''),
+      board: {
+        id: null,
+        title: null,
+        body: null,
+        email: null,
+        phone: null
+      },
       dialog: false,
       files: '',
     }
@@ -73,10 +78,12 @@ export default {
       try {
         const data = await http.process('board', 'detail', { id: this.id })
         for (const [key, value] of Object.entries(data)) {
-          if (key != "files")
+          if (key != "files") {
             this.board[key] = value
-          else if (value.length > 0)
+          }
+          else if (value.length > 0) {
             this.files = value
+          }
         }
       } catch (err) {
         if (err.response.status == 404) {
@@ -93,9 +100,15 @@ export default {
     },
     async del() {
       this.dialog = false
-      const data = await http.process('board', 'delete', { id: this.id })
-      console.log(data)
-      this.$router.push('/board')
+      try {
+        const data = await http.process('board', 'delete', { id: this.id })
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
+      finally {
+        this.$router.push('/board')
+      }
     },
     async download(file) {
       await http.process('board', 'download', { id: file.id }, { timeout: 5000, responseType: "blob" }).then(blob => { saveAs(blob, file.originName) })

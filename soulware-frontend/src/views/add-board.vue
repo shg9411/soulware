@@ -25,37 +25,19 @@
 </template>
 <script>
 import http from "@/utils/http"
-import Board from "@/models/board"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
 export default {
   name: 'AddBoard',
   data() {
     return {
-      board: new Board('', '', '', ''),
+      board: {
+        title: null,
+        body: null,
+        email: null,
+        phone: null
+      },
       valid: true,
       files: []
-    }
-  },
-  validations: {
-    board: {
-      title: {
-        required,
-        maxLength: maxLength(30)
-      },
-      body: {
-        required,
-        maxLength: maxLength(200)
-      },
-      email: {
-        required,
-        email
-      },
-      phone: {
-        required,
-        numeric,
-        minLength: minLength(8),
-        maxLength: maxLength(15)
-      }
     }
   },
   computed: {
@@ -90,6 +72,28 @@ export default {
       return errors
     }
   },
+  validations: {
+    board: {
+      title: {
+        required,
+        maxLength: maxLength(30)
+      },
+      body: {
+        required,
+        maxLength: maxLength(200)
+      },
+      email: {
+        required,
+        email
+      },
+      phone: {
+        required,
+        numeric,
+        minLength: minLength(8),
+        maxLength: maxLength(15)
+      }
+    }
+  },
   methods: {
     deleteChip(index) {
       this.files.splice(index, 1)
@@ -99,7 +103,7 @@ export default {
       this.$refs.form.validate()
       if (!this.$v.$error) {
         let data = null
-        if (this.files !== null && this.files.length > 0) {
+        if (this.files && this.files.length > 0) {
           data = new FormData();
           data.append("title", this.board.title);
           data.append("body", this.board.body);
@@ -112,18 +116,22 @@ export default {
         else {
           data = this.board
         }
-        const res = await http.process('board', 'add', { data: data })
-        this.$router.push({ name: 'BoardDetail', params: { id: res.id } })
+        try {
+          const res = await http.process('board', 'add', { data: data })
+          this.$router.push({ name: 'BoardDetail', params: { id: res.id } })
+        } catch (err) {
+          console.log(err)
+        }
       }
+    },
+    resetForm() {
+      this.$v.$reset();
+      this.board.title = "";
+      this.board.body = "";
+      this.board.email = "";
+      this.board.phone = "";
+      this.files = [];
     }
   },
-  resetForm() {
-    this.$v.$reset();
-    this.board.title = "";
-    this.board.body = "";
-    this.board.email = "";
-    this.board.phone = "";
-    this.files = [];
-  }
 }
 </script>

@@ -64,27 +64,8 @@ export default {
       new_file: [],
     }
   },
-  validations: {
-    board: {
-      title: {
-        required,
-        maxLength: maxLength(30)
-      },
-      body: {
-        required,
-        maxLength: maxLength(200)
-      },
-      email: {
-        required,
-        email
-      },
-      phone: {
-        required,
-        numeric,
-        minLength: minLength(8),
-        maxLength: maxLength(15)
-      }
-    }
+  created() {
+    this.init()
   },
   computed: {
     titleErrors() {
@@ -118,10 +99,32 @@ export default {
       return errors
     }
   },
-  created() {
-    this.init()
+  validations: {
+    board: {
+      title: {
+        required,
+        maxLength: maxLength(30)
+      },
+      body: {
+        required,
+        maxLength: maxLength(200)
+      },
+      email: {
+        required,
+        email
+      },
+      phone: {
+        required,
+        numeric,
+        minLength: minLength(8),
+        maxLength: maxLength(15)
+      }
+    }
   },
   methods: {
+    async init() {
+      this.getBoard()
+    },
     async getBoard() {
       const data = await http.process('board', 'detail', { id: this.id })
       this.board = data
@@ -139,11 +142,9 @@ export default {
       this.$set(this.visible, idx, false)
     },
     showDialog() {
-      if (this.$refs.form.validate())
+      if (this.$refs.form.validate()) {
         this.dialog = !this.dialog
-    },
-    async init() {
-      this.getBoard()
+      }
     },
     async save() {
       this.$v.$touch()
@@ -155,14 +156,19 @@ export default {
         fd.append("body", this.board.body);
         fd.append("email", this.board.email);
         fd.append("phone", this.board.phone);
-        for (let i = 0; i < this.deleted_files.length; i++)
+        for (let i = 0; i < this.deleted_files.length; i++) {
           fd.append("deleted_files[]", this.deleted_files[i])
-        for (let i = 0; i < this.new_file.length; i++)
+        }
+        for (let i = 0; i < this.new_file.length; i++) {
           fd.append("files", this.new_file[i])
+        }
         let { id } = this.$route.params
-        const data = await http.process('board', 'edit', { id: id, data: fd })
-        this.$router.push({ name: 'BoardDetail', params: { id: data.id } })
-
+        try {
+          const data = await http.process('board', 'edit', { id: id, data: fd })
+          this.$router.push({ name: 'BoardDetail', params: { id: data.id } })
+        } catch (err) {
+          console.log(err)
+        }
       }
     }
   }

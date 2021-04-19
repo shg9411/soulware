@@ -5,24 +5,49 @@ import store from "@/store";
 
 const Home = () => import("@/views/home.vue");
 const About = () => import("@/views/about.vue");
-const Portfolio = () => import("@/views/portfolio.vue");
-const Sovit = () => import("@/views/sovit.vue");
-const Login = () => import("@/views/login.vue");
-const Board = () => import("@/views/board.vue");
-const AddBoard = () => import("@/views/add-board.vue");
-const BoardDetail = () => import("@/components/board-detail.vue");
-const BoardEdit = () => import("@/components/board-edit.vue");
+const Portfolio = () =>
+  import(/*webpackChunkName: "portfolio"*/ "@/views/portfolio.vue");
+const Sovit = () =>
+  import(/*webpackChunkName: "portfolio"*/ "@/views/sovit.vue");
+const Login = () => import(/*webpackChunkName: "board"*/ "@/views/login.vue");
+const Board = () => import(/*webpackChunkName: "board"*/ "@/views/board.vue");
+const AddBoard = () =>
+  import(/*webpackChunkName: "board"*/ "@/views/add-board.vue");
+const BoardDetail = () =>
+  import(/*webpackChunkName: "board"*/ "@/components/board-detail.vue");
+const BoardEdit = () =>
+  import(/*webpackChunkName: "board"*/ "@/components/board-edit.vue");
 const NotFound = () => import("@/components/not-found.vue");
-const ChungdahmAllim = () => import("@/views/portfolio/chungdahm-allim.vue");
+const ChungdahmAllim = () =>
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/chungdahm-allim.vue"
+  );
 const ChungdahmLearning = () =>
-  import("@/views/portfolio/chungdahm-learning-portal.vue");
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/chungdahm-learning-portal.vue"
+  );
 const ChungdahmLoudclass = () =>
-  import("@/views/portfolio/chungdahm-loudclass.vue");
-const YujinIclebo = () => import("@/views/portfolio/yujin-iclebo.vue");
-const IncheonAirport = () => import("@/views/portfolio/incheon-airport.vue");
-const MobileGroupware = () => import("@/views/portfolio/mobile-groupware.vue");
-const OfficeCore = () => import("@/views/portfolio/office-core.vue");
-const SogangSpring = () => import("@/views/portfolio/sogang-spring.vue");
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/chungdahm-loudclass.vue"
+  );
+const YujinIclebo = () =>
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/yujin-iclebo.vue"
+  );
+const IncheonAirport = () =>
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/incheon-airport.vue"
+  );
+const MobileGroupware = () =>
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/mobile-groupware.vue"
+  );
+const OfficeCore = () =>
+  import(/*webpackChunkName: "portfolio"*/ "@/views/portfolio/office-core.vue");
+const SogangSpring = () =>
+  import(
+    /*webpackChunkName: "portfolio"*/ "@/views/portfolio/sogang-spring.vue"
+  );
 
 Vue.use(VueRouter);
 
@@ -140,6 +165,7 @@ const router = new VueRouter({
   routes,
 });
 
+// https://matteo-gabriele.gitbook.io/vue-gtag/auto-tracking
 Vue.use(
   VueGtag,
   {

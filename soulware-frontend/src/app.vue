@@ -2,7 +2,7 @@
   <v-app>
     <v-navigation-drawer right v-model="drawer" fixed temporary>
       <v-list dense>
-        <v-list-item v-for="item in menuItems" :key="item.title" :to="item.path">
+        <v-list-item v-for="item in menuItems" :key="item.title" :to="{name:item.name}">
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
@@ -18,7 +18,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-for="(item,idx) in menuItems" :to="item.path" :key=idx>
+        <v-btn v-for="(item,idx) in menuItems" :to="{name:item.name}" :key="idx">
           {{item.title}}
         </v-btn>
       </v-toolbar-items>
@@ -63,9 +63,9 @@ export default {
       bg: 'transparent',
       appTitle: 'SOULWARE',
       menuItems: [
-        { title: 'Sovit', path: '/sovit' },
-        { title: '포트폴리오', path: '/portfolio' },
-        { title: '회사소개', path: '/about' },
+        { title: 'Sovit', name: 'Sovit' },
+        { title: '포트폴리오', name: 'Portfolio' },
+        { title: '회사소개', name: 'About' },
       ]
     }
   },
@@ -75,7 +75,9 @@ export default {
       if (to && to.meta && to.meta.float) {
         return true
       }
-      return false
+      else {
+        return false
+      }
     }
   },
   mounted() {
@@ -99,5 +101,3 @@ export default {
   }
 };
 </script>
-<style>
-</style>

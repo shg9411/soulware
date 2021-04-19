@@ -20,9 +20,9 @@
     </div>
     <infinite-slide-bar duration="30s">
       <div class="items">
-        <div v-for="(image,i) in images" :key="i">
+        <div v-for="(image,idx) in images" :key="idx">
           <div class="ma-10">
-            <img :src="image" height=auto>
+            <img :src="image" />
           </div>
         </div>
       </div>
@@ -33,6 +33,9 @@
 import InfiniteSlideBar from "vue-infinite-slide-bar"
 export default {
   name: 'Sovit',
+  components: {
+    InfiniteSlideBar
+  },
   data() {
     return {
       images: [
@@ -44,13 +47,10 @@ export default {
       ]
     }
   },
-  components: {
-    InfiniteSlideBar
-  }
 }
 </script>
 
-<style>
+<style scoped>
 .items {
   display: flex;
   justify-content: space-around;
