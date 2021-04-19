@@ -51,7 +51,7 @@ export const auth = {
       );
     },
     async logout({ commit }) {
-      localforage.removeItem("token").then(function() {
+      localforage.removeItem("token").then(() => {
         commit("setReady", false);
         commit("logout");
       });

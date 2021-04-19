@@ -65,7 +65,7 @@ export default {
         this.$router.push('/board')
       }
     },
-    submit() {
+    async submit() {
       this.$v.$touch()
       this.$refs.form.validate()
       if (!this.$v.$error) {

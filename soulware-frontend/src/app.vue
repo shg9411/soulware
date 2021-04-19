@@ -94,10 +94,6 @@ export default {
         this.bg = 'transparent';
       }
     },
-    logout() {
-      this.$store.dispatch('auth/logout')
-      this.$router.push('/login')
-    }
   }
 };
 </script>
