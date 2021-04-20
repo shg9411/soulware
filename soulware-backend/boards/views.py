@@ -28,9 +28,7 @@ class BoardViewSet(viewsets.ModelViewSet):
 
     @transaction.atomic
     def create(self, request, *args, **kwargs):
-        instance_data = request.data
-        data = {key: value for key, value in instance_data.items()}
-        serializer = self.get_serializer(data=data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         uploded_files = []
         try:
@@ -54,8 +52,8 @@ class BoardViewSet(viewsets.ModelViewSet):
                     os.remove(file)
                 else:
                     pass
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(serializer.data)
+            # return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # return Response(serializer.data)
 
     @transaction.atomic
     def partial_update(self, request, *args, **kwargs):

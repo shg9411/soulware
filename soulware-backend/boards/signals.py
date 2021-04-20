@@ -27,7 +27,7 @@ def send_email(sender, **kwargs):
     if not settings.DEBUG:
         board = Board.objects.get(id=kwargs['instance'].id)
         subject = board.title
-        message = board.body
+        message = board.explanation
         to = [FROM_EMAIL, board.email]
         EamilThread(subject, message, to).start()
     return
