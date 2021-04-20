@@ -8,9 +8,15 @@ import localforage from "localforage";
 import "typeface-noto-sans";
 import "./assets/main.scss";
 import "./filters";
+import { TiptapVuetifyPlugin } from "tiptap-vuetify";
+import "tiptap-vuetify/dist/main.css";
 
 Vue.config.productionTip = false;
 Vue.use(Vuelidate);
+Vue.use(TiptapVuetifyPlugin, {
+  vuetify,
+  iconsGroup: "mdi",
+});
 
 localforage.config({
   driver: localforage.INDEXEDDB,

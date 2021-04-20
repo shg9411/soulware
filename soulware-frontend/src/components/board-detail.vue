@@ -5,18 +5,83 @@
     </v-app-bar>
     <v-container>
       <v-row dense>
-        <v-col cols="12" v-for="(value,idx) in board" :key="idx">
+        <v-col cols="12">
           <v-card>
             <v-card-title>
-              {{idx}}
+              작성일자
             </v-card-title>
-            <v-card-subtitle>{{value}}</v-card-subtitle>
+            <v-card-subtitle>{{board.created_at|datetime}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title>
+              기관/회사명
+            </v-card-title>
+            <v-card-subtitle>{{board.organization}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title>
+              담당자
+            </v-card-title>
+            <v-card-subtitle>{{board.manager}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title>
+              연락처
+            </v-card-title>
+            <v-card-subtitle>{{board.phone}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title>
+              이메일
+            </v-card-title>
+            <v-card-subtitle>{{board.email}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title>
+              예산
+            </v-card-title>
+            <v-card-subtitle>{{board.budget_display}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="6">
+          <v-card>
+            <v-card-title>
+              예상 일정
+            </v-card-title>
+            <v-card-subtitle>{{board.expected_period_display}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              프로젝트명
+            </v-card-title>
+            <v-card-subtitle>{{board.title}}</v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              프로젝트 설명
+            </v-card-title>
+            <v-card-subtitle v-html='board.explanation'></v-card-subtitle>
+            </v-card-subtitle>
           </v-card>
         </v-col>
         <v-col v-if="files" cols="12">
           <v-card>
             <v-card-title>
-              Files
+              첨부파일
             </v-card-title>
             <v-card-actions>
               <v-btn class="ml-2 mt-5" outlined rounded small v-for="(file,idx) in files" :key="idx" @click="download(file)">{{file.originName}}</v-btn>
@@ -57,11 +122,15 @@ export default {
   data() {
     return {
       board: {
-        id: null,
-        title: null,
-        body: null,
-        email: null,
-        phone: null
+        id: "",
+        organization: "",
+        manager: "",
+        phone: "",
+        title: "",
+        email: "",
+        budget: "",
+        expected_period: "",
+        explanation: "",
       },
       dialog: false,
       files: '',
