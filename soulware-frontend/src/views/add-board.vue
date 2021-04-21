@@ -16,7 +16,7 @@
           </v-col>
         </v-row>
         <sw-textEditor v-model="board.explanation" />
-        <v-file-input :rules="[files => !files || !files.some(file=>file.size> 10*1024*1024)||'File size cant exceed 10MB']" show-size multiple v-model="files" label="첨부파일">
+        <v-file-input :rules="fileRules" show-size multiple v-model="files" label="첨부파일">
           <template v-slot:selection="{index,text}">
             <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
           </template>
@@ -35,6 +35,9 @@
 import http from "@/utils/http"
 import SwTextEditor from "@/components/text-editor"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
+
+const FILE_MAX_SIZE = 50 * 1024 * 1024
+
 export default {
   name: 'AddBoard',
   components: {
@@ -58,11 +61,12 @@ export default {
       files: [],
       agree: false,
       exp_valid: false,
+      fileRules: [v => !v.length || v.reduce((size, file) => size + file.size, 0) < FILE_MAX_SIZE || "File size can't exceed 50MB"]
     }
   },
   watch: {
     'board.explanation': {
-      handler: function (after, before) {
+      handler: function (after) {
         if (after == "<p></p>") {
           this.exp_valid = false
         } else {

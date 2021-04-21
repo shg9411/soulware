@@ -13,36 +13,45 @@ export default {
     prop: 'content',
     event: 'change'
   },
-  props: ['content'],
-  data: () => ({
-    isWatching: false,
-    extensions: [
-      History,
-      Blockquote,
-      Link,
-      Underline,
-      Strike,
-      Italic,
-      ListItem,
-      BulletList,
-      OrderedList,
-      [Heading, {
-        options: {
-          levels: [1, 2, 3]
-        }
-      }],
-      Bold,
-      Code,
-      HorizontalRule,
-      Paragraph,
-      HardBreak
-    ],
-    explanation: ''
-  }),
-  watch: {
-    content: function (val) {
-      this.explanation = val
+  props: {
+    content: String,
+  },
+  data() {
+    return {
+      isWatching: false,
+      extensions: [
+        History,
+        Blockquote,
+        Link,
+        Underline,
+        Strike,
+        Italic,
+        ListItem,
+        BulletList,
+        OrderedList,
+        [Heading, {
+          options: {
+            levels: [1, 2, 3]
+          }
+        }],
+        Bold,
+        Code,
+        HorizontalRule,
+        Paragraph,
+        HardBreak
+      ],
+      explanation: ''
     }
+  },
+  created() {
+    this.isWatching = true
+    this.unwatchIsLiveProp = this.$watch('content', (newVal) => {
+      if (newVal) {
+        this.unwatchIsLiveProp();
+        this.explanation = newVal
+        this.isWatching = false;
+      }
+    })
   },
   methods: {
     input() {

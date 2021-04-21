@@ -4,8 +4,8 @@
     <v-row>
       <v-col cols="12">
         <v-card v-for='(item, index) in boards' :key="index">
-          <v-card-title @click="detail(item.id)" class="headline" v-html="item.title"></v-card-title>
-          <v-card-subtitle v-html="item.manager"></v-card-subtitle>
+          <v-card-title @click="detail(item.id)" class="headline">{{item.id}} - {{item.title}}</v-card-title>
+          <v-card-subtitle>{{item.manager}}</v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>

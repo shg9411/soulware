@@ -75,7 +75,6 @@
               프로젝트 설명
             </v-card-title>
             <v-card-subtitle v-html='board.explanation'></v-card-subtitle>
-            </v-card-subtitle>
           </v-card>
         </v-col>
         <v-col v-if="files" cols="12">

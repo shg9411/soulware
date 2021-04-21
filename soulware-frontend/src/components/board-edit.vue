@@ -29,7 +29,7 @@
             </v-card-actions>
           </v-col>
         </v-row>
-        <v-file-input :rules="[files => !files || !files.some(file=>file.size> 10*1024*1024)||'File size cant exceed 10MB']" show-size multiple v-model="new_file" label="File">
+        <v-file-input :rules="fileRules" show-size multiple v-model="new_file" label="File">
           <template v-slot:selection="{index,text}">
             <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
           </template>
@@ -61,6 +61,9 @@
 import http from "@/utils/http"
 import SwTextEditor from "@/components/text-editor"
 import { required, minLength, maxLength, numeric, email } from "vuelidate/lib/validators";
+
+const FILE_MAX_SIZE = 50 * 1024 * 1024
+
 export default {
   name: 'edit',
   props: ['id'],
@@ -69,6 +72,7 @@ export default {
   },
   data() {
     return {
+      content: '',
       board: {
         organization: "",
         manager: "",
@@ -88,11 +92,13 @@ export default {
       new_file: [],
       budget_items: [{ id: 'UD', name: '미정' }, { id: 'U1', name: '500만원~1000만원' }, { id: 'U3', name: '1000만원~3000만원' }, { id: 'U5', name: '3000만원~5000만원' }, { id: 'U10', name: '5000만원~1억원' }, { id: 'O10', name: '1억원 이상' }],
       period_items: [{ id: 'U2', name: '1~2개월' }, { id: 'U5', name: '3~5개월' }, { id: 'U9', name: '6~9개월' }, { id: 'O9', name: '9개월 이상' }],
+      size: 0,
+      fileRules: [v => !v.length || v.reduce((size, file) => size + file.size, this.size) < FILE_MAX_SIZE || "File size can't exceed 50MB"],
     }
   },
   watch: {
     'board.explanation': {
-      handler: function (after, before) {
+      handler: function (after) {
         if (after == "<p></p>") {
           this.exp_valid = false
         } else {
@@ -197,6 +203,7 @@ export default {
       const data = await http.process('board', 'detail', { id: this.id })
       this.board = data
       for (var i = 0; i < this.board.files.length; i++) {
+        this.size += this.board.files[i].size
         this.tmp = new File([], this.board.files[i].originName, { type: "text/plain" })
         this.current.push(this.tmp)
         this.visible.push(true)
@@ -207,6 +214,7 @@ export default {
     },
     delOrigin(x, idx) {
       this.deleted_files.push(x)
+      this.size -= this.board.files[idx].size
       this.$set(this.visible, idx, false)
     },
     showDialog() {
@@ -217,7 +225,6 @@ export default {
     async save() {
       this.$v.$touch()
       this.$refs.form.validate()
-
       if (!this.$v.$error) {
         this.dialog = false
         let fd = new FormData();
