@@ -7,7 +7,7 @@
 *.pot
 *.pyc
 __pycache__/
-local_settings.py
+production.py
 db.sqlite3
 db.sqlite3-journal
 sqlite3.db

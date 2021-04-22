@@ -258,6 +258,5 @@ export default {
 <style scoped>
 .tmp {
   height: 4.09rem;
-  background-color: black;
 }
 </style>

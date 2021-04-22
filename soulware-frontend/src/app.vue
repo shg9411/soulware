@@ -31,7 +31,7 @@
     <v-main class="pa-0">
       <v-container fluid class="pa-0">
         <router-view></router-view>
-        <div v-show="float">
+        <div v-show="check">
           <v-fab-transition>
             <v-btn dark fixed bottom right fab class="fab-chatbot">
               <em></em>
@@ -60,7 +60,8 @@ export default {
   data() {
     return {
       drawer: false,
-      bg: 'transparent',
+      bg: '',
+      base: '',
       appTitle: 'SOULWARE',
       menuItems: [
         { title: 'Sovit', name: 'Sovit' },
@@ -70,12 +71,19 @@ export default {
     }
   },
   computed: {
-    float() {
+    check() {
       let to = this.$route
-      if (to && to.meta && to.meta.float) {
-        return true
+      if (to && to.meta && to.meta.bg) {
+        this.base = 'black'
+        this.bg = this.base
       }
       else {
+        this.base = 'transparent'
+        this.bg = this.base
+      }
+      if (to && to.meta && to.meta.float) {
+        return true
+      } else {
         return false
       }
     }
@@ -91,7 +99,7 @@ export default {
       ) {
         this.bg = 'black';
       } else {
-        this.bg = 'transparent';
+        this.bg = this.base;
       }
     },
   }
