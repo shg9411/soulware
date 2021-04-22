@@ -19,10 +19,10 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('boards/', include('boards.urls')),
-    path('blogs/',include('blogs.urls'))
+    # path('admin/', admin.site.urls),
+    path('api/accounts/', include('accounts.urls')),
+    path('api/boards/', include('boards.urls')),
+    path('api/blogs/',include('blogs.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
