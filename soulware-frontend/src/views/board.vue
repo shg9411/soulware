@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    <div class="tmp"></div>
     <v-card-title v-if="boards && boards.length==0" class="justify-center">게시글이 없습니다.</v-card-title>
     <v-row>
       <v-col cols="12">
@@ -17,7 +18,6 @@
 
 <script>
 import http from "@/utils/http"
-
 const PAGE_SIZE = 3
 
 export default {
@@ -51,3 +51,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.tmp {
+  height: 4.09rem;
+  background-color: black;
+}
+</style>

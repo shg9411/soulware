@@ -1,8 +1,6 @@
 <template>
   <v-card>
-    <v-app-bar>
-      <v-toolbar-title>Detail</v-toolbar-title>
-    </v-app-bar>
+    <div class="tmp"></div>
     <v-container>
       <v-row dense>
         <v-col cols="12">
@@ -187,5 +185,9 @@ export default {
 <style scoped>
 .v-btn {
   text-transform: none;
+}
+.tmp {
+  height: 4.09rem;
+  background-color: black;
 }
 </style>

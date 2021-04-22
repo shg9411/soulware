@@ -3,6 +3,10 @@ const path = require("path");
 module.exports = {
   chainWebpack: (config) => {
     config.module.rules.delete("eslint");
+    config.plugin("html").tap((args) => {
+      args[0].title = "SOULWARE";
+      return args;
+    });
     const types = ["vue-modules", "vue", "normal-modules", "normal"];
     types.forEach((type) =>
       addStyleResource(config.module.rule("scss").oneOf(type))

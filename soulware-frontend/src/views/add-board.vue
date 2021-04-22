@@ -1,5 +1,6 @@
 <template>
   <v-card>
+    <div class="tmp"></div>
     <v-card-text>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field :error-messages="organizationErrors" v-model.trim="board.organization" @input="$v.board.organization.$touch()" @blur="$v.board.organization.$touch()" label="기관/회사명" required></v-text-field>
@@ -41,7 +42,7 @@ const FILE_MAX_SIZE = 50 * 1024 * 1024
 export default {
   name: 'AddBoard',
   components: {
-    SwTextEditor
+    SwTextEditor,
   },
   data() {
     return {
@@ -196,3 +197,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.tmp {
+  height: 4.09rem;
+  background-color: black;
+}
+</style>
