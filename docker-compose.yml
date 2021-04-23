@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  backend:
+    image: backend:${BACKEND_VERSION}
+    container_name: backend
+    restart: unless-stopped
+    init: true
+    networks:
+      default: {}
+    volumes:
+      - /data/conf:/conf
+      - /data/logs:/logs
+      - /data/static:/static
+      - /data/uploads:/code/web_proj/uploads
+    env_file: .django.env
+    working_dir: /code/
+    command: >
+      bash -c "uwsgi --socket :8001 --ini uwsgi.ini"
+  web:
+    image: nginx:1.16.0
+    container_name: web
+    restart: unless-stopped
+    init: true
+    networks:
+      default: {}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /data/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /data/conf:/conf
+      - /data/static:/static
+      - /data/www/soulware:/soulware
+      - /data/logs/web:/logs
+        #- /data/sslcert:/sslcert
+    depends_on:
+      - backend
+networks:
+  default:
+    driver: bridge
