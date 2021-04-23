@@ -35,13 +35,6 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-'''
-#for test
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8080',
-    'http://127.0.0.1:8080'
-)
-'''
 
 ROOT_URLCONF = 'web_proj.urls'
 
