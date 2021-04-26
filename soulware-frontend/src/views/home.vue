@@ -33,7 +33,7 @@
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0" :to="{name:'YujinIclebo'}">
             <!-- flip-card -->
-            <div class="flip-card">
+            <!-- <div class="flip-card">
               <div class="flip-card-inner">
                 <div class="flip-card-front">
                   <v-img :src="require('@/assets/images/main_iclebo05.png')" />
@@ -42,7 +42,11 @@
                   <v-img :src="require('@/assets/images/icleco_hover.png')" />
                 </div>
               </div>
-            </div>
+            </div> -->
+            <sw-filp-card>
+              <template v-slot:front> <em class="iclebo" /> </template>
+              <template v-slot:back> <em class="iclebo back" /> </template>
+            </sw-filp-card>
             <!-- <em class="iclebo"></em> -->
             <v-card-title>iClebo O5</v-card-title>
             <v-card-text>
@@ -126,11 +130,13 @@
 
 <script>
 import Blogs from '@/components/blogs.vue'
+import SwFilpCard from '@/components/filp-card.vue'
 
 export default {
   name: 'Home',
   components: {
-    Blogs
+    Blogs,
+    SwFilpCard
   },
 }
 </script>

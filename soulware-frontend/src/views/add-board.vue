@@ -1,36 +1,62 @@
 <template>
-  <v-card>
-    <div class="tmp"></div>
-    <v-card-text>
+  <div class="contact-section">
+    <div class="contact-container">
+      <div class="contact-top-section">
+        <h2>프로젝트 문의나 의뢰가 있나요?<br />
+          소울웨어가 도와드리겠습니다!</h2>
+        <p>함께 소통하며 프로젝트를 제작합니다. 문의를 남겨 주시면 1~2일 이내에 담당자가 연락드릴 예정입니다.</p>
+      </div>
       <v-form ref="form" v-model="valid" lazy-validation>
-        <v-text-field :error-messages="organizationErrors" v-model.trim="board.organization" @input="$v.board.organization.$touch()" @blur="$v.board.organization.$touch()" label="기관/회사명" required></v-text-field>
-        <v-text-field :error-messages="managerErrors" v-model.trim="board.manager" @input="$v.board.manager.$touch()" @blur="$v.board.manager.$touch()" label="담당자" required></v-text-field>
-        <v-text-field :error-messages="phoneErrors" v-model.trim="board.phone" @input="$v.board.phone.$touch()" @blur="$v.board.phone.$touch()" label="연락처" required></v-text-field>
-        <v-text-field :error-messages="emailErrors" v-model.trim="board.email" @input="$v.board.email.$touch()" @blur="$v.board.email.$touch()" label="E-mail" required></v-text-field>
-        <v-text-field :error-messages="titleErrors" v-model.trim="board.title" @input="$v.board.title.$touch()" @blur="$v.board.title.$touch()" label="프로젝트명" required></v-text-field>
+        <h3 class="form-title">01. 기본정보</h3>
         <v-row>
-          <v-col class="d-flex" cols="6" sm="6">
-            <v-select :error-messages="budgetErrors" v-model.trim="board.budget" :items="budget_items" item-value='id' item-text='name' @blur="$v.board.budget.$touch()" label="예산" outlined></v-select>
+          <v-col class="d-flex field-pd" cols="12" sm="6">
+            <v-text-field :error-messages="organizationErrors" v-model.trim="board.organization" @input="$v.board.organization.$touch()" @blur="$v.board.organization.$touch()" label="기관/회사명" required></v-text-field>
           </v-col>
-          <v-col class="d-flex" cols="6" sm="6">
-            <v-select :error-messages="expectedPeriodErrors" v-model.trim="board.expected_period" :items="period_items" item-value='id' item-text='name' @blur="$v.board.expected_period.$touch()" label="예상 일정" outlined></v-select>
+          <v-col class="d-flex field-pd" cols="12" sm="6">
+            <v-text-field :error-messages="managerErrors" v-model.trim="board.manager" @input="$v.board.manager.$touch()" @blur="$v.board.manager.$touch()" label="담당자" required></v-text-field>
+          </v-col>
+          <v-col class="d-flex field-pd" cols="12" sm="6">
+            <v-text-field :error-messages="phoneErrors" v-model.trim="board.phone" @input="$v.board.phone.$touch()" @blur="$v.board.phone.$touch()" label="연락처" required></v-text-field>
+          </v-col>
+          <v-col class="d-flex field-pd" cols="12" sm="6">
+            <v-text-field :error-messages="emailErrors" v-model.trim="board.email" @input="$v.board.email.$touch()" @blur="$v.board.email.$touch()" label="E-mail" required></v-text-field>
           </v-col>
         </v-row>
-        <sw-textEditor v-model="board.explanation" />
-        <v-file-input :rules="fileRules" show-size multiple v-model="files" label="첨부파일">
-          <template v-slot:selection="{index,text}">
-            <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
-          </template>
-        </v-file-input>
-        <v-checkbox v-model="agree" label="개인정보수집이용 동의"></v-checkbox>
-        <v-card-actions>
-          <v-btn :disabled="$v.$error|| !valid || !agree || !exp_valid" text color=" teal accent-4" @click="saveBoard()">
-            Save
+        <h3 class="form-title">02. 프로젝트 정보</h3>
+        <v-row>
+          <v-col class="d-flex field-pd" cols="12">
+            <v-text-field :error-messages="titleErrors" v-model.trim="board.title" @input="$v.board.title.$touch()" @blur="$v.board.title.$touch()" label="프로젝트명" required></v-text-field>
+          </v-col>
+          <v-col class="d-flex field-pd pt-5" cols="12" sm="6">
+            <v-select :error-messages="budgetErrors" v-model.trim="board.budget" :items="budget_items" item-value='id' item-text='name' @blur="$v.board.budget.$touch()" label="예산" outlined content-class="select-list"></v-select>
+          </v-col>
+          <v-col class="d-flex field-pd pt-5" cols="12" sm="6">
+            <v-select :error-messages="expectedPeriodErrors" v-model.trim="board.expected_period" :items="period_items" item-value='id' item-text='name' @blur="$v.board.expected_period.$touch()" label="예상 일정" outlined></v-select>
+          </v-col>
+          <v-col class=" field-pd" cols="12">
+            <sw-textEditor v-model="board.explanation" />
+          </v-col>
+          <v-col class="d-flex field-pd pt-5" cols="12">
+            <v-file-input :rules="fileRules" show-size multiple v-model="files" label="첨부파일">
+              <template v-slot:selection="{index,text}">
+                <v-chip close @click:close="deleteChip(index)">{{text}}</v-chip>
+              </template>
+            </v-file-input>
+          </v-col>
+        </v-row>
+        <v-col class="d-flex checkbox-field-pd" cols="12">
+          <v-checkbox v-model="agree" label="개인정보수집이용 동의"></v-checkbox>
+        </v-col>
+        <v-col class="d-flex field-pd align-center justify-center" cols="12">
+          <v-btn :disabled="$v.$error|| !valid || !agree || !exp_valid" rounded @click="saveBoard()" class="btn-contect">
+            프로젝트 의뢰
           </v-btn>
-        </v-card-actions>
+        </v-col>
+
       </v-form>
-    </v-card-text>
-  </v-card>
+    </div>
+  </div>
+
 </template>
 <script>
 import http from "@/utils/http"
@@ -81,50 +107,50 @@ export default {
     budgetErrors() {
       const errors = []
       if (!this.$v.board.budget.$dirty) return errors
-      !this.$v.board.budget.required && errors.push('Budget is required.')
+      !this.$v.board.budget.required && errors.push('예산을 입력해주세요.')
       return errors
     },
     expectedPeriodErrors() {
       const errors = []
       if (!this.$v.board.expected_period.$dirty) return errors
-      !this.$v.board.expected_period.required && errors.push('Period is required.')
+      !this.$v.board.expected_period.required && errors.push('예상 일정을 입력해주세요.')
       return errors
     },
     titleErrors() {
       const errors = []
       if (!this.$v.board.title.$dirty) return errors
-      !this.$v.board.title.required && errors.push('Title is required.')
-      !this.$v.board.title.maxLength && errors.push('Title must be at most 32 characters long')
+      !this.$v.board.title.required && errors.push('프로젝트명을 입력해주세요.')
+      !this.$v.board.title.maxLength && errors.push('프로젝트명은 최대 32글자까지 가능합니다.')
       return errors
     },
     managerErrors() {
       const errors = []
       if (!this.$v.board.manager.$dirty) return errors
-      !this.$v.board.manager.required && errors.push('Manager is required')
-      !this.$v.board.manager.maxLength && errors.push('Manager must be at most 8 characters long')
+      !this.$v.board.manager.required && errors.push('담당자를 입력해주세요.')
+      !this.$v.board.manager.maxLength && errors.push('담당자 이름은 최대 8글자까지 가능합니다.')
       return errors
     },
     organizationErrors() {
       const errors = []
       if (!this.$v.board.organization.$dirty) return errors
-      !this.$v.board.organization.required && errors.push('Organization is required')
-      !this.$v.board.organization.maxLength && errors.push('Title must be at most 32 characters long')
+      !this.$v.board.organization.required && errors.push('기관/회사명을 입력해주세요.')
+      !this.$v.board.organization.maxLength && errors.push('기관/회사명은 최대 32글자까지 가능합니다.')
       return errors
     },
     phoneErrors() {
       const errors = []
       if (!this.$v.board.phone.$dirty) return errors
-      !this.$v.board.phone.required && errors.push('Phone number is required.')
-      !this.$v.board.phone.numeric && errors.push('Phone number only numeric')
-      !this.$v.board.phone.minLength && errors.push('Phone number must be at least 8 numeric')
-      !this.$v.board.phone.maxLength && errors.push('Phone number must be at most 16 numeric')
+      !this.$v.board.phone.required && errors.push('연락처를 입력해주세요.')
+      !this.$v.board.phone.numeric && errors.push('숫자만 입력해주세요.')
+      !this.$v.board.phone.minLength && errors.push('8글자 이상으로 입력해주세요.')
+      !this.$v.board.phone.maxLength && errors.push('16글자 이하로 입력해주세요.')
       return errors
     },
     emailErrors() {
       const errors = []
       if (!this.$v.board.email.$dirty) return errors
-      !this.$v.board.email.email && errors.push('Must be valid e-mail')
-      !this.$v.board.email.required && errors.push('E-mail is required')
+      !this.$v.board.email.email && errors.push('유효하지 않은 이메일 주소입니다.')
+      !this.$v.board.email.required && errors.push('이메일을 입력해주세요.')
       return errors
     }
   },
@@ -198,7 +224,4 @@ export default {
 }
 </script>
 <style scoped>
-.tmp {
-  height: 4.09rem;
-}
 </style>

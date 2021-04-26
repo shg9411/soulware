@@ -116,51 +116,50 @@ export default {
     budgetErrors() {
       const errors = []
       if (!this.$v.board.budget.$dirty) return errors
-      !this.$v.board.budget.required && errors.push('Budget is required.')
+      !this.$v.board.budget.required && errors.push('예산을 입력해주세요.')
       return errors
     },
     expectedPeriodErrors() {
       const errors = []
       if (!this.$v.board.expected_period.$dirty) return errors
-      !this.$v.board.expected_period.required && errors.push('Period is required.')
+      !this.$v.board.expected_period.required && errors.push('예상 일정을 입력해주세요.')
       return errors
-
     },
     titleErrors() {
       const errors = []
       if (!this.$v.board.title.$dirty) return errors
-      !this.$v.board.title.required && errors.push('Title is required.')
-      !this.$v.board.title.maxLength && errors.push('Title must be at most 32 characters long')
+      !this.$v.board.title.required && errors.push('프로젝트명을 입력해주세요.')
+      !this.$v.board.title.maxLength && errors.push('프로젝트명은 최대 32글자까지 가능합니다.')
       return errors
     },
     managerErrors() {
       const errors = []
       if (!this.$v.board.manager.$dirty) return errors
-      !this.$v.board.manager.required && errors.push('Manager is required')
-      !this.$v.board.manager.maxLength && errors.push('Manager must be at most 8 characters long')
+      !this.$v.board.manager.required && errors.push('담당자를 입력해주세요.')
+      !this.$v.board.manager.maxLength && errors.push('담당자 이름은 최대 8글자까지 가능합니다.')
       return errors
     },
     organizationErrors() {
       const errors = []
       if (!this.$v.board.organization.$dirty) return errors
-      !this.$v.board.organization.required && errors.push('Organization is required')
-      !this.$v.board.organization.maxLength && errors.push('Title must be at most 32 characters long')
+      !this.$v.board.organization.required && errors.push('기관/회사명을 입력해주세요.')
+      !this.$v.board.organization.maxLength && errors.push('기관/회사명은 최대 32글자까지 가능합니다.')
       return errors
     },
     phoneErrors() {
       const errors = []
       if (!this.$v.board.phone.$dirty) return errors
-      !this.$v.board.phone.required && errors.push('Phone number is required.')
-      !this.$v.board.phone.numeric && errors.push('Phone number only numeric')
-      !this.$v.board.phone.minLength && errors.push('Phone number must be at least 8 numeric')
-      !this.$v.board.phone.maxLength && errors.push('Phone number must be at most 16 numeric')
+      !this.$v.board.phone.required && errors.push('연락처를 입력해주세요.')
+      !this.$v.board.phone.numeric && errors.push('숫자만 입력해주세요.')
+      !this.$v.board.phone.minLength && errors.push('8글자 이상으로 입력해주세요.')
+      !this.$v.board.phone.maxLength && errors.push('16글자 이하로 입력해주세요.')
       return errors
     },
     emailErrors() {
       const errors = []
       if (!this.$v.board.email.$dirty) return errors
-      !this.$v.board.email.email && errors.push('Must be valid e-mail')
-      !this.$v.board.email.required && errors.push('E-mail is required')
+      !this.$v.board.email.email && errors.push('유효하지 않은 이메일 주소입니다.')
+      !this.$v.board.email.required && errors.push('이메일을 입력해주세요.')
       return errors
     }
   },
