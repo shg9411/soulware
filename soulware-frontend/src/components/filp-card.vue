@@ -19,12 +19,12 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style>
 .flip-card {
   background-color: transparent;
-  /*   max-width: 16.09rem;
+  max-width: 16.09rem;
   width: 100%;
-  height: 16.09rem; */
+  height: 16.09rem;
   perspective: 1000px;
 }
 .flip-card-inner {

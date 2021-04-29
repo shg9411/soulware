@@ -45,18 +45,26 @@
           </v-col>
         </v-row>
         <v-col class="d-flex checkbox-field-pd" cols="12">
-          <v-checkbox v-model="agree" label="개인정보수집이용 동의"></v-checkbox>
+          <v-checkbox v-model="agree" label="개인정보수집이용 동의" @change="check()"></v-checkbox>
         </v-col>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card>
+            <v-card-title>개인정보수집이용 동의</v-card-title>
+            <v-card-text>어쩌구 저쩌구</v-card-text>
+            <v-card-actions>
+              <v-btn color="warning" text @click="accept()">예</v-btn>
+              <v-btn color="warning" text @click="refuse()">아니오</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <v-col class="d-flex field-pd align-center justify-center" cols="12">
           <v-btn :disabled="$v.$error|| !valid || !agree || !exp_valid" rounded @click="saveBoard()" class="btn-contect">
             프로젝트 의뢰
           </v-btn>
         </v-col>
-
       </v-form>
     </div>
   </div>
-
 </template>
 <script>
 import http from "@/utils/http"
@@ -88,6 +96,7 @@ export default {
       files: [],
       agree: false,
       exp_valid: false,
+      dialog: false,
       fileRules: [v => !v.length || v.reduce((size, file) => size + file.size, 0) < FILE_MAX_SIZE || "File size can't exceed 50MB"]
     }
   },
@@ -187,6 +196,20 @@ export default {
     }
   },
   methods: {
+    accept() {
+      this.agree = true
+      this.dialog = false
+    },
+    refuse() {
+      this.agree = false
+      this.dialog = false
+    },
+    check() {
+      console.log(this.agree)
+      if (this.agree) {
+        this.dialog = true
+      }
+    },
     deleteChip(index) {
       this.files.splice(index, 1)
     },
@@ -212,16 +235,9 @@ export default {
         else {
           data = this.board
         }
-        try {
-          const res = await http.process('board', 'add', { data: data })
-          this.$router.push({ name: 'BoardDetail', params: { id: res.id } })
-        } catch (err) {
-          console.log(err)
-        }
+        this.$router.push({ name: 'Success' })
       }
     },
   },
 }
 </script>
-<style scoped>
-</style>

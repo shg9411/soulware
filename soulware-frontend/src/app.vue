@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <v-navigation-drawer right v-model="drawer" fixed temporary>
+    <v-navigation-drawer right v-model="drawer" fixed temporary class="navigation-menu">
+      <div class="top-logo">
+        <em></em>
+      </div>
       <v-list dense>
         <v-list-item v-for="item in menuItems" :key="item.title" :to="{name:item.name}">
           <v-list-item-content>
@@ -17,12 +20,30 @@
         <span class="slogan">혼이 담긴 소프트웨어</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
-        <v-btn v-for="(item,idx) in menuItems" :to="{name:item.name}" :key="idx">
+      <v-toolbar-items class="hidden-xs-only" v-if="!loggedIn">
+        <v-btn :to="{name:'Board'}" class="active">
+        </v-btn>
+        <v-btn v-for="(item,idx) in menuItems" :to="{name:item.name}" :key="idx" class="active">
           {{item.title}}
         </v-btn>
       </v-toolbar-items>
-      <v-toolbar-items class="hidden-sm-and-up">
+      <v-toolbar-items class="hidden-xs-only" v-else>
+        <v-btn :to="{name:'Board'}" class="active">
+          Admin
+        </v-btn>
+        <v-btn @click="showDialog()" class="active">Logout</v-btn>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card>
+            <v-card-title>Logout</v-card-title>
+            <v-card-text>로그아웃 하시겠습니까?</v-card-text>
+            <v-card-actions>
+              <v-btn color="warning" text @click="logout()">예</v-btn>
+              <v-btn color="warning" text @click="dialog = false">아니오</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar-items>
+      <v-toolbar-items class="hidden-sm-and-up menu-btn">
         <v-btn @click.stop="drawer = !drawer">
           <v-app-bar-nav-icon></v-app-bar-nav-icon>
         </v-btn>
@@ -32,11 +53,12 @@
       <v-container fluid class="pa-0">
         <router-view></router-view>
         <div v-show="check">
-          <v-fab-transition>
+          <!-- chatbot -->
+          <!-- <v-fab-transition>
             <v-btn dark fixed bottom right fab class="fab-chatbot">
               <em></em>
             </v-btn>
-          </v-fab-transition>
+          </v-fab-transition> -->
           <v-fab-transition>
             <v-btn :to="{name:'AddBoard'}" dark fixed bottom right fab class="fab-contact">
               문의하기
@@ -55,6 +77,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   name: "App",
   data() {
@@ -63,28 +86,33 @@ export default {
       bg: '',
       base: '',
       appTitle: 'SOULWARE',
+      dialog: false,
       menuItems: [
-        { title: 'Sovit', name: 'Sovit' },
+        { title: 'SOVIT', name: 'Sovit' },
         { title: '포트폴리오', name: 'Portfolio' },
         { title: '회사소개', name: 'About' },
+        { title: '문의하기', name: 'AddBoard' },
       ]
     }
   },
   computed: {
+    ...mapState({
+      loggedIn: state => state.auth.loggedIn,
+    }),
     check() {
       let to = this.$route
       if (to && to.meta && to.meta.bg) {
-        this.base = 'black'
+        this.base = 'realBlack'
         this.bg = this.base
       }
       else {
         this.base = 'transparent'
         this.bg = this.base
       }
-      if (to && to.meta && to.meta.float) {
-        return true
-      } else {
+      if (to && to.meta && to.meta.hide) {
         return false
+      } else {
+        return true
       }
     }
   },
@@ -93,15 +121,29 @@ export default {
   },
   methods: {
     changeColor() {
-      if (
-        document.body.scrollTop > 578 ||
-        document.documentElement.scrollTop > 578
-      ) {
-        this.bg = 'black';
-      } else {
-        this.bg = this.base;
+      if (this.base == 'transparent') {
+        if (
+          document.body.scrollTop > 578 ||
+          document.documentElement.scrollTop > 578
+        ) {
+          this.bg = 'black';
+        } else {
+          this.bg = this.base;
+        }
       }
     },
+    showDialog() {
+      this.dialog = true
+    },
+    logout() {
+      this.dialog = false
+      this.out().then(
+        () => this.$router.push('/').catch(() => { })
+      )
+    },
+    ...mapActions({
+      out: "auth/logout"
+    })
   }
 };
 </script>

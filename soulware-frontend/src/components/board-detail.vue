@@ -154,7 +154,7 @@ export default {
       } catch (err) {
         if (err.response.status == 404) {
           alert("게시글이 존재하지 않습니다.")
-          this.$router.push('/board')
+          this.$router.push('/admin/board')
         }
       }
     },
@@ -173,7 +173,7 @@ export default {
         console.log(err)
       }
       finally {
-        this.$router.push('/board')
+        this.$router.push('/admin/board')
       }
     },
     async download(file) {

@@ -48,6 +48,8 @@ const SogangSpring = () =>
   import(
     /*webpackChunkName: "portfolio"*/ "@/views/portfolio/sogang-spring.vue"
   );
+const Success = () =>
+  import(/*webpackChunkName: "board"*/ "@/components/board-save-success.vue");
 
 Vue.use(VueRouter);
 
@@ -74,6 +76,7 @@ const routes = [
     path: "/portfolio",
     name: "Portfolio",
     component: Portfolio,
+    meta: { float: true },
   },
   {
     path: "/portfolio/chungdahm-allim",
@@ -116,36 +119,41 @@ const routes = [
     component: SogangSpring,
   },
   {
-    path: "/login",
+    path: "/admin/login",
     name: "Login",
     component: Login,
-    meta: { requirePersist: true, bg: true },
+    meta: { requirePersist: true, bg: true, hide: true },
   },
   {
-    path: "/board",
+    path: "/admin/board",
     name: "Board",
     component: Board,
-    meta: { requiresAuth: true, requirePersist: true, bg: true },
+    meta: { requiresAuth: true, requirePersist: true, bg: true, hide: true },
   },
   {
     path: "/add",
     name: "AddBoard",
     component: AddBoard,
-    meta: { bg: true },
+    meta: { bg: true, hide: true },
   },
   {
-    path: "/board/:id",
+    path: "/admin/board/:id",
     name: "BoardDetail",
     component: BoardDetail,
-    meta: { requiresAuth: true, requirePersist: true, bg: true },
+    meta: { requiresAuth: true, requirePersist: true, bg: true, hide: true },
     props: true,
   },
   {
-    path: "/board/:id/edit",
+    path: "/admin/board/:id/edit",
     name: "BoardEdit",
     component: BoardEdit,
-    meta: { requiresAuth: true, requirePersist: true, bg: true },
+    meta: { requiresAuth: true, requirePersist: true, bg: true, hide: true },
     props: true,
+  },
+  {
+    path: "/save-success",
+    name: "Success",
+    component: Success,
   },
   {
     path: "/page-not-found",
@@ -211,10 +219,9 @@ router.beforeResolve((_to, _from, next) => {
         next();
       },
       (err) => {
-        console.log(err);
         if (err.denied) {
           next({
-            path: "/login",
+            name: "Login",
           });
         }
       }

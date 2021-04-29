@@ -4,6 +4,9 @@
 #app {
     font-family: "Noto Sans", "Noto Sans KR", sans-serif;
 }
+.v-btn--active::before {
+    opacity: 0 !important;
+}
 
 /*-------------------------------------------------------------------
 @nav
@@ -46,6 +49,15 @@
                 line-height: normal;
                 letter-spacing: normal;
                 box-shadow: none;
+                &.active {
+                    color: #4e6dfc;
+                }
+            }
+        }
+        .menu-btn {
+            .v-btn {
+                padding: 0;
+                width: 2rem;
             }
         }
     }
@@ -53,6 +65,36 @@
 .nav-section.black {
     background-color: rgba($color: #000, $alpha: 0.8) !important;
     // box-shadow: 0.2rem 0.2rem 0.5rem 0rem rgba(0, 0, 0, 0.35) !important;
+}
+.nav-section.realBlack {
+    background-color: rgba($color: #000, $alpha: 1) !important;
+}
+.navigation-menu {
+    .top-logo {
+        padding: 1rem;
+        background-color: #4e6dfc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        em {
+            display: inline-block;
+            width: 6.8rem;
+            height: 8.2rem;
+            background: url("../assets/images/soulware_logo.png") no-repeat center;
+            background-size: 100%;
+        }
+    }
+    .v-list {
+        padding: 0;
+
+        .v-list-item--active {
+            color: #4e6dfc !important;
+        }
+        .v-list-item:hover {
+            color: #4e6dfc !important;
+            background-color: rgba($color: #4e6dfc, $alpha: 0.1);
+        }
+    }
 }
 .v-footer.sw-footer {
     display: flex;
@@ -136,37 +178,66 @@
                 .chungdahm-learning {
                     background: url("../assets/images/main_chungdahm_learning.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/learning_portal_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
                 .iclebo {
                     background: url("../assets/images/main_iclebo05.png") no-repeat center;
                     background-size: 100%;
                     &.back {
                         background: url("../assets/images/icleco_hover.png") no-repeat center;
+                        background-size: 100%;
                     }
                 }
                 .allim {
                     background: url("../assets/images/main_allim.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/allim_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
                 .incheon-airport {
                     background: url("../assets/images/p_incheon_airport.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/airport_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
                 .itcrew-app {
                     background: url("../assets/images/p_itcrew_app.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/officecore_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
                 .itcrew-web {
                     background: url("../assets/images/p_itcrew_web.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/officecore_web_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
                 .loud-class {
                     background: url("../assets/images/p_loud_class.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/loudclass_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
                 .spring {
                     background: url("../assets/images/p_spring.png") no-repeat center;
                     background-size: 100%;
+                    &.back {
+                        background: url("../assets/images/spring_hover.png") no-repeat center;
+                        background-size: 100%;
+                    }
                 }
 
                 .v-card__title {
@@ -195,7 +266,7 @@
                     }
                 }
             }
-           /*  .v-card:hover {
+            /*  .v-card:hover {
                 .iclebo {
                     background: url("../assets/images/icleco_hover.png") no-repeat center;
                     background-size: 100%;
@@ -653,6 +724,9 @@
     .v-btn.v-btn--icon {
         width: 2rem;
         height: 2rem;
+        position: fixed;
+        right: 1.5rem;
+        background-color: rgba($color: #000, $alpha: 0.2);
         .v-icon {
             width: 1.2rem;
             height: 1.2rem;
@@ -1380,6 +1454,377 @@
     }
 }
 
+.officecore-top {
+    background: url("../assets/images/officecore_top.png") no-repeat center;
+    background-size: cover;
+    em {
+        display: inline-block;
+        width: 24.4rem;
+        height: 5.27rem;
+        background: url("../assets/images/officecore_logo.png") no-repeat center;
+        background-size: 100%;
+    }
+    p {
+        @extend .font-21, .font-normal;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        line-height: 0.74;
+        letter-spacing: normal;
+        color: #fff;
+    }
+}
+.officecore-concept-section {
+    padding: 3.3rem 1.5rem;
+    text-align: center;
+    background-color: #eee;
+
+    h2 {
+        @extend .font-47, .font-500;
+        margin-bottom: 1.5rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #444;
+    }
+    p {
+        @extend .font-16, .font-normal;
+        margin-bottom: 3.3rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #777;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 15.18rem;
+        background: url("../assets/images/officecore_concept.png") no-repeat center;
+        background-size: 85%;
+    }
+}
+.officecore-color-text {
+    min-height: 50rem;
+    background: url("../assets/images/officecore_color_gif.gif") no-repeat center right 10%;
+    background-size: auto;
+    padding: 4.6rem;
+    .text-content {
+        width: 50%;
+        h2 {
+            margin-bottom: 0.3rem;
+        }
+        h3 {
+            @extend .font-32, .font-500;
+            margin-bottom: 0.3rem;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #444;
+        }
+        p {
+            margin-bottom: 2rem;
+        }
+        em {
+            display: inline-block;
+            width: 100%;
+            height: 7.72rem;
+
+            background: url("../assets/images/text_semple.png") no-repeat center left;
+            background-size: contain;
+        }
+    }
+}
+.officecore-detail-section {
+    width: 100%;
+    height: 50rem;
+    margin-top: -13rem;
+    background: url("../assets/images/officecore_detail.png") no-repeat top left;
+    background-size: contain;
+}
+.officecore-icon-section {
+    background-color: #49c4d1;
+    padding: 4.6rem 0;
+
+    h2 {
+        margin-bottom: 0.3rem;
+    }
+    h2,
+    p {
+        color: #fff;
+        text-align: center;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 37.09rem;
+        background: url("../assets/images/officecore_icon_gif.gif") no-repeat center;
+        background-size: contain;
+    }
+}
+
+.officecore-web-top {
+    background-image: linear-gradient(-41deg, #637de0, #34407c);
+    background-size: cover;
+    em {
+        display: inline-block;
+        width: 12.59rem;
+        height: 9.77rem;
+        background: url("../assets/images/officecore_web_logo.png") no-repeat center;
+        background-size: 100%;
+    }
+    p {
+        @extend .font-21, .font-normal;
+        margin-top: 2rem;
+        margin-bottom: 0;
+        line-height: 0.74;
+        letter-spacing: normal;
+        color: #fff;
+    }
+}
+.officecore-web-concept-section {
+    padding: 3.3rem 1.5rem;
+    text-align: center;
+
+    h2 {
+        @extend .font-47, .font-500;
+        margin-bottom: 1.5rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #444;
+    }
+    p {
+        @extend .font-16, .font-normal;
+        margin-bottom: 3.3rem;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #777;
+    }
+    em {
+        display: inline-block;
+        // width: 53.68rem;
+        width: 100%;
+        height: 36.45rem;
+        background: url("../assets/images/officecore_website_concept.png") no-repeat center;
+        background-size: 80%;
+    }
+}
+.officecore-web-gray-bg {
+    height: 34.77rem;
+    margin-top: -22.4rem;
+    background-color: #eee;
+}
+.officecore-web-main {
+    height: 140.7rem;
+    margin-top: -13rem;
+    background: url("../assets/images/officecore_website_main.png") no-repeat top center;
+    background-size: contain;
+}
+.officecore-web-color-text {
+    background-color: #eee;
+    span {
+        display: inline-block;
+        padding: 3.6rem;
+        h2 {
+            margin-bottom: 0.3rem;
+        }
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 25.41rem;
+        margin-bottom: 3.6rem;
+        background: url("../assets/images/officecore_website_color_text.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.officecore-web-responsive {
+    background-color: #333f79;
+    text-align: center;
+    span {
+        display: inline-block;
+        padding: 3.6rem;
+        text-align: left;
+        width: 100%;
+        h2,
+        p {
+            color: #fff;
+        }
+        h2 {
+            margin-bottom: 0.3rem;
+        }
+    }
+    em {
+        display: inline-block;
+        width: 90%;
+        height: 23.27rem;
+        margin-bottom: 3.6rem;
+        background: url("../assets/images/officecore_website_responsive.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.officecore-web-detail {
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 101rem;
+        background: url("../assets/images/officecore_website_subpage.png") no-repeat center;
+        background-size: cover;
+    }
+}
+.officecore-web-detail-bottom {
+    margin-top: -24.5rem;
+    background-color: #637de0;
+    text-align: right;
+    span {
+        display: inline-block;
+        width: 50%;
+        text-align: right;
+        padding: 3.6rem;
+        word-break: keep-all;
+    }
+    h2,
+    p {
+        color: #fff;
+    }
+}
+.detail-scroll-gif {
+    display: inline-block;
+    width: 80%;
+    height: 30.64rem;
+    background: url("../assets/images/officecore_website_scroll.gif") no-repeat center;
+    background-size: contain;
+}
+.detail-sub-mockup {
+    display: inline-block;
+    width: 100%;
+    height: 29.55rem;
+    background: url("../assets/images/officecore_website_sub_mockup.png") no-repeat center;
+    background-size: contain;
+}
+
+.spring-top {
+    background: url("../assets/images/spring_top_bg.png") no-repeat center;
+    background-size: cover;
+
+    em {
+        width: 19.32rem;
+        height: 8.95rem;
+        background: url("../assets/images/spring_logo.png") no-repeat center;
+        background-size: cover;
+    }
+    p {
+        @extend .font-37, .font-500;
+        margin-top: 1.68rem;
+        color: #fff;
+    }
+}
+.spring-overview1 {
+    margin-top: -7rem;
+    height: 23.18rem;
+    background: url("../assets/images/spring_overview1.png") no-repeat center;
+    background-size: 80%;
+}
+.spring-overview2 {
+    margin: 3.5rem 0;
+    height: 11.18rem;
+    background: url("../assets/images/spring_overview2.png") no-repeat center;
+    background-size: 80%;
+}
+
+.spring-overview3 {
+    padding: 0;
+    min-height: 12.64rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    em {
+        display: inline-block;
+        width: 8.63rem;
+        height: 8.63rem;
+        margin-right: 2rem;
+        background: url("../assets/images/spring_icon.png") no-repeat center;
+        background-size: contain;
+    }
+    p {
+        @extend .font-21, .font-500;
+        margin: 0;
+        line-height: 1.5rem;
+        letter-spacing: normal;
+        color: #444;
+    }
+}
+.spring-detail-gif-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    em {
+        display: inline-block;
+        width: 16.59rem;
+        height: 31.23rem;
+        background: url("../assets/images/spring_gif.gif") no-repeat center;
+        background-size: contain;
+    }
+}
+.spring-detail {
+    margin-top: -11rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffdfe2;
+    h2 {
+        margin: 13rem 2.6rem 0 2.6rem;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 63.32rem;
+        background: url("../assets/images/spring_detail.png") no-repeat left bottom;
+        background-size: contain;
+    }
+}
+.spring-admin-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url("../assets/images/spring_admin_bg.png") no-repeat center;
+    background-size: cover;
+    padding: 3.5rem 1.5rem 5.5rem 1.5rem;
+    h2 {
+        margin-bottom: 3.5rem;
+    }
+    em {
+        display: inline-block;
+        width: 100%;
+        height: 27.32rem;
+        background: url("../assets/images/spring_admin_mockup.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.spring-text-section {
+    margin-top: -4rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    em {
+        display: inline-block;
+        width: 22.86rem;
+        height: 8.59rem;
+        background: url("../assets/images/spring.png") no-repeat center;
+        background-size: contain;
+    }
+}
+.spring-development-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding: 3rem 2rem 5rem 2rem;
+    em {
+        display: inline-block;
+        width: 32.86rem;
+        height: 15.82rem;
+        background: url("../assets/images/spring_development.png") no-repeat center;
+        background-size: contain;
+    }
+}
 /*-------------------------------------------------------------------
 @contact
 -------------------------------------------------------------------*/
@@ -1562,6 +2007,9 @@
     .sovit-gray-section {
         height: 25rem;
     }
+    .officecore-web-main {
+        height: 135.7rem;
+    }
 }
 
 @media (min-width: 1367px) {
@@ -1588,8 +2036,30 @@
             background-size: 100%;
         }
     }
+    .officecore-concept-section {
+        em {
+            background-size: contain;
+        }
+    }
+    .officecore-web-concept-section {
+        em {
+            background-size: contain;
+        }
+    }
+    .spring-overview1,
+    .spring-overview2 {
+        background-size: 60%;
+    }
 }
 
+@media (max-width: 1280px) {
+    .officecore-web-main {
+        height: 122.7rem;
+    }
+    .spring-detail em {
+        height: 50.32rem;
+    }
+}
 @media (max-width: 1024px) {
     .auth-section {
         em {
@@ -1647,6 +2117,33 @@
     }
     .cms-lms-section em {
         margin: 0;
+    }
+    .officecore-concept-section em {
+        background-size: 100%;
+    }
+    .officecore-icon-section em {
+        height: 30.9rem;
+    }
+    .officecore-icon-section {
+        padding: 2.6rem 0;
+    }
+    .officecore-web-main {
+        height: 97.7rem;
+    }
+    .officecore-web-concept-section em {
+        background-size: 100%;
+    }
+    .officecore-web-color-text em {
+        height: 19.41rem;
+    }
+    .officecore-web-responsive em {
+        height: 17.27rem;
+    }
+    .detail-scroll-gif {
+        height: 22.64rem;
+    }
+    .spring-detail em {
+        height: 40.32rem;
     }
 }
 
@@ -1714,6 +2211,32 @@
         width: 100% !important;
         padding: 6.31rem 5% 5rem 5%;
     }
+    .officecore-detail-section {
+        height: 38rem;
+    }
+    .officecore-web-main {
+        height: 91.7rem;
+    }
+    .officecore-web-concept-section em {
+        height: 27.45rem;
+    }
+    .officecore-web-gray-bg {
+        margin-top: -17.8rem;
+        height: 25.77rem;
+    }
+    .officecore-web-main {
+        margin-top: -9rem;
+    }
+    .spring-detail em {
+        height: 37.32rem;
+    }
+    .spring-overview1 {
+        height: 20.18rem;
+    }
+    .spring-overview2 {
+        margin: 1.5rem 0;
+        height: 9.18rem;
+    }
 }
 @media (max-width: 768px) {
     .top-text {
@@ -1729,6 +2252,13 @@
     }
     .main-img-section em {
         background-size: 63%;
+    }
+    .officecore-color-text {
+        background-size: 28%;
+        padding: 2.6rem;
+    }
+    .officecore-web-concept-section em {
+        background-size: contain;
     }
 }
 @media (max-width: 600px) {
@@ -1972,6 +2502,99 @@
         }
         p {
             text-align: center;
+        }
+    }
+    .officecore-concept-section {
+        em {
+            display: inline-block;
+            width: 100%;
+            height: 81.32rem;
+            background: url("../assets/images/m_officecore_concept.png") no-repeat center;
+            background-size: 100%;
+        }
+    }
+    .officecore-concept-section p {
+        margin-bottom: 0;
+    }
+    .officecore-color-text .text-content {
+        width: 100%;
+    }
+    .officecore-color-text {
+        min-height: 75rem;
+        background: url("../assets/images/officecore_color_gif.gif") no-repeat bottom center;
+        background-size: 50%;
+    }
+    .officecore-detail-section {
+        margin-top: 0;
+        background-size: 160%;
+    }
+    .officecore-icon-section em {
+        background-size: 160%;
+    }
+    .officecore-web-main {
+        background-size: 150%;
+    }
+    .detail-scroll-gif {
+        width: 100%;
+        height: 19.64rem;
+        background-size: 122%;
+    }
+    .officecore-web-detail-bottom span {
+        width: 100%;
+        padding: 3rem 1.5rem;
+    }
+    .detail-sub-mockup {
+        background-size: 160%;
+    }
+    .officecore-web-concept-section {
+        em {
+            height: 74.14rem;
+            background: url("../assets/images/m_officecore_website_concept.png") no-repeat center;
+            background-size: 100%;
+        }
+    }
+    .officecore-web-responsive {
+        em {
+            height: 49.5rem;
+            background: url("../assets/images/m_officecore_website_responsive.png") no-repeat center;
+            background-size: 100%;
+        }
+    }
+    .spring-overview1 {
+        height: 57.73rem;
+        background: url("../assets/images/m_spring_overview1.png") no-repeat center;
+        background-size: contain;
+    }
+    .spring-overview2 {
+        height: 24.77rem;
+        background: url("../assets/images/m_spring_overview2.png") no-repeat center;
+        background-size: 100%;
+    }
+    .spring-overview3 {
+        flex-direction: column;
+        padding: 3rem 1.5rem;
+        em {
+            margin-right: 0rem;
+            margin-bottom: 2rem;
+        }
+    }
+    .spring-detail em {
+        background-size: 160%;
+    }
+    .spring-admin-section {
+        padding-left: 0;
+        padding-right: 1rem;
+        em {
+            background-position-x: right;
+            background-size: 165%;
+        }
+    }
+    .spring-development-section {
+        em {
+            width: 100%;
+            height: 36.68rem;
+            background: url("../assets/images/m_spring_development.png") no-repeat center;
+            background-size: contain;
         }
     }
 }

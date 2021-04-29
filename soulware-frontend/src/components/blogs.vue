@@ -5,7 +5,7 @@
   <div class="blog-section" v-else>
     <v-row no-gutters>
       <v-col v-for="blog in current" :key="blog.id" cols="12" sm="6" md="4" lg="3" class="col-pd">
-        <v-card :href="blog.link">
+        <v-card :href="blog.link" height="100%">
           <v-img :src="blog.thumbnail"></v-img>
           <v-card-title>{{blog.title}}</v-card-title>
           <v-card-text>

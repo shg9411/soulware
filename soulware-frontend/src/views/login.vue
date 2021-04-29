@@ -65,7 +65,7 @@ export default {
   methods: {
     init() {
       if (this.loggedIn == true) {
-        this.$router.push('/board')
+        this.$router.push('/admin/board')
       }
     },
     async submit() {
@@ -74,7 +74,7 @@ export default {
       if (!this.$v.$error) {
         this.login(this.user).then(
           () => {
-            this.$router.push('/')
+            this.$router.push('/');
           },
           (error) => {
             console.log("login fail", error)

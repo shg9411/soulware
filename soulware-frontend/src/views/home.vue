@@ -22,7 +22,10 @@
       <v-row no-gutters>
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0" :to="{name:'ChungdahmLearning'}">
-            <em class="chungdahm-learning"></em>
+            <sw-filp-card>
+              <template v-slot:front> <em class="chungdahm-learning" /></template>
+              <template v-slot:back> <em class="chungdahm-learning back" /> </template>
+            </sw-filp-card>
             <v-card-title>Learning portal 4.0</v-card-title>
             <v-card-text>
               <p>(주)청담러닝포털 4.0</p>
@@ -32,22 +35,10 @@
         </v-col>
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0" :to="{name:'YujinIclebo'}">
-            <!-- flip-card -->
-            <!-- <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <v-img :src="require('@/assets/images/main_iclebo05.png')" />
-                </div>
-                <div class="flip-card-back">
-                  <v-img :src="require('@/assets/images/icleco_hover.png')" />
-                </div>
-              </div>
-            </div> -->
             <sw-filp-card>
               <template v-slot:front> <em class="iclebo" /> </template>
               <template v-slot:back> <em class="iclebo back" /> </template>
             </sw-filp-card>
-            <!-- <em class="iclebo"></em> -->
             <v-card-title>iClebo O5</v-card-title>
             <v-card-text>
               <p>로봇청소기 원격제어 플랫폼</p>
@@ -57,7 +48,10 @@
         </v-col>
         <v-col cols="12" sm="4" class="col-cover">
           <v-card elevation="0" :to="{name:'ChungdahmAllim'}">
-            <em class="allim"></em>
+            <sw-filp-card>
+              <template v-slot:front> <em class="allim" /></template>
+              <template v-slot:back> <em class="allim back" /> </template>
+            </sw-filp-card>
             <v-card-title>Allim app</v-card-title>
             <v-card-text>
               <p>(주)청담러닝 학부모앱</p>
@@ -140,34 +134,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.flip-card {
-  background-color: transparent;
-  max-width: 16.09rem;
-  width: 100%;
-  height: 16.09rem;
-  perspective: 1000px;
-}
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.flip-card-back {
-  transform: rotateY(180deg);
-}
-</style>
