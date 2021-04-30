@@ -1,6 +1,6 @@
 <template>
   <div>
-    <tiptap-vuetify @input="input" placeholder="본문을 작성하세요" v-model="explanation" :extensions="extensions" />
+    <tiptap-vuetify @input="input" placeholder="프로젝트에 대한 설명을 해주세요." v-model="explanation" :extensions="extensions" />
   </div>
 </template>
  

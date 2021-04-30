@@ -26,6 +26,14 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        if instance.status == 'UR':
+            instance.status = 'R'
+            instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
     @transaction.atomic
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -52,8 +60,8 @@ class BoardViewSet(viewsets.ModelViewSet):
                     os.remove(file)
                 else:
                     pass
-            # return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        # return Response(serializer.data)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(serializer.data)
 
     @transaction.atomic
     def partial_update(self, request, *args, **kwargs):

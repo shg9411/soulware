@@ -40,7 +40,7 @@
             <v-card-title>
               이메일
             </v-card-title>
-            <v-card-subtitle>{{board.email}}</v-card-subtitle>
+            <v-card-subtitle><a v-on:click="sendMail()" :href=" `mailto:${board.email}?subject=Re:${board.title}`">{{board.email}}</a></v-card-subtitle>
           </v-card>
         </v-col>
         <v-col cols="6">
@@ -73,6 +73,14 @@
               프로젝트 설명
             </v-card-title>
             <v-card-subtitle v-html='board.explanation'></v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12">
+          <v-card>
+            <v-card-title>
+              상태
+            </v-card-title>
+            <v-card-subtitle>{{board.status_display}}</v-card-subtitle>
           </v-card>
         </v-col>
         <v-col v-if="files" cols="12">
@@ -157,6 +165,9 @@ export default {
           this.$router.push('/admin/board')
         }
       }
+    },
+    sendMail(){
+      // 
     },
     showDialog() {
       this.dialog = !this.dialog

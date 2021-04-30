@@ -14,24 +14,24 @@
     </v-navigation-drawer>
     <v-app-bar :color="bg" app class="nav-section">
       <v-toolbar-title>
-        <router-link :to="{name:'Home'}" tag="span" style="cursor: pointer">
+        <router-link active-class="active" :to="{name:'Home'}" tag="span" style="cursor: pointer">
           {{ appTitle }}
         </router-link>
         <span class="slogan">혼이 담긴 소프트웨어</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only" v-if="!loggedIn">
-        <v-btn :to="{name:'Board'}" class="active">
+        <v-btn :to="{name:'Board'}">
         </v-btn>
-        <v-btn v-for="(item,idx) in menuItems" :to="{name:item.name}" :key="idx" class="active">
+        <v-btn active-class="active" v-for="(item,idx) in menuItems" :to="{name:item.name}" :key="idx">
           {{item.title}}
         </v-btn>
       </v-toolbar-items>
       <v-toolbar-items class="hidden-xs-only" v-else>
-        <v-btn :to="{name:'Board'}" class="active">
+        <v-btn active-class="active" :to="{name:'Board'}">
           Admin
         </v-btn>
-        <v-btn @click="showDialog()" class="active">Logout</v-btn>
+        <v-btn @click="showDialog()">Logout</v-btn>
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-title>Logout</v-card-title>

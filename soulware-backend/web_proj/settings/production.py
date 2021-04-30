@@ -2,13 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['52.79.90.116']
-
-CORS_ORIGIN_WHITELIST = [
-    'http://52.79.90.116:443',
-    'http://52.79.90.116:8080',
-    'http://52.79.90.116:80',
-]
+ALLOWED_HOSTS = ['soulware.kr']
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -17,6 +11,12 @@ CORS_ALLOW_METHODS = [
     'PATCH',
     'POST',
     'PUT',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'https://soulware.kr:443',
+    'http://soulware.kr:8080',
+    'http://soulware.kr:80',
 ]
 
 CORS_ALLOW_HEADERS = [

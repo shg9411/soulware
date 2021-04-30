@@ -29,6 +29,12 @@ class Board(models.Model):
         ('U9', '6~9개월'),
         ('O9', '9개월 이상'),
     ]
+
+    BOARD_STATUS = [
+        ('UR', '미확인'),
+        ('R', '확인'),
+        ('S', '답변 완료'),
+    ]
     organization = models.CharField('기관/회사명', max_length=32)
     manager = models.CharField('담당자명', max_length=8)
     phone = models.CharField('연락처', max_length=16)
@@ -39,6 +45,8 @@ class Board(models.Model):
     expected_period = models.CharField(
         '예상 기간', max_length=2, choices=PERIOD_CHOICES)
     created_at = models.DateTimeField('작성시간', auto_now_add=True)
+    status = models.CharField(
+        '상태', max_length=2, choices=BOARD_STATUS, default='UR')
 
     class Meta:
         ordering = ['-created_at']

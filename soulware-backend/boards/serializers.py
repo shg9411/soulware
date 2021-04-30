@@ -20,6 +20,8 @@ class BoardSerializer(serializers.ModelSerializer):
         source='get_budget_display', required=False, read_only=True)
     expected_period_display = serializers.CharField(
         source='get_expected_period_display', required=False, read_only=True)
+    status_display = serializers.CharField(
+        source='get_status_display', required=False)
 
     def get_files(self, obj):
         files = File.objects.filter(board=obj, isDel=False)
@@ -28,7 +30,7 @@ class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = ['id', 'organization', 'manager', 'phone', 'title',
-                  'email', 'explanation', 'created_at', 'files', 'budget', 'expected_period', 'budget_display', 'expected_period_display']
+                  'email', 'explanation', 'created_at', 'files', 'budget', 'expected_period', 'status', 'budget_display', 'expected_period_display', 'status_display']
 
     def validate_phone(self, value):
         for n in value:
