@@ -1,110 +1,89 @@
 <template>
-  <v-card>
+  <div>
     <div class="tmp"></div>
-    <v-container>
-      <v-row dense>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              작성일자
-            </v-card-title>
-            <v-card-subtitle>{{board.created_at|datetime}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-title>
-              기관/회사명
-            </v-card-title>
-            <v-card-subtitle>{{board.organization}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-title>
-              담당자
-            </v-card-title>
-            <v-card-subtitle>{{board.manager}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-title>
-              연락처
-            </v-card-title>
-            <v-card-subtitle>{{board.phone}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-title>
-              이메일
-            </v-card-title>
-            <v-card-subtitle><a v-on:click="sendMail()" :href=" `mailto:${board.email}?subject=Re:${board.title}`">{{board.email}}</a></v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-title>
-              예산
-            </v-card-title>
-            <v-card-subtitle>{{board.budget_display}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-title>
-              예상 일정
-            </v-card-title>
-            <v-card-subtitle>{{board.expected_period_display}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              프로젝트명
-            </v-card-title>
-            <v-card-subtitle>{{board.title}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              프로젝트 설명
-            </v-card-title>
-            <v-card-subtitle v-html='board.explanation'></v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title>
-              상태
-            </v-card-title>
-            <v-card-subtitle>{{board.status_display}}</v-card-subtitle>
-          </v-card>
-        </v-col>
-        <v-col v-if="files" cols="12">
-          <v-card>
-            <v-card-title>
-              첨부파일
-            </v-card-title>
-            <v-card-actions>
-              <v-btn class="ml-2 mt-5" outlined rounded small v-for="(file,idx) in files" :key="idx" @click="download(file)">{{file.originName}}</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-card-actions>
-        <v-btn text color="error accent-4" @click="showDialog()">
+    <v-row justify="center">
+      <v-col cols="10">
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th width="20%" class="text-center">
+                  key
+                </th>
+                <th class="text-center">
+                  value
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="20%" class="text-center">작성일자</td>
+                <td>{{board.created_at|datetime}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">기관/회사명</td>
+                <td>{{board.organization}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">담당자</td>
+                <td>{{board.manager}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">연락처</td>
+                <td>{{board.phone}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">이메일</td>
+                <td>
+                  <a v-on:click="sendMail()" :href="`mailto:${board.email}?subject=Re:${board.title}`">{{board.email}}</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center">예산</td>
+                <td>{{board.budget_display}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">예상 일정</td>
+                <td>{{board.expected_period_display}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">프로젝트명</td>
+                <td>{{board.title}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">프로젝트 설명</td>
+                <td v-html='board.explanation'></td>
+              </tr>
+              <tr>
+                <td class="text-center">상태</td>
+                <td>{{board.status_display}}</td>
+              </tr>
+              <tr v-for="(file,idx) in files" :key="idx">
+                <td v-if="idx==0" :rowspan="`${files.length}`" class="text-center">첨부파일</td>
+                <td><a @click="download(file)" style="cursor: pointer">{{file.originName}}</a></td>
+              </tr>
+              <tr></tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="2">
+        <v-btn class="ma-2" outlined color="indigo" @click="showDialog()">
           Delete
         </v-btn>
-        <v-btn text color="warning accent-4" @click="edit()">
+      </v-col>
+      <v-col cols="2">
+        <v-btn class="ma-2" outlined color="indigo" @click="edit()">
           Edit
         </v-btn>
-        <v-btn text color="teal accent-4" @click="$router.go(-1)">
+      </v-col>
+      <v-col cols="2">
+        <v-btn class="ma-2" outlined color="indigo" @click="$router.go(-1)">
           Back
         </v-btn>
-      </v-card-actions>
+      </v-col>
       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
           <v-card-title>Delete</v-card-title>
@@ -115,8 +94,8 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-container>
-  </v-card>
+    </v-row>
+  </div>
 </template>
 <script>
 import http from "@/utils/http"
@@ -166,7 +145,8 @@ export default {
         }
       }
     },
-    sendMail(){
+    sendMail() {
+      
       // 
     },
     showDialog() {
@@ -199,5 +179,12 @@ export default {
 }
 .tmp {
   height: 4.09rem;
+}
+</style>
+<style lang="scss">
+tbody {
+  tr:hover {
+    background-color: transparent !important;
+  }
 }
 </style>

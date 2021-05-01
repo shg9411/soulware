@@ -1,24 +1,46 @@
 <template>
-  <v-card>
+  <div>
     <div class="tmp"></div>
-    <v-card-title v-if="boards && boards.length==0" class="justify-center">게시글이 없습니다.</v-card-title>
-    <v-row>
-      <v-col cols="12">
-        <v-card v-for='(item, index) in boards' :key="index">
-          <v-card-title @click="detail(item.id)" class="headline">{{item.id}} - {{item.title}} - {{item.status_display}}</v-card-title>
-          <v-card-subtitle>{{item.manager}}</v-card-subtitle>
-        </v-card>
+    <v-row justify="center">
+      <v-col cols="10">
+        <v-simple-table>
+          <template v-slot:default>
+            <thead>
+              <tr>
+                <th width="20%" class="text-center">
+                  번호
+                </th>
+                <th width="60%" class="text-center">
+                  프로젝트 명
+                </th>
+                <th width="20%" class="text-center">
+                  상태
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-if="boards && boards.length==0">
+                <td colspan="3" class="text-center">문의사항이 존재하지 않습니다.</td>
+              </tr>
+              <tr v-else v-for="(item,index) in boards" :key="index" @click="detail(item.id)" style="cursor: pointer">
+                <td class="text-center">{{item.id}}</td>
+                <td class="text-center">{{item.title}}</td>
+                <td class="text-center">{{item.status_display}}</td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
       </v-col>
     </v-row>
-    <div class="text-center">
+    <div>
       <v-pagination v-model="page" @input="getPage" :length="pageLength" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
     </div>
-  </v-card>
+  </div>
 </template>
 
 <script>
 import http from "@/utils/http"
-const PAGE_SIZE = 3
+const PAGE_SIZE = 5
 
 export default {
   name: 'Board',
