@@ -2,17 +2,15 @@
   <div>
     <div class="tmp"></div>
     <v-row justify="center">
-      <v-col cols="10">
-        <v-simple-table>
+      <v-col cols="11">
+        <v-simple-table style="cursor:default">
           <template v-slot:default>
             <thead>
               <tr>
                 <th width="20%" class="text-center">
-                  key
+                  #
                 </th>
-                <th class="text-center">
-                  value
-                </th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -71,17 +69,17 @@
     <v-row justify="center">
       <v-col cols="2">
         <v-btn class="ma-2" outlined color="indigo" @click="showDialog()">
-          Delete
+          삭제
         </v-btn>
       </v-col>
       <v-col cols="2">
-        <v-btn class="ma-2" outlined color="indigo" @click="edit()">
-          Edit
-        </v-btn>
+        <!-- <v-btn class="ma-2" outlined color="indigo" @click="edit()">
+          수정
+        </v-btn> -->
       </v-col>
       <v-col cols="2">
         <v-btn class="ma-2" outlined color="indigo" @click="$router.go(-1)">
-          Back
+          뒤로
         </v-btn>
       </v-col>
       <v-dialog v-model="dialog" max-width="500px">
