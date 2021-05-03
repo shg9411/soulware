@@ -126,7 +126,7 @@ export default {
           document.body.scrollTop > 578 ||
           document.documentElement.scrollTop > 578
         ) {
-          this.bg = 'black'; z
+          this.bg = 'black';
         } else {
           this.bg = this.base;
         }
