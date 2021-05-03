@@ -2,7 +2,7 @@
   <div>
     <div class="tmp"></div>
     <v-row justify="center">
-      <v-col cols="11">
+      <v-col cols="10">
         <v-simple-table style="cursor:default">
           <template v-slot:default>
             <thead>
@@ -144,7 +144,7 @@ export default {
       }
     },
     sendMail() {
-      
+
       // 
     },
     showDialog() {

@@ -2,12 +2,12 @@
   <div>
     <div class="tmp"></div>
     <v-row justify="center">
-      <v-col cols="11">
+      <v-col cols="10">
         <v-simple-table style="cursor:default">
           <template v-slot:default>
             <thead>
               <tr>
-                <th width="15%" class="text-center">
+                <th width="20%" class="text-center">
                   번호
                 </th>
                 <th class="text-center">

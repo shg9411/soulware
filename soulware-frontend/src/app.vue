@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <v-navigation-drawer right v-model="drawer" fixed temporary class="navigation-menu">
-      <div class="top-logo">
+      <router-link :to="{name:'Board'}" class="top-logo" tag="div">
         <em></em>
-      </div>
+      </router-link>
       <v-list dense>
         <v-list-item v-for="item in menuItems" :key="item.title" :to="{name:item.name}">
           <v-list-item-content>
@@ -126,7 +126,7 @@ export default {
           document.body.scrollTop > 578 ||
           document.documentElement.scrollTop > 578
         ) {
-          this.bg = 'black';
+          this.bg = 'black'; z
         } else {
           this.bg = this.base;
         }
