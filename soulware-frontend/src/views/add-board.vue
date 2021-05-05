@@ -46,16 +46,18 @@
           </v-col>
         </v-row>
         <v-col class="d-flex field-pd pt-5" cols="12">
-          <v-file-input @change="fileChanged" small-chips show-size :rules="fileRules" v-model="currFile" label="첨부파일" outlined dense :clearable="false">
+          <v-file-input ref="inputFile" outlined @change="fileChanged" :rules="fileRules" v-model="currFile" label="첨부파일" multiple dense :clearable="false">
             <template v-slot:selection="{text}">
               <v-chip outlined>{{text}}</v-chip>
             </template>
           </v-file-input>
         </v-col>
-        <v-col v-if="files.length" class="d-flex field-pd pt-5">
-          <v-chip v-for="(file,idx) in files" close close-icon="mdi-delete" outlined @click:close="deleteChip(idx)" :key="idx">
-            {{ file.name }}
-          </v-chip>
+        <v-col v-if="files.length>0" class="d-flex field-pd" cols="12">
+          <v-chip-group active-class="primary--text" column>
+            <v-chip class="short" outlined v-for="(file,idx) in files" :key="idx" close close-icon="mdi-delete" @click:close="deleteChip(idx)">
+              <span>{{ file.name }}</span>
+            </v-chip>
+          </v-chip-group>
         </v-col>
         <v-col class="d-flex checkbox-field-pd" cols="12">
           <v-checkbox v-model.trim="agree" :error-messages="agreeErrors" label="개인정보수집이용 동의" @change="check()"></v-checkbox>
@@ -107,10 +109,10 @@ export default {
       budget_items: [{ id: 'UD', name: '미정' }, { id: 'U1', name: '500만원~1000만원' }, { id: 'U3', name: '1000만원~3000만원' }, { id: 'U5', name: '3000만원~5000만원' }, { id: 'U10', name: '5000만원~1억원' }, { id: 'O10', name: '1억원 이상' }],
       period_items: [{ id: 'U2', name: '1~2개월' }, { id: 'U5', name: '3~5개월' }, { id: 'U9', name: '6~9개월' }, { id: 'O9', name: '9개월 이상' }],
       files: [],
-      currFile: null,
+      currFile: [],
       agree: false,
       dialog: false,
-      fileRules: [v => !v || v.size <= FILE_MAX_SIZE || '첨부파일은 2MB를 넘을 수 없습니다.']
+      fileRules: [files => !files || !files.some(file => file.size > FILE_MAX_SIZE) || '첨부파일은 2MB를 넘을 수 없습니다.']
     }
   },
   computed: {
@@ -225,12 +227,20 @@ export default {
       }
     },
     fileChanged() {
-      if (this.currFile.size <= FILE_MAX_SIZE) {
-        this.files = [
-          this.currFile,
-          ...this.files
-        ]
+      if (this.currFile.length == 0) {
+        return
       }
+      for (var i = 0; i < this.currFile.length; i++) {
+        if (this.currFile[i].size > FILE_MAX_SIZE)
+          return
+      }
+      this.files = [
+        ...this.files,
+        ...this.currFile
+      ]
+      this.currFile = []
+      this.$refs.inputFile.reset()
+      this.$refs.inputFile.blur()
     },
     deleteChip(index) {
       this.files.splice(index, 1)
@@ -268,3 +278,13 @@ export default {
   },
 }
 </script>
+<style scoped>
+.short {
+  width: 100%;
+}
+.short span{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

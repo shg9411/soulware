@@ -3,10 +3,10 @@
     <div class="tmp"></div>
     <v-row justify="center">
       <v-col cols="10">
-        <v-form ref="form" lazy-validation>
+        <v-form @submit.prevent="submit" ref="form" lazy-validation>
           <v-text-field :error-messages="emailErrors" v-model.trim="user.email" @input="$v.user.email.$touch()" @blur="$v.user.email.$touch()" label="E-mail" required></v-text-field>
           <v-text-field :error-messages="passwordErrors " v-model.trim="user.password" @input="$v.user.password.$touch()" @blur="$v.user.password.$touch()" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :type="show ? 'text' : 'password'" label="Password" counter @click:append="show = !show" required></v-text-field>
-          <v-btn :disabled="$v.user.$error" color="warning" @click="submit">
+          <v-btn type="submit" :disabled="$v.user.$error" color="warning">
             Login
           </v-btn>
         </v-form>
