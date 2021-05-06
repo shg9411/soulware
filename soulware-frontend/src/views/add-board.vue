@@ -53,22 +53,27 @@
           </v-file-input>
         </v-col>
         <v-col v-if="files.length>0" class="d-flex field-pd" cols="12">
-          <v-chip-group active-class="primary--text" column>
-            <v-chip class="short" outlined v-for="(file,idx) in files" :key="idx" close close-icon="mdi-delete" @click:close="deleteChip(idx)">
+          <v-chip-group column :style='{width:"100%"}'>
+            <v-chip :style='{width:"100%"}' outlined v-for="(file,idx) in files" :key="idx">
+              <v-icon small @click="deleteChip(idx)">mdi-delete</v-icon>
               <span>{{ file.name }}</span>
             </v-chip>
           </v-chip-group>
         </v-col>
-        <v-col class="d-flex checkbox-field-pd" cols="12">
-          <v-checkbox v-model.trim="agree" :error-messages="agreeErrors" label="개인정보수집이용 동의" @change="check()"></v-checkbox>
-        </v-col>
+        <v-row align="center">
+          <v-col class="d-flex checkbox-field-pd">
+            <v-checkbox v-model.trim="agree" :error-messages="agreeErrors" label="개인정보수집이용 동의" />
+          </v-col>
+          <v-col class="d-flex checkbox-field-pd">
+            <v-btn small @click="dialog=true">내용 확인</v-btn>
+          </v-col>
+        </v-row>
         <v-dialog v-model="dialog" persistent max-width="500px">
           <v-card>
             <v-card-title>개인정보수집이용 동의</v-card-title>
             <v-card-text>어쩌구 저쩌구</v-card-text>
             <v-card-actions>
-              <v-btn color="warning" text @click="accept()">예</v-btn>
-              <v-btn color="warning" text @click="refuse()">아니오</v-btn>
+              <v-btn color="warning" text @click="dialog=false">확인</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -212,20 +217,6 @@ export default {
     }
   },
   methods: {
-    accept() {
-      this.agree = true
-      this.$v.agree.$touch()
-      this.dialog = false
-    },
-    refuse() {
-      this.agree = false
-      this.dialog = false
-    },
-    check() {
-      if (this.agree) {
-        this.dialog = true
-      }
-    },
     fileChanged() {
       if (this.currFile.length == 0) {
         return
@@ -278,13 +269,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.short {
-  width: 100%;
-}
-.short span{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>
