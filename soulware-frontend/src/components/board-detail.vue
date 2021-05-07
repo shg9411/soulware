@@ -3,11 +3,15 @@
     <div class="tmp"></div>
     <v-row justify="center">
       <v-col cols="10">
-        <v-simple-table style="cursor:default">
+        <v-simple-table style="cursor:default; width:100%">
           <template v-slot:default>
+            <colgroup>
+              <col span="1" style="width: 35%;">
+              <col span="1" style="width: 65%;">
+            </colgroup>
             <thead>
               <tr>
-                <th width="20%" class="text-center">
+                <th class="text-center">
                   #
                 </th>
                 <th></th>
@@ -15,7 +19,7 @@
             </thead>
             <tbody>
               <tr>
-                <td width="20%" class="text-center">작성일자</td>
+                <td class="text-center">작성일자</td>
                 <td>{{board.created_at|datetime}}</td>
               </tr>
               <tr>
@@ -58,7 +62,12 @@
               </tr>
               <tr v-for="(file,idx) in files" :key="idx">
                 <td v-if="idx==0" :rowspan="`${files.length}`" class="text-center">첨부파일</td>
-                <td><a @click="download(file)" style="cursor: pointer">{{file.originName}}</a></td>
+                <td v-if="isImage(file.originName)">
+                  <v-img max-width="30%" :src='file.file' style="cursor: pointer" @click="download(file)" />
+                </td>
+                <td v-else>
+                  <a @click="download(file)" style="cursor: pointer">{{file.originName}}</a>
+                </td>
               </tr>
               <tr></tr>
             </tbody>
@@ -143,9 +152,9 @@ export default {
         }
       }
     },
-    sendMail() {
-
-      // 
+    isImage(filename) {
+      const imageExt = ['jpg', 'jpeg', 'gif', 'png']
+      return imageExt.includes(filename.split('.').pop())
     },
     showDialog() {
       this.dialog = !this.dialog

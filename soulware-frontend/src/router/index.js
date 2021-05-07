@@ -154,10 +154,12 @@ const routes = [
     path: "/save-success",
     name: "Success",
     component: Success,
+    meta: { bg: true },
   },
   {
     path: "/page-not-found",
     component: NotFound,
+    meta: { bg: true },
   },
   {
     path: "/:pathMatch(.*)*",

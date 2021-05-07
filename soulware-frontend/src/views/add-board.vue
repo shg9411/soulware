@@ -38,8 +38,7 @@
             <div class="v-text-field__details pt-5" v-if="$v.board.explanation.$error">
               <div class="v-messages theme--light error--text" role="alert">
                 <div class="v-messages__wrapper">
-                  <div v-if="!$v.board.explanation.required" class="v-messages__message">프로젝트 설명을 작성해주세요.</div>
-                  <div v-else-if="!$v.board.explanation.minLength" class="v-messages__message">프로젝트 설명을 작성해주세요.</div>
+                  <div class="v-messages__message">프로젝트 설명을 작성해주세요.</div>
                 </div>
               </div>
             </div>
@@ -60,15 +59,20 @@
             </v-chip>
           </v-chip-group>
         </v-col>
-        <v-row align="center">
-          <v-col class="d-flex checkbox-field-pd">
-            <v-checkbox v-model.trim="agree" :error-messages="agreeErrors" label="개인정보수집이용 동의" />
-          </v-col>
-          <v-col class="d-flex checkbox-field-pd">
-            <v-btn small @click="dialog=true">내용 확인</v-btn>
-          </v-col>
-        </v-row>
-        <v-dialog v-model="dialog" persistent max-width="500px">
+        <v-col class="d-flex checkbox-field-pd">
+          <div class="input inline">
+            <input type="checkbox" id="checkbox" v-model="agree">
+            <label @click="dialog=true" style="color:#FFF">개인정보수집이용 동의</label>
+            <div v-if="$v.agree.$error">
+              <div class="v-messages theme--light error--text" role="alert">
+                <div class="v-messages__wrapper">
+                  <div class="v-messages__message">개인정보수집이용에 동의해주세요.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </v-col>
+        <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-title>개인정보수집이용 동의</v-card-title>
             <v-card-text>어쩌구 저쩌구</v-card-text>
@@ -217,6 +221,11 @@ export default {
     }
   },
   methods: {
+    a() {
+      this.$v.agree.$touch()
+      console.log(this.$v.agree.$invalid)
+      console.log(this.agree)
+    },
     fileChanged() {
       if (this.currFile.length == 0) {
         return
