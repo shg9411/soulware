@@ -77,7 +77,7 @@
             <v-card-title>개인정보수집이용 동의</v-card-title>
             <v-card-text>어쩌구 저쩌구</v-card-text>
             <v-card-actions>
-              <v-btn color="warning" text @click="dialog=false">확인</v-btn>
+              <v-btn color="warning" text @click="doCheck()">확인</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -221,10 +221,9 @@ export default {
     }
   },
   methods: {
-    a() {
-      this.$v.agree.$touch()
-      console.log(this.$v.agree.$invalid)
-      console.log(this.agree)
+    doCheck() {
+      this.agree = true
+      this.dialog = false
     },
     fileChanged() {
       if (this.currFile.length == 0) {
