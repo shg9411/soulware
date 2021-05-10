@@ -62,7 +62,7 @@
         <v-col class="d-flex checkbox-field-pd">
           <div class="input inline">
             <input type="checkbox" id="checkbox" v-model="agree">
-            <label @click="dialog=true" style="color:#FFF">개인정보수집이용 동의</label>
+            <label @click="dialog=true">개인정보수집이용 동의</label>
             <div v-if="$v.agree.$error">
               <div class="v-messages theme--light error--text" role="alert">
                 <div class="v-messages__wrapper">
@@ -73,11 +73,27 @@
           </div>
         </v-col>
         <v-dialog v-model="dialog" max-width="500px">
-          <v-card>
-            <v-card-title>개인정보수집이용 동의</v-card-title>
-            <v-card-text>어쩌구 저쩌구</v-card-text>
+          <v-card class="dialog-content">
+            <v-card-title>
+              <v-icon small>mdi-check-bold</v-icon>개인정보의 수집 및 이용 동의
+            </v-card-title>
+            <v-card-text>
+              <p>
+                - 이용자가 제공한 모든 정보는 다음의 목적을 위해 활용하며, 하기 목적 이외의 용도로는 사용되지 않습니다.<br />
+                ① 개인정보 수집 항목 및 수집·이용 목적<br />
+                가) 수집 항목 (필수항목)<br />
+                - 성명(국문), 전화번호(자택, 휴대전화), 사진, 이메일 등 신청서에 기재된 정보 또는 신청자가 제공한 정보<br />
+                나) 수집 및 이용 목적<br />
+                - 소울웨어 프로젝트 의뢰 및 문의<br />
+                ② 개인정보 보유 및 이용기간<br />
+                - 수집·이용 동의일로부터 개인정보의 수집·이용목적을 달성할 때까지<br />
+                ③ 동의거부관리<br />
+                - 귀하께서는 본 안내에 따른 개인정보 수집, 이용에 대하여 동의를 거부하실 권리가 있습니다. 다만,
+                귀하가 개인정보의 수집/이용에 동의를 거부하시는 경우에 프로젝트 의뢰및 문의가 불가능 할 수 있음을 알려드립니다.
+              </p>
+            </v-card-text>
             <v-card-actions>
-              <v-btn color="warning" text @click="doCheck()">확인</v-btn>
+              <v-btn @click="doCheck()">확인</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
